@@ -1,0 +1,41 @@
+---
+title: Deep Dive zu den Statistiken
+output: html_document
+bibliography: sp.bib
+csl: apa.csl
+---
+
+## Univariat - eine Variable
+
+### Modus
+
+### Median
+
+### Mittelwert
+
+### Standardabweichung
+
+## Multivariat - mehrere Variablen
+
+### t-Test
+
+### ANOVA
+
+### Lineare Regression
+
+### Chi<sup>2</sup>
+
+table | and stuff
+----|-----
+maybe | this works?
+that would | be cool
+
+At least we can see the following:
+
+> This should look cool.
+
+According to @kaliyadan2019, Statistics are awesome.
+
+## Literatur
+
+<!-- <div id="refs"></div> -->

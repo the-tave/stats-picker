@@ -10,14 +10,26 @@
 library(shiny)
 library(shinythemes)
 
+library(knitr)
+
 # Define some default variables
 set.seed(666)
 num <- rnorm(100, mean = 3, sd = 1)
 ord <- c("terrible", "bad", "meh", "good", "amazing")
 nom <- c("bla", "bli", "blub")
 
+rmarkdown::render("./www/deep-dive.Rmd")
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = shinytheme("united"),
+                  tags$style(HTML("
+                                .myclass pre {
+                                  color: #333;
+                                  background-color: #ffffff;
+                                  font-family: Ubuntu;
+                                  border: 0px !important;
+                                }")
+                             ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage("Statistics Picker",
                         tabPanel("Home",
                              # Sidebar with all the inputs by users
@@ -34,7 +46,7 @@ ui <- fluidPage(theme = shinytheme("united"),
                                               choices = c("numerisch", "ordinal", "nominal")), # defaults to first value of choices
                                  radioButtons("statstype",
                                               "Was brauchst du?",
-                                              choices = c("Deskription", "Inferenz", "Visualisierung")),
+                                              choices = c("Deskription", "Inferenz", "Visualisierung", "Döner mit alles")),
                                  sliderInput("bins",
                                     "Number of bins:",
                                     min = 1,
@@ -53,35 +65,78 @@ ui <- fluidPage(theme = shinytheme("united"),
                                  Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst und wie die Ergebnisse visualisiert werden können!"),
                               # h1("Header 1"),
                               # Text Outputs
-                              verbatimTextOutput("txtout"),
-                              verbatimTextOutput("scaleout"),
-                              verbatimTextOutput("statstypeout"),
+                              # 
+                              # verbatimTextOutput("txtout"),
+                              # p("Es geht um 1 Variable"),
+                              div(class = "myclass",
+                                  verbatimTextOutput("txtout"),
+                                  # verbatimTextOutput("scaleout"),
+                                  verbatimTextOutput("statstypeout")
+                              ),
+                              
+                              
                               # Plot Output
                               plotOutput("distPlot"),
                             ) #### mainPanel()
                           ),  ### tabPanel("Home", ... )
                         tabPanel("Deep Dive",
-                              h4("Hier kommen mehr Informationen zu den einzelnen Statistiken hin.")
-                        ) ### tabPanel("Deep Dive")
+                              h4("Hier kommen mehr Informationen zu den einzelnen Statistiken hin."), 
+                              
+                              fluidPage(
+                                htmltools::tags$iframe(src = "deep-dive.html", width = '100%',  height = 1000,  style = "border:none;")
+                              )
+                              
+                              # uiOutput('markdown')
+                              # div(includeMarkdown("deep-dive.Rmd"),
+                              #     align="justify")
+                              # includeHTML("deep-dive.html")
+                        ), ### tabPanel("Deep Dive")
+                        tabPanel("Beispiele",
+                              h4("Hier entstehen Beispiele zu den Statistiken. Unter anderem wird das cars dataset oder so 
+                                 angezeigt, um Beispiele für die Variablenarten (Skalenniveaus) zu haben und zu sehen, was man damit
+                                 machen kann!")
+                        ) ### tabPanel("Beispiele")
                     ) ## navbarPage("Statistics Picker", ...
 ) # fluidPage 
 
 # Define server logic
 server <- function(input, output) {
   
+  # output$markdown <- renderUI({
+  #   HTML(markdown::markdownToHTML(knit('deep-dive.Rmd', quiet = TRUE)))
+  # })
+  
   output$txtout <- renderText({
-    paste("Es geht um ", input$nvars, ifelse(input$nvars == 1, " Variable", " Variablen"))
+    paste("Es geht um ", input$nvars, ifelse(input$nvars == 1, " Variable", " Variablen"), ". Sie ",
+          ifelse(input$nvars == 1, "ist", "sind"), input$scalen, "."
+          )
   })
   
-  output$scaleout <- renderText({
-    paste(input$scalen)
-  })
+  # output$scaleout <- renderText({
+  #   paste(input$scalen)
+  # })
   
-  output$statstypeout <- renderText({
-    # Hier müsste es erst eine if Schleife für das Skalenniveau geben und dann einen switch für statstype... 
-    ifelse(input$statstype == "Deskription" && input$scalen == "numerisch", paste("Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
-           paste("Keine Ahnung"))
-  })
+  # output$statstypeout <- renderText({
+  #   # Hier müsste es erst eine if Schleife für das Skalenniveau geben und dann einen switch für statstype... 
+  #   ifelse(input$statstype == "Deskription" && input$scalen == "numerisch", paste("Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
+  #          paste("Keine Ahnung"))
+  # 
+  #   
+  #   
+  # })
+  
+  observe(
+    if(input$statstype == "Deskription"){
+      switch(input$scalen,
+             "numerisch" = output$statstypeout <- renderText({ paste("Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'.")}),
+             "ordinal" = output$statstypeout <- renderText({paste("Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'.")}),
+             "nominal" = output$statstypeout <- renderText({paste("Hier nutzt man vor allem den Modus. In R geht das etwas schwerfällig.")})
+      )
+    }
+  )
+  
+
+  
   
   # browser()
   # output$plot <- renderPlot({
