@@ -24,14 +24,16 @@ set.seed(666)
 num <- rnorm(10, mean = 3, sd = 1) |> round(2)
 ord <- factor(c("doof", "doof", "ok","ok","ok", "super", "super", "super", "super", "super"), 
               order = TRUE, levels = c("doof", "ok", "super")) 
-nom <- c("bla", "bli", "blub", "bla", "blub", "blub")
+nom <- c("bla", "bli", "blub", "bla", "blub", "blub", "bla", "bli", "blub", "blub")
 
 num2 <- rnorm(10, mean = 5, sd = 1) |> round(2)
 ord2 <- factor(c("klein", "klein", "klein","groß","groß", "groß", "riesig", "riesig", "riesig", "riesig"), 
               order = TRUE, levels = c("klein", "groß", "riesig")) 
 nom2 <- sample(LETTERS[1:3], length(nom), replace = T)
 
-# für nominal Plotting
+# für Plotting
+data <- data.frame(num, ord, nom, num2, ord2, nom2)
+
 new_nom <- as.data.frame(table(data.frame(nom)))
 names(new_nom) <- c("Daten", "value")
 
@@ -172,10 +174,8 @@ server <- function(input, output) {
            "intervall" = switch(input$scale2,
                                 "keins" = paste("Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'.")
                                 ),
-           "ordinal" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge abbilden, aber nicht
-                                wirklich gleiche Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5). 
-                                Hier nutzt man zum Beispiel den Median. 
-                                In R geht das mit 'median()'."),
+           "ordinal" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge abbilden, aber nicht wirklich gleiche Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5). 
+                              Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'."),
            "nominal" = paste("Hier nutzt man vor allem den Modus.", "\n", "In R geht das zum Beispiel mit getmode() as dem package wobblynameR.")
     )
   )
@@ -198,26 +198,26 @@ server <- function(input, output) {
   
   ## Plot output for Visualisierung and alles ----
   output$dataViz <- renderPlot({
-    data <- switch(input$scale,
-                   "intervall" = data.frame(num),
-                   "ordinal" = data.frame(ord),
-                   "nominal" = data.frame(nom))
+    # data <- switch(input$scale,
+    #                "intervall" = data.frame(num),
+    #                "ordinal" = data.frame(ord),
+    #                "nominal" = data.frame(nom))
+    # 
+    # names(data) <- "x"
     
-    names(data) <- "x"
-    
-    data2 <- switch(input$scale2,
-                   "intervall" = data.frame(num2),
-                   "ordinal" = data.frame(ord2),
-                   "nominal" = data.frame(nom2))
-
-    names(data2) <- "y"
+    # data2 <- switch(input$scale2,
+    #                "intervall" = data.frame(num2),
+    #                "ordinal" = data.frame(ord2),
+    #                "nominal" = data.frame(nom2))
+    # 
+    # names(data2) <- "y"
     
     switch(input$scale2,
            "keins" = switch(input$scale,
                             "intervall" =
-                              ggplot(data, aes(x, fill = after_stat(x))) +
-                              geom_histogram(bins = 9) +
-                              scale_y_continuous(breaks = c(0, 1, 2)) +
+                              ggplot() +
+                              geom_histogram(aes(num,  fill = after_stat(x)), bins = 9) +
+                              scale_y_continuous(breaks = c(0, 1, 2, 3)) +
                               scale_fill_distiller(palette = 7)+
                               theme_minimal() +
                               theme(legend.position = "none",
@@ -228,8 +228,8 @@ server <- function(input, output) {
                                    title = "Visualisierung"),
 
                             "ordinal" =
-                              ggplot(data, aes(x, fill = after_stat(x))) +
-                              geom_bar() +
+                              ggplot() +
+                              geom_bar(aes(ord,  fill = after_stat(x))) +
                               scale_y_continuous(breaks = c(0, 1, 2, 3, 4, 5)) +
                               scale_fill_distiller(palette = 7)+
                               theme_minimal() +
@@ -241,8 +241,8 @@ server <- function(input, output) {
                                    title = "Visualisierung"),
 
                             "nominal" =
-                              cowplot::plot_grid(ggplot(data, aes(x, fill = after_stat(x))) + #plot1
-                                                   geom_bar() +
+                              cowplot::plot_grid(ggplot() + #plot1
+                                                   geom_bar(aes(nom, fill = after_stat(x))) +
                                                    scale_y_continuous(breaks = c(0, 1, 2))  +
                                                    scale_fill_distiller(palette = 7) +
                                                    theme_minimal() +
