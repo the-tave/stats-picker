@@ -23,8 +23,17 @@ library(ggplot2)
 set.seed(666)
 num <- rnorm(10, mean = 3, sd = 1) |> round(2)
 ord <- factor(c("doof", "doof", "ok","ok","ok", "super", "super", "super", "super", "super"), 
-              order = TRUE, levels = c("doof", "ok", "super")) #c(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5) # c("terrible", "bad","bad", "meh","meh", "good", "good", "good", "amazing", "amazing", "amazing", "amazing")
-nom <- c("bla", "bli", "blub", "bla")
+              order = TRUE, levels = c("doof", "ok", "super")) 
+nom <- c("bla", "bli", "blub", "bla", "blub", "blub")
+
+num2 <- rnorm(10, mean = 5, sd = 1) |> round(2)
+ord2 <- factor(c("klein", "klein", "klein","groß","groß", "groß", "riesig", "riesig", "riesig", "riesig"), 
+              order = TRUE, levels = c("klein", "groß", "riesig")) 
+nom2 <- sample(LETTERS[1:3], length(nom), replace = T)
+
+# für nominal Plotting
+new_nom <- as.data.frame(table(data.frame(nom)))
+names(new_nom) <- c("Daten", "value")
 
 pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base envir coz everything else is just a PITA
 
@@ -150,9 +159,9 @@ server <- function(input, output) {
     shinyjs::toggle("expl_h4", condition = input$statstype != "Visualisierung")
     shinyjs::toggle("statstypeout", condition = input$statstype != "Visualisierung")
     ## Show dataViz only for conditions other than pure statistics
-    shinyjs::toggle("dataViz", condition = input$statstype != "Statistik rechnen")
+    shinyjs::toggle("dataViz", condition = input$statstype != "Statistik rechnen" && input$scale != "nominal" && input$scale2 != "nominal")
     ## show table for 2 vars that can't be shown well in plots
-    shinyjs::toggle("table", condition = input$scale == "nominal" & input$scale2 == "nominal")
+    shinyjs::toggle("table", condition = input$statstype != "Statistik rechnen" && input$scale == "nominal" && input$scale2 == "nominal")
   })
   
   
@@ -184,25 +193,29 @@ server <- function(input, output) {
   )
   
   
+  # Table for vars that can't be plotted
+  output$table <- renderTable(xtable::xtable(table(nom,nom2)), rownames = T)
   
   ## Plot output for Visualisierung and alles ----
   output$dataViz <- renderPlot({
     data <- switch(input$scale,
                    "intervall" = data.frame(num),
                    "ordinal" = data.frame(ord),
-                   "nominal" = data.frame(nom)
-    )
+                   "nominal" = data.frame(nom))
     
     names(data) <- "x"
     
-    # für nominal
-    new_nom <- as.data.frame(table(data.frame(nom)))
-    names(new_nom) <- c("Daten", "value")
+    data2 <- switch(input$scale2,
+                   "intervall" = data.frame(num2),
+                   "ordinal" = data.frame(ord2),
+                   "nominal" = data.frame(nom2))
+
+    names(data2) <- "y"
     
-    switch(input$scale2, 
+    switch(input$scale2,
            "keins" = switch(input$scale,
-                            "intervall" = 
-                              ggplot(data, aes(x, fill = after_stat(x))) + 
+                            "intervall" =
+                              ggplot(data, aes(x, fill = after_stat(x))) +
                               geom_histogram(bins = 9) +
                               scale_y_continuous(breaks = c(0, 1, 2)) +
                               scale_fill_distiller(palette = 7)+
@@ -213,9 +226,9 @@ server <- function(input, output) {
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten",
                                    title = "Visualisierung"),
-                            
-                            "ordinal" = 
-                              ggplot(data, aes(x, fill = after_stat(x))) + 
+
+                            "ordinal" =
+                              ggplot(data, aes(x, fill = after_stat(x))) +
                               geom_bar() +
                               scale_y_continuous(breaks = c(0, 1, 2, 3, 4, 5)) +
                               scale_fill_distiller(palette = 7)+
@@ -226,7 +239,7 @@ server <- function(input, output) {
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten",
                                    title = "Visualisierung"),
-                            
+
                             "nominal" =
                               cowplot::plot_grid(ggplot(data, aes(x, fill = after_stat(x))) + #plot1
                                                    geom_bar() +
@@ -238,18 +251,18 @@ server <- function(input, output) {
                                                          text=element_text(family="Ubuntu", size = 14),
                                                          title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                                    labs(x = "Daten",
-                                                        title = "Visualisierung"), 
-                                                 
+                                                        title = "Visualisierung"),
+
                                                  ggplot(new_nom, aes(x = "", y = value, fill = Daten)) + #plot2
                                                    geom_bar(stat="identity", width=1) +
                                                    coord_polar("y", start=0)+
                                                    theme_void() +
                                                    theme(text=element_text(family="Ubuntu", size = 14),
                                                          title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
-                                                   scale_fill_brewer(palette = 7, direction = -1), 
-                                                 ncol = 2, align = "h")                    
+                                                   scale_fill_brewer(palette = 7, direction = -1),
+                                                 ncol = 2, align = "h")
                             ),
-           
+
            "intervall" = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
              geom_jitter(aes(color = Species)) +
              labs(title = "Placeholder Plot",
@@ -258,17 +271,14 @@ server <- function(input, output) {
              geom_jitter(aes(color = "darkred")) +
              labs(title = "Placeholder Plot",
                   subtitle = "Hier kommt noch was..."),
-           "nominal" = ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
-             geom_jitter(aes(color = "darkgreen")) +
-             labs(title = "Placeholder Plot",
-                  subtitle = "Hier kommt noch was...")
-           
+           "nominal" = NA
+
              )
+    
     
   })
 
-  # Table for vars that can't be plotted
-  output$table <- renderTable(xtable::xtable(table(nom,nom)), rownames = T)
+ 
   
   # ----
   # Beispiel Tab ----
