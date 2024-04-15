@@ -5,9 +5,9 @@ account: the-tave
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10897230
-bundleId: 8128518
+bundleId: 8339931
 url: https://the-tave.shinyapps.io/Statistics-Picker/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData|shiny.pdf|Statistics_overview.odg
+ignoredFiles: .RData|blabla/app.R|How_to_Zotero.pdf|How_to_Zotero.pptx|shiny.pdf|Statistics_overview.odg|Test-Reprex/app.R|Test-Reprex/hedsnz-app.R|Test-Reprex/testestestest.Rmd
