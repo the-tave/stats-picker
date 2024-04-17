@@ -1,0 +1,40 @@
+{
+    "languages": ["en", "pl", "hr"],
+    "translation": [
+        {
+            "en": "MtCars Dataset Explorer",
+            "pl": "Eksplorator danych: MtCars",
+            "hr": "MtCars Dataseta"
+        },
+        {
+            "en": "Change language",
+            "pl": "Wybierz jzyk",
+            "hr": "Promijeni jezik"
+        },
+        {
+            "en": "Select",
+            "pl": "Wybierz",
+            "hr": "Odaberi"
+        },
+        {
+            "en": "This is description of the plot.",
+            "pl": "To jest opis obrazka.",
+            "hr": "Ovo je opis grafikona."
+        },
+        {
+            "en": "Scatter plot",
+            "pl": "Wykres punktowy",
+            "hr": "Dijagram rasprsenja"
+        },
+        {
+            "en": "X-Axis",
+            "pl": "O X",
+            "hr": "X os"
+        },
+        {
+            "en": "Y-Axis",
+            "pl": "O Y",
+            "hr": "Y os"
+        }
+    ]
+}

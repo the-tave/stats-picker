@@ -12,92 +12,119 @@ csl: apa.csl
 
 Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen.
 Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung).
-Er wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte verzerrt [@kaliyadan2019].
 
-comment.an.mich:3Bilder von skewed distr. raussuchen, wo man Einfluss auf mode,median,mean sieht
+Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt [@kaliyadan2019].
+
+<!-- comment.an.mich:3Bilder von skewed distr. raussuchen, wo man Einfluss auf mode,median,mean sieht -->
 
 ### Median
 
 Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen.
 Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen.
 
-Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte (outliers) verzerrt [@crump2018].
+Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt [@crump2018].
 
 ### Mittelwert
 
 Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den Mittelwert (Durchschnitt) berechnen.
 Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte.
 
-Achtung: Der Mittelwert wird durch extreme Werte (outliers) verzerrt. 
+Achtung: Der Mittelwert wird durch extreme Werte  bzw. Ausreißer verzerrt. 
 Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz [@crump2018].
 
+```{r echo = F, out.width='70%'}
+knitr::include_graphics("./img/dist.png")
+```
 
 ### Standardabweichung
 
 Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung.
-Sie ist die Wurzel aus der Varianz einer Variablen und liegt somit auf demselben Skalenniveau wie der Mittelwert.
+Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert.
 
 Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten.
 Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten.
 
 comment.an.mich: NormalVT; Binomial;X^2 etc. einfügen?
 
+```{r echo = F, out.width='70%'}
+knitr::include_graphics("./img/normalsd.png")
+```
+
+
 ## Multivariat - mehrere Variablen
 
 ### t-Test
 
-Allgemein vergleichen t-Tests die Mittelwerte zweier Gruppen mithilfe einer t-verteilten Statistik.
+<!-- Allgemein vergleichen t-Tests die Mittelwerte zweier Gruppen mithilfe einer t-verteilten Statistik. -->
+<!-- Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte. -->
+Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test.
+Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander.
 Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte.
 Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig.
 Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen.
-In theoretisch gut begründeten kann man auch einseitig testen.
+In theoretisch gut begründeten kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken.
 
-Da t-Tests zu den parametrischen Verfahren gehören, müssen Annahmen erfüllt sein, um diese berechnen zu dürfen:
+Annahmen des t-Tests:
 
 - ausreichend große Stichprobe (Faustregel n=30)
 - normalverteilte Daten
 
-Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen. Die Unterarten des t-Tests haben z.T. zusätzlich zu den oben genannten noch weitere Annahmen, für die bei Verletzung ein Alternativtest am Ende des Abschnitts aufgelistet wird. [@crump2018]
+Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen [@crump2018]. 
+
+```{r echo = F, out.width='70%'}
+knitr::include_graphics("./img/Bild2.png")
+```
+
 
 #### one-sample t-Test
 
-Der one-sample t-Test vergleicht einen Stichprobenmittelwert mit einem (geschätzten) Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen. 
+Der one-sample t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen. 
 Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. 
 Da so gut wie immer die Statistiken der Population unbekannt sind, muss man diese schätzen.
 
-Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichender Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt.
+Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. 
+Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt.
 
 Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test
-[@crump2018]
 
-#### correlated-samples t-Test
+#### paired-sample t-Test
 
-Der correlated-samples t-Test (auch paired-samples t-Test) ist dem one-sample t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.).
+Der paired-sample t-Test ist dem one-sample t-Test sehr ähnlich. 
+Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.).
 Die Berechnung ist ähnlich wie beim one-sample t-Test. [@crump2018]
 
-Nicht-parametrische Alternative: Wilcoxon Signed-Rang Test (wenn die Differenzen nicht normalverteilt sind; Variable darf ordinalskaliert sein)
+Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test (wenn die Differenzen nicht normalverteilt sind; Variable darf ordinalskaliert sein)
 
-#### independent-samples t-Test
+#### two-sample t-Test
 
-Der independent-samples t-Test wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt, ähnelt aber ansonsten stark den bereits genannten t-Tests. [@crump2018]
+Der two-sample t-Test (auch independent-sample t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt [@crump2018].
 
 Nicht-parametrische Alternative:
-Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist);
-Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)
+
+- Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist);
+- Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)
 
 ### ANOVA
 
 Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests.
 Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik.
-Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen Gruppen überzufällig sind oder nur durch Messfehler zustande kamen.
-Im Gegensatz zu den t-Tests, kann man mit einer ANOVA mehr als zwei Gruppen miteinander vergleichen.
+Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Messfehler zustande kamen.
+<!-- Im Gegensatz zu den t-Tests, kann man mit einer ANOVA mehr als zwei Gruppen miteinander vergleichen. -->
 Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen.
-Einfach mehrere t-Tests zu berechnen, würde das die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative.
+Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative.
+Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um _1 - (1 - alpha)^Anzahl Paarvergleiche_ [@janczyk2015].
+Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon 1-(1-0.05)^6 = 26,5%!
 
 Annahmen der ANOVA:
-- mindestens intervallskalierte Daten
+
+- intervallskalierte Daten
 - unabhängige und zufällige Ziehung von k Stichproben
 - gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten)[@crump2018]
+
+```{r echo = F, out.width='70%'}
+knitr::include_graphics("./img/anova.png")
+```
+
 
 #### One-factor ANOVA
 
@@ -111,10 +138,10 @@ Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tes
 Man kann nur Haupteffekte finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen. [@crump2018]
 
 Gängige post-hoc Tests (Auswahl):
+
 - Tukey HSD Test
 - Least Significant Difference (LSD)
 - Bonferroni
-
 
 #### Repeated-measures ANOVA
 
@@ -150,16 +177,17 @@ Chi<sup>2</sup> Tests können auf ein- und mehrdimensionale Zusammenhänge angew
 Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse). Dabei ist das Ziel, hoch korrelierende Variablen zu  übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren.
 
 Für eine Faktorenanalyse braucht man:
+
 - eine ausreichend große Stichprobe
 - ausreichend viele Variablen
 - intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)
 
-Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt. [@uzh2023]
+Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt [@uzh2023].
 
 ## Übersicht der Universität Zürich [@uzh2023]
 
 ```{r echo = F, out.width='70%'}
-knitr::include_graphics("entscheidbaum.jpg")
+knitr::include_graphics("./img/entscheidbaum.jpg")
 ```
 
 ## Literatur
