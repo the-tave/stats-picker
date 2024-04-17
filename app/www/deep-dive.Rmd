@@ -29,7 +29,7 @@ csl: apa.csl
 ## Übersicht der Universität Zürich [@uzh2023]
 
 ```{r echo = F, out.width='70%'}
-knitr::include_graphics("entscheidbaum.jpg")
+knitr::include_graphics("./img/entscheidbaum.jpg")
 ```
 
 

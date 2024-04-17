@@ -1,0 +1,21 @@
+{
+    "languages": ["en", "de"],
+    "translation": [
+        {
+            "en": "Old Faithful Geyser Data",
+            "de": "Irgendwas deutsches"
+        },
+ 	{
+		"en": "Number of bins:", 
+		"de": "Anzahl bins:"
+	},
+	{
+		"en": "Waiting time to next eruption (in mins)", 
+		"de": "Wartezeiten bis zum nächsten Ausbruch"
+	},
+	{	
+		"en": "Histogram of waiting times", 
+		"de": "Histogram der Wartezeit"
+	}
+    ]
+}
