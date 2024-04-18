@@ -1,6 +1,6 @@
 ---
 title: Deep Dive (Anne)
-output: pdf_document
+output: html_document
 bibliography: StatistikPicker.bib
 csl: apa.csl
 ---

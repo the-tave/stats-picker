@@ -21,6 +21,8 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 
 # Commented out for faster processing!
 rmarkdown::render("./www/deep-dive.Rmd")
+# rmarkdown::render("./www/StatistikPicker.Rmd")
+
 
 # Define UI for application that draws a histogram
 fluidPage(theme = shinythemes::shinytheme("united"),
@@ -104,9 +106,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
-                           htmltools::tags$iframe(src = "deep-dive.html", 
+                           htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
                                                   width = '100%',  
-                                                  height = 1400,  # does not work as relative currently?!
+                                                  height = 7000,  # does not work as relative currently?!
                                                   style = "border:none;")
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
