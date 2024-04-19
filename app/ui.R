@@ -1,16 +1,9 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+
 extrafont::loadfonts(quiet = T) # device = "postscript"
 # extrafont::loadfonts("C:/Windows/Fonts/", pattern = "Ubuntu")
 # windowsFonts(Ubuntu=windowsFont("Ubuntu"))
 library(shiny)
-# library(shinythemes)
 library(shinyjs)
 library(dplyr)
 library(ggplot2)
@@ -20,9 +13,8 @@ library(ggplot2)
 pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base envir coz everything else is just a PITA
 
 # Commented out for faster processing!
-rmarkdown::render("./www/deep-dive.Rmd")
+# rmarkdown::render("./www/deep-dive.Rmd")
 # rmarkdown::render("./www/StatistikPicker.Rmd")
-
 
 # Define UI for application that draws a histogram
 fluidPage(theme = shinythemes::shinytheme("united"),
@@ -38,11 +30,17 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 }
                                 
                                 .nomclass td:first-child {font-weight:bold;}
-                                
                                 ")
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage(
                   div(img(icon("wand-magic-sparkles")), "Statistics Picker"),
+                  # footer = p("Provided by University of Konstanz"),
+                    # header = img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
+                  # Create Right Side Text
+                  tags$script(
+                    HTML("var header = $('.navbar > .container-fluid');
+                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\"><img src=\"./img/UniKonstanz_Logo.png\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
+                    console.log(header)")),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
@@ -66,14 +64,6 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              radioButtons("statstype",
                                           "Was hast du vor?",
                                           choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")),
-                             
-                             # hidden(sliderInput("bins",
-                             #                    "Number of bins:",
-                             #                    min = 1,
-                             #                    max = 50,
-                             #                    value = 30))
-                             
-                             
                            ), #### close sidebarPanel()
                            # Explain App and show the actual output
                            mainPanel(
@@ -93,8 +83,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              
                              # Table output for two vars nom
                              div(class = "nomclass",
-                                 tableOutput("table"))
-                             ,
+                                 tableOutput("table")),
                              
                              # Plot Output
                              plotOutput("dataViz"),
@@ -106,9 +95,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
+                           img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                            htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
                                                   width = '100%',  
-                                                  height = 7000,  # does not work as relative currently?!
+                                                  height = 5500,  # does not work as relative currently?!
                                                   style = "border:none;")
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----

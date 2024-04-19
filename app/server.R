@@ -18,9 +18,6 @@ nom2 <- sample(LETTERS[1:2], length(nom), replace = T)
 new_nom <- as.data.frame(table(data.frame(nom)))
 names(new_nom) <- c("Daten", "value")
 
-
-
-
 # Define server logic ----
 function(input, output) {
   
@@ -53,20 +50,32 @@ function(input, output) {
                                                     Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die 
                                                     lineare Regression (in R mit glm()).", tags$br(),
                                                     "Wenn es um einen Unterschied geht, nutzt man am besten den T-Test (in R mit t.test())."),
-                                "ordinal" = paste("intervallskaliert & ordinal"),
-                                "nominal" = paste("intervallskaliert & nominal")
+                                "ordinal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
+                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
+                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
+                                "nominal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
+                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
+                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.")
            ),
            "ordinal" = switch(input$scale2,
                               "keins" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge abbilden, 
                                               aber nicht wirklich gleiche Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5).", tags$br(), 
                                               "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'."),
-                              "intervall" = paste("ordinal & intervallskaliert"),
+                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
+                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
+                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
                               "ordinal" = paste("ordinal & ordinal"),
                               "nominal" = paste("ordinal & nominal")
                               ),
            "nominal" = switch(input$scale2,
                               "keins" = paste("Hier nutzt man vor allem den Modus.", tags$br(), "In R geht das zum Beispiel mit getmode() as dem package wobblynameR."),
-                              "intervall" = paste("nominal & intervallskaliert"),
+                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
+                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
+                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
                               "ordinal" = paste("nominal & ordinal"),
                               "nominal" = paste("nominal & nominal")
                               )
@@ -97,7 +106,8 @@ function(input, output) {
   )
   
   # Table for vars that can't be plotted
-  output$table <- renderTable(xtable::xtable(table(nom,nom2)), rownames = T)
+  output$table <- renderTable(xtable::xtable(table(nom2, nom) %>% addmargins()),  
+                              digits = 0,rownames = T)
   
   ## Plot output for Visualisierung and alles ----
   output$dataViz <- renderPlot({
