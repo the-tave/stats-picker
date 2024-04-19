@@ -39,7 +39,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   # Create Right Side Text
                   tags$script(
                     HTML("var header = $('.navbar > .container-fluid');
-                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\"><img src=\"./img/UniKonstanz_Logo.png\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
+                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\"><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
                     console.log(header)")),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
