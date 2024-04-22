@@ -7,6 +7,8 @@ csl: apa.csl
 
 ## Univariat - eine Variable
 
+<!-- Color palette choices: https://jmsallan.netlify.app/blog/the-brewer-palettes/ -->
+
 
 ### Modus
 
@@ -51,6 +53,9 @@ Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert ei
 <!-- # ``` -->
 
 ```{r  echo = F, warning = F, out.width='60%'}
+library(ggridges)
+library(ggplot2)
+
 normal <- data.frame(x = rnorm(10000, mean = 100, sd = 15),
                      dummy = 1)
                       
@@ -58,10 +63,11 @@ ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
   stat_density_ridges(
     geom = "density_ridges_gradient",
     calc_ecdf = TRUE,
-    quantiles = c(0.0235, 0.1585, 0.8385, 0.9735) # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
+    quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
+    bandwidth = 2.1
   ) +
-  geom_vline(xintercept = seq(70, 130, 15), color = "sienna") + 
-  scale_fill_manual(values = c("orange", "darkorange", "orangered", "darkorange", "orange")) +
+  geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
+  scale_fill_manual(values = c("#fdae6b", "#fd8d3c", "#e95420", "#fd8d3c", "#fdae6b")) +
   scale_x_continuous(breaks = seq(55,145, 15),
                    lim = c(55, 145),
                    labels = c("M-3sd", "M-2sd","M-1sd", "M", "M+1sd", "M+2sd", "M+3sd")) +

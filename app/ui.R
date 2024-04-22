@@ -95,7 +95,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
-                           img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
+                           # img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                            htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
                                                   width = '100%',  
                                                   height = 5500,  # does not work as relative currently?!
