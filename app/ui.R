@@ -30,16 +30,18 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 }
                                 
                                 .nomclass td:first-child {font-weight:bold;}
+                                
+                                body {padding-top: 60px;}
                                 ")
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
-                navbarPage(
+                navbarPage(position = "fixed-top",
                   div(img(icon("wand-magic-sparkles")), "Statistics Picker"),
                   # footer = p("Provided by University of Konstanz"),
                     # header = img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                   # Create Right Side Text
                   tags$script(
                     HTML("var header = $('.navbar > .container-fluid');
-                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\"><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
+                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\" target=”_blank”><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
                     console.log(header)")),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),

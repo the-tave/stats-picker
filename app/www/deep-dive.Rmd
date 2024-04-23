@@ -52,7 +52,7 @@ Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert ei
 <!-- # knitr::include_graphics("./img/normalsd.png") -->
 <!-- # ``` -->
 
-```{r  echo = F, warning = F, out.width='60%'}
+```{r  echo = F, warning = F, out.width='60%', fig.height=3}
 library(ggridges)
 library(ggplot2)
 
@@ -64,10 +64,11 @@ ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
     geom = "density_ridges_gradient",
     calc_ecdf = TRUE,
     quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
-    bandwidth = 2.1
+    bandwidth = 2.1,
+    color = "white"
   ) +
-  geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
-  scale_fill_manual(values = c("#fdae6b", "#fd8d3c", "#e95420", "#fd8d3c", "#fdae6b")) +
+  # geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
+  scale_fill_manual(values = c("#FDD0A2", "#fd8d3c", "#e95420", "#fd8d3c", "#FDD0A2")) +
   scale_x_continuous(breaks = seq(55,145, 15),
                    lim = c(55, 145),
                    labels = c("M-3sd", "M-2sd","M-1sd", "M", "M+1sd", "M+2sd", "M+3sd")) +
@@ -79,8 +80,6 @@ ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
         text = element_text(family="Ubuntu", size = 14, color = 'gray15'))
 
 ```
-
-
 
 
 ## Multivariat - mehrere Variablen
@@ -205,12 +204,12 @@ data <- faux::rnorm_multi(n = 100,
 
 ggplot(data, aes(x = X, y = Y)) +
   geom_jitter() +
-  geom_smooth(formula = 'y ~x', method = lm, se = FALSE, color = "sienna") +
-  geom_vline(xintercept = mean(data$X), color = "orange") +
-  geom_hline(yintercept = mean(data$Y), color = "orangered") +
+  geom_smooth(formula = 'y ~x', method = lm, se = FALSE, color = "#8C2D04") +
+  geom_vline(xintercept = mean(data$X), color = "#fd8d3c") +
+  geom_hline(yintercept = mean(data$Y), color = "#e95420") +
   theme_minimal() +
-  theme(axis.title.x = element_text(color = "orange", size = 12),
-        axis.title.y = element_text(color = "orangered", size = 12))
+  theme(axis.title.x = element_text(color = "#fd8d3c", size = 12),
+        axis.title.y = element_text(color = "#e95420", size = 12))
 ```
 
 
