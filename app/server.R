@@ -18,6 +18,8 @@ nom2 <- sample(LETTERS[1:2], length(nom), replace = T)
 new_nom <- as.data.frame(table(data.frame(nom)))
 names(new_nom) <- c("Daten", "value")
 
+pos_datasets <- c("iris", "mtcars", "Orange")
+
 # Define server logic ----
 function(input, output) {
   
@@ -318,7 +320,15 @@ function(input, output) {
   ## Creating the right dataset ----  
   ### Getting the dataset
   ex_data <- reactive({
-    get(input$ex_dataset, "package:datasets") # basically transforming the chr, e.g. "iris" to actual data  input
+    if(input$ex_dataset %in% pos_datasets){
+      upfile <- get(input$ex_dataset, "package:datasets")
+    } else {
+      upfile <- read.csv(input$customfile$datapath, # filepath
+                         header = T,
+                         sep = ";")
+    }
+    upfile
+    #   get(input$ex_dataset, "package:datasets") # basically transforming the chr, e.g. "iris" to actual data  input
   })
   
   ### Getting the right column names
@@ -349,7 +359,7 @@ function(input, output) {
   
   output$ex_statistic <- renderText(
     switch(input$ex_stat,
-           "Mittelwert" = paste("Mittelwert: ", mean(ex_data()[[input$ex_columns]]) %>% round(3)), #mean
+           "Mittelwert" = paste("Mittelwert: ", mean(ex_data()[[input$ex_columns]], na.rm = T) %>% round(3)), #mean
            "t-Test" = paste("T-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],
                                                ex_data()[[input$ex_columns[2]]])$statistic %>% round(3), "\n",
                             "p-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],

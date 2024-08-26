@@ -110,7 +110,14 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              # SelectInput for which dataset to use
                              selectInput("ex_dataset",
                                          "Welchen Datensatz möchtest du nutzen?",
-                                         pos_datasets), # defaults to first value of choices
+                                         c(pos_datasets, "eigene")), # defaults to first value of choices
+                             p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
+                               (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
+                             
+                             fileInput('customfile', '',
+                                       accept=c('text/csv', 
+                                                'text/comma-separated-values,text/plain', 
+                                                '.csv')),
                              
                              checkboxGroupInput("ex_columns", 
                                                 "Welche Variable(n) möchtest du nutzen?", 
@@ -134,7 +141,13 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              )
                              
                            ) #### close main panel
-                  ) ### close tabPanel("Beispiele")
+                  ),  ### close tabPanel("Beispiele")
+                  tabPanel("About", icon = icon("code-merge"),
+                           p("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
+                           tags$br(),
+                           p("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!")
+                           
+                  )
                   ### ----
                 ) ## close navbarPage("Statistics Picker", ...
 ) # close fluidPage 

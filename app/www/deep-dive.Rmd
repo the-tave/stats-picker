@@ -235,10 +235,17 @@ Für eine Faktorenanalyse braucht man:
 Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt [@uzh2023].
 
 
-## Übersicht der Universität Zürich [@uzh2023]
+<!-- ## Übersicht der Universität Zürich [@uzh2023] -->
 
-```{r echo = F, out.width='50%'}
-knitr::include_graphics("./img/entscheidbaum.jpg")
+<!-- ```{r echo = F, out.width='50%'} -->
+<!-- knitr::include_graphics("./img/entscheidbaum.jpg") -->
+<!-- ``` -->
+
+## Übersicht der gängigen Statistiken 
+### [adaptiert von @uzh2023]
+
+```{r echo = F, out.width='150%', fig.align='center'}
+knitr::include_graphics("./img/deepdive3.png")
 ```
 
 ## Literatur
