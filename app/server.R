@@ -47,7 +47,9 @@ function(input, output) {
   output$statstypeout <- renderText(
     switch(input$scale,
            "intervall" = switch(input$scale2,
-                                "keins" = paste("Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
+                                "keins" = paste("Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. 
+                                                Beispielsweise Alter oder Körpergröße sind intervallskaliert.", tags$br(),
+                                                "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
                                 "intervall" = paste("Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen.
                                                     Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die 
                                                     lineare Regression (in R mit glm()).", tags$br(),
@@ -57,9 +59,9 @@ function(input, output) {
                                                   "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
                                                   Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
                                 "nominal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
-                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
-                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
-                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.")
+                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA (siehe Deep Dive oder auch Erklärung zu
+                                                  intervallskalierter und ordinaler Variable).", tags$br(),
+                                                  "Handelt es sich um eine _binäre_ Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation.")
            ),
            "ordinal" = switch(input$scale2,
                               "keins" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge abbilden, 
@@ -69,17 +71,39 @@ function(input, output) {
                                                   verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
                                                   "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
                                                   Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
-                              "ordinal" = paste("ordinal & ordinal"),
-                              "nominal" = paste("ordinal & nominal")
+                              "ordinal" = paste("Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen.
+                                                Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt.",
+                                                tags$br(),
+                                                "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Kombinationen der Werte beider Variablen darstellen. 
+                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
+                                                In R geht das mit 'chisq.test()'."),
+                              "nominal" = paste("Bei einer ordinalien und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
+                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
+                                                In R geht das mit 'chisq.test()'.",
+                                                tags$br(),
+                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. 
+                                                Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst.")
                               ),
            "nominal" = switch(input$scale2,
-                              "keins" = paste("Hier nutzt man vor allem den Modus.", tags$br(), "In R geht das zum Beispiel mit getmode() as dem package wobblynameR."),
+                              "keins" = paste("Hier nutzt man vor allem den Modus.", tags$br(), "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR."),
                               "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
                                                   verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
                                                   "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
-                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."),
-                              "ordinal" = paste("nominal & ordinal"),
-                              "nominal" = paste("nominal & nominal")
+                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.", tags$br(),
+                                                  "Handelt es sich um eine _binäre_ Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation."),
+                              "ordinal" = paste("Bei einer ordinalien und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
+                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
+                                                In R geht das mit 'chisq.test()'.",
+                                                tags$br(),
+                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. 
+                                                Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst."),
+                              "nominal" = paste("Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
+                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
+                                                In R geht das mit 'chisq.test()'.",
+                                                tags$br(),
+                                                "Wenn dich die Stärke des Zusammenhnags interessiert, kannst du Cramérs V berechnen. 
+                                                Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B.
+                                                mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd).")
                               )
     )
   )

@@ -1,5 +1,5 @@
 ---
-title: Deep Dive zu den Statistiken
+# title: Deep Dive zu den Statistiken
 output: html_document
 bibliography: sp.bib
 csl: apa.csl
@@ -8,7 +8,6 @@ csl: apa.csl
 ## Univariat - eine Variable
 
 <!-- Color palette choices: https://jmsallan.netlify.app/blog/the-brewer-palettes/ -->
-
 
 ### Modus
 
@@ -184,7 +183,9 @@ Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man 
 Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA berechnet werden.
 Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden.[@crump2018]
 
-### Lineare Regression
+### Regression
+
+#### Lineare Regression
 
 Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. 
 Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch.
@@ -210,6 +211,31 @@ ggplot(data, aes(x = X, y = Y)) +
   theme_minimal() +
   theme(axis.title.x = element_text(color = "#fd8d3c", size = 12),
         axis.title.y = element_text(color = "#e95420", size = 12))
+```
+
+#### Logistische Regression
+
+Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist. 
+Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt. 
+Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren.
+
+```{r echo = F, warnings = F, out.width='60%'}
+# Beispiel-Daten erstellen
+set.seed(666)
+x <- rnorm(100)
+y <- rbinom(100, 1, prob = plogis(x))
+data <- data.frame(x = x, y = y)
+
+# Logistisches Regressionsmodell anpassen
+# model <- glm(y ~ x, data = data, family = "binomial")
+
+# Visualisierung der Vorhersagewahrscheinlichkeit
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "glm", formula = 'y ~ x', method.args = list(family = "binomial"), color = "#fd8d3c") +
+  # stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, color = "blue") +
+  labs(title = "Logistische Regression", x = "Prädiktor (x)", y = "Wahrscheinlichkeit (y)") +
+  theme_minimal()
 ```
 
 

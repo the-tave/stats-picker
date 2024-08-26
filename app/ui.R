@@ -7,6 +7,7 @@ library(shiny)
 library(shinyjs)
 library(dplyr)
 library(ggplot2)
+library(bslib)
 
 # library(knitr)
 
@@ -32,17 +33,25 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 .nomclass td:first-child {font-weight:bold;}
                                 
                                 body {padding-top: 60px;}
+                                
+                                .navbar {min-height: 40px;
+                                         padding-top:5px ; 
+                                         padding-bottom:0px}
+                                
+                                .navbar-nav > li > a, .navbar-brand {padding-top:0px !important; 
+                                                                     padding-bottom:0px !important;
+                                                                     height: 45px;
+                                                                     }
+                                  
                                 ")
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage(position = "fixed-top",
                   div(img(icon("wand-magic-sparkles")), "Statistics Picker"),
-                  # footer = p("Provided by University of Konstanz"),
-                    # header = img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                   # Create Right Side Text
-                  tags$script(
-                    HTML("var header = $('.navbar > .container-fluid');
-                    header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\" target=”_blank”><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
-                    console.log(header)")),
+                  # tags$script(
+                  #   HTML("var header = $('.navbar > .container-fluid');
+                  #   header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\" target=”_blank”><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
+                  #   console.log(header)")),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
@@ -51,12 +60,6 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                Ergebnisse visualisiert werden können!"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
-                             # numericInput("nvars",
-                             #              "Um wie viele Variablen geht es?",
-                             #              min = 1,
-                             #              max = 3,
-                             #              step = 1,
-                             #              value = 1),
                              selectInput("scale",
                                          "Welches Skalenniveau hat Variable 1?",
                                          choices = c("intervall", "ordinal", "nominal")), # defaults to first value of choices
@@ -147,6 +150,23 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),
                            p("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!")
                            
+                  ),  ### close tabPanel("About")
+                  tabPanel("Simulationen", icon = icon("flask"),
+                           navset_pill_list(
+                             
+                             nav_panel("Coming", p("Soon!")),
+                             
+                             nav_panel("Hang",p("Tight!"))
+                           )
+                           
+                  ),### close tabPanel("Simulations")
+                  nav_spacer(),
+                  nav_menu(
+                    title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
+                    align = "right",
+                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/")
+                             
+                             )
                   )
                   ### ----
                 ) ## close navbarPage("Statistics Picker", ...
