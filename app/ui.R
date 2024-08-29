@@ -154,9 +154,61 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   tabPanel("Simulationen", icon = icon("flask"),
                            navset_pill_list(
                              
-                             nav_panel("Coming", p("Soon!")),
+                             nav_panel("Verteilung: Würfel", 
+                                       # sidebarPanel(
+                                       p("Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein?
+                                         Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?"),
+                                         numericInput("n",
+                                                      "Wie oft möchtest du würfeln?",
+                                                      min = 1,
+                                                      max = 10000,
+                                                      step = 1,
+                                                      value = 6),
+                                         
+                                         numericInput("ndice",
+                                                      "Wie viele Würfel möchtest du werfen?",
+                                                      min = 1,
+                                                      max = 100,
+                                                      step = 1,
+                                                      value = 1)
+                                       ,
+                                       
+                                       # ),
+                                       # mainPanel(
+                                       #   plotOutput("diePlot")
+                                       # ),
+                                       # p("Soon!"),
+                                       plotOutput("diePlot")
+                                       ),
                              
-                             nav_panel("Hang",p("Tight!"))
+                             nav_panel("Verteilung: Münze",
+                                       # sidebarPanel(
+                                       p("Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten.
+                                       Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5, also fifty-fifty) oder gezinkt (p~Zahl~ > 0.5), verändert
+                                         die Verteilung, aber auch so:
+                                         In der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%. Es kann auch mal vorkommen, dass mehrfach 
+                                         hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. 
+                                         Probier es doch mal aus!"),
+                                         sliderInput("p",
+                                                     "Ist die Münze fair  oder gezinkt?",
+                                                     min = 0.5,
+                                                     max = 1,
+                                                     value = 0.5,
+                                                     ticks = F),
+                                         
+                                         numericInput("coins",
+                                                      "Wie oft möchtest du die Münze werfen?",
+                                                      min = 1,
+                                                      max = Inf,
+                                                      step = 1,
+                                                      value = 10)
+                                         ,
+                                       # ),
+                                       # mainPanel(
+                                         plotOutput("coinPlot")
+                                       # ),
+                                       # p("Tight!")
+                             )
                            )
                            
                   ),### close tabPanel("Simulations")

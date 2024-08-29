@@ -390,7 +390,71 @@ function(input, output) {
                                                ex_data()[[input$ex_columns[2]]])$p.value %>% round(3)) #ttest
     )
   )
+  
+  
+  
+
+# Simulations Tab ------
+
+# Dice: Normal Distribution
+output$diePlot <- renderPlot({
+
+  if (input$ndice == 1){
+    dice <- sample(1:6, input$n, T)
+  } else if (input$ndice > 1){
+    bla <- matrix(sample(1:6, input$n*input$ndice, T), nrow = input$ndice)
+    dice <- colSums(bla)
+  }
+  
+  nseqbreaks <- ifelse(input$n < 60,
+                       1,
+                       ifelse(input$n < 450,
+                              5, 
+                              10)
+  )
+
+  ggplot2::ggplot() +
+    geom_bar(aes(dice), fill = "#fd8d3c", color = "#8C2D04") +
+    theme_minimal() +
+    labs(x = "Augenanzahl",
+         y = "Häufigkeit",
+         title = "Würfel",
+         subtitle = paste0(input$n, ifelse(input$n == 1,
+                                           " Wurf mit ",
+                                           " Würfe mit "),
+                           input$ndice, ifelse(input$ndice == 1,
+                                               " Würfel",
+                                               " Würfeln"))) +
+    scale_x_discrete(limits = as.character(1:(6*input$ndice)),
+                     labels = as.character(1:(6*input$ndice)),
+                     expand = c(0.01, 0.01)) +
+    scale_y_continuous(breaks = seq(0, input$n, nseqbreaks))
+  
+  
+})
+
+# Coin: Probability
+
+output$coinPlot <- renderPlot({
+  vals <- dbinom(1:input$coins, input$coins, input$p)
+
+  ggplot2::ggplot() +
+    geom_point(aes(1:input$coins, vals),
+               fill = "#fd8d3c", color = "#8C2D04", size = 3) +
+    geom_line(aes(1:input$coins, vals), alpha = .2) +
+    theme_minimal() +
+    labs(x = "Häufigkeit 'Zahl'",
+         y = "Wahrscheinlichkeit",
+         title = "Münze")
+})
+
+
+  
+  
+  
 }
+
+
 
 
 
