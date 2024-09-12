@@ -216,7 +216,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   nav_menu(
                     title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
                     align = "right",
-                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/")
+                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/"),
+                             tags$a("iscience GitHub", href = "https://github.com/iscience-kn"),
+                             tags$a("Psychological Research with R (online book)", href = "https://the-tave.github.io/psych_research_in_r/")
                              
                              )
                   )
