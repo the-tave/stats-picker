@@ -8,6 +8,8 @@ library(shinyjs)
 library(dplyr)
 library(ggplot2)
 library(bslib)
+# global.R
+library(shiny.pwa)
 
 # library(knitr)
 
@@ -32,9 +34,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 
                                 .nomclass td:first-child {font-weight:bold;}
                                 
-                                body {padding-top: 60px;}
+                                @media screen and (min-width: 681px) { 
+                                body {margin-top: 60px;}
                                 
-                                .navbar {min-height: 40px;
+                                 .navbar {min-height: 40px;
                                          padding-top:5px ; 
                                          padding-bottom:0px}
                                 
@@ -42,11 +45,16 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                                      padding-bottom:0px !important;
                                                                      height: 45px;
                                                                      }
-                                  
+                                }
+                                
+                                @media screen and (max-width: 680px) {
+                                body {margin-top: 60px;}
+                                }
+                                 
                                 ")
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
-                navbarPage(position = "fixed-top",
-                  div(img(icon("wand-magic-sparkles")), "Statistics Picker"),
+                navbarPage(position = "fixed-top", collapsible = TRUE,
+                  div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
                   # Create Right Side Text
                   # tags$script(
                   #   HTML("var header = $('.navbar > .container-fluid');
@@ -54,6 +62,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   #   console.log(header)")),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
+                           pwa("https://the-tave.shinyapps.io/Statistik-Picker/", 
+                               title = "Statistik Picker",
+                               output = "www", icon = "www/icon_Stats-Picker_logo.png",
+                               color = "#e85620"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
                                  Links musst du einige Angaben machen, z.B. wie viele Variablen du hast und welche Skalenniveaus diese haben. 
                                  Dann werden dir rechts einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
@@ -72,7 +84,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ), #### close sidebarPanel()
                            # Explain App and show the actual output
                            mainPanel(
-                             h4("Beispieldaten"),
+                             h4("Beispieldaten mit Zentralmaß"),
                              div(class = "myclass",
                                  htmlOutput("statsex"),
                                  htmlOutput("var2data")
@@ -108,7 +120,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
                   tabPanel("Beispiele", icon = icon("code"),
-                           p("Schau dir hier beispielhafte Daten an und analysiere sie!"),
+                           p("Schau dir hier beispielhafte Daten an und analysiere sie!
+                             Du kannst dafür bereits ausgewählte Datensätze direkt aus R nutzen oder auch eigene Daten hochladen."),
                            sidebarPanel(
                              # SelectInput for which dataset to use
                              selectInput("ex_dataset",
@@ -216,9 +229,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   nav_menu(
                     title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
                     align = "right",
-                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/"),
-                             tags$a("iscience GitHub", href = "https://github.com/iscience-kn"),
-                             tags$a("Psychological Research with R (online book)", href = "https://the-tave.github.io/psych_research_in_r/")
+                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/", target="_blank"),
+                             tags$a("iscience GitHub", href = "https://github.com/iscience-kn", target="_blank"),
+                             tags$a("Psychological Research with R (online book)", href = "https://the-tave.github.io/psych_research_with_r/", target="_blank")
                              
                              )
                   )

@@ -1,12 +1,12 @@
-name: Statistics-Picker
-title: Statistics-Picker
+name: Statistik-Picker
+title: Statistik-Picker
 username: the-tave
 account: the-tave
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 10897230
-bundleId: 9152917
-url: https://the-tave.shinyapps.io/Statistics-Picker/
+appId: 12848805
+bundleId: 9153012
+url: https://the-tave.shinyapps.io/Statistik-Picker/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
