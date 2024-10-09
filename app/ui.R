@@ -32,6 +32,11 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                   word-break: break-word;
                                 }
                                 
+                                .btn {
+                                    background-color: #e85620;
+                                    border: none;
+                                }
+                                
                                 .nomclass td:first-child {font-weight:bold;}
                                 
                                 @media screen and (min-width: 681px) { 
@@ -67,9 +72,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                output = "www", icon = "www/icon_Stats-Picker_logo.png",
                                color = "#e85620"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
-                                 Links musst du einige Angaben machen, z.B. wie viele Variablen du hast und welche Skalenniveaus diese haben. 
-                                 Dann werden dir rechts einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
-                               Ergebnisse visualisiert werden können!"),
+                              Erst musst du angeben, welche Skalenniveaus deine Variable(n) haben. 
+                              Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
+                              Ergebnisse visualisiert werden können!"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
                              selectInput("scale",
@@ -119,51 +124,45 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                   style = "border:none;")
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
-                  tabPanel("Beispiele", icon = icon("code"),
-                           p("Schau dir hier beispielhafte Daten an und analysiere sie!
-                             Du kannst dafür bereits ausgewählte Datensätze direkt aus R nutzen oder auch eigene Daten hochladen."),
-                           sidebarPanel(
-                             # SelectInput for which dataset to use
-                             selectInput("ex_dataset",
-                                         "Welchen Datensatz möchtest du nutzen?",
-                                         c(pos_datasets, "eigene")), # defaults to first value of choices
-                             p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
-                               (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
-                             
-                             fileInput('customfile', '',
-                                       accept=c('text/csv', 
-                                                'text/comma-separated-values,text/plain', 
-                                                '.csv')),
-                             
-                             checkboxGroupInput("ex_columns", 
-                                                "Welche Variable(n) möchtest du nutzen?", 
-                                                inline = T),
-                             verbatimTextOutput("ex_placeholder"), 
-                             checkboxGroupInput("ex_stat", 
-                                                "Welche Statistik möchtest du sehen?", 
-                                                inline = T)
-                           ), #### close sidebar
-                           mainPanel(
-                             # Output: HTML table with requested number of observations
-                             # Input: Numeric entry for number of obs to view
-                             numericInput(inputId = "obs",
-                                          label = "Anzahl angezeigter Zeilen:",
-                                          value = 6),
-                             
-                             tableOutput("ex_data_table"),
-                             
-                             div(class = "myclass",
-                                 verbatimTextOutput("ex_statistic")
-                             )
-                             
-                           ) #### close main panel
-                  ),  ### close tabPanel("Beispiele")
-                  tabPanel("About", icon = icon("code-merge"),
-                           p("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
-                           tags$br(),
-                           p("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!")
-                           
-                  ),  ### close tabPanel("About")
+                  # tabPanel("Beispiele", icon = icon("code"),
+                  #          p("Schau dir hier beispielhafte Daten an und analysiere sie!
+                  #            Du kannst dafür bereits ausgewählte Datensätze direkt aus R nutzen oder auch eigene Daten hochladen."),
+                  #          sidebarPanel(
+                  #            # SelectInput for which dataset to use
+                  #            selectInput("ex_dataset",
+                  #                        "Welchen Datensatz möchtest du nutzen?",
+                  #                        c(pos_datasets, "eigene")), # defaults to first value of choices
+                  #            p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
+                  #              (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
+                  #            
+                  #            fileInput('customfile', '',
+                  #                      accept=c('text/csv', 
+                  #                               'text/comma-separated-values,text/plain', 
+                  #                               '.csv')),
+                  #            
+                  #            checkboxGroupInput("ex_columns", 
+                  #                               "Welche Variable(n) möchtest du nutzen?", 
+                  #                               inline = T),
+                  #            verbatimTextOutput("ex_placeholder"), 
+                  #            checkboxGroupInput("ex_stat", 
+                  #                               "Welche Statistik möchtest du sehen?", 
+                  #                               inline = T)
+                  #          ), #### close sidebar
+                  #          mainPanel(
+                  #            # Output: HTML table with requested number of observations
+                  #            # Input: Numeric entry for number of obs to view
+                  #            numericInput(inputId = "obs",
+                  #                         label = "Anzahl angezeigter Zeilen:",
+                  #                         value = 6),
+                  #            
+                  #            tableOutput("ex_data_table"),
+                  #            
+                  #            div(class = "myclass",
+                  #                verbatimTextOutput("ex_statistic")
+                  #            )
+                  #            
+                  #          ) #### close main panel
+                  # ),  ### close tabPanel("Beispiele")
                   tabPanel("Simulationen", icon = icon("flask"),
                            navset_pill_list(
                              
@@ -225,6 +224,21 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            )
                            
                   ),### close tabPanel("Simulations")
+                  tabPanel("About", icon = icon("code-merge"),
+                           p("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
+                           tags$br(),
+                           p("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. 
+                             Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! 
+                             Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.
+                             Daher findest du unter dem Tab Simulationen eine kleine (wachsende) Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen.
+                             Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
+                           # tags$a("Mail an Tave", href = "mailto:overlander@uni-konstanz.de"),
+                           tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "Mail an Tave"),
+                           tags$br(),
+                           tags$hr(),
+                           p("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!")
+                           
+                  ),  ### close tabPanel("About")
                   nav_spacer(),
                   nav_menu(
                     title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),

@@ -343,53 +343,53 @@ function(input, output) {
   
   ## Creating the right dataset ----  
   ### Getting the dataset
-  ex_data <- reactive({
-    if(input$ex_dataset %in% pos_datasets){
-      upfile <- get(input$ex_dataset, "package:datasets")
-    } else {
-      upfile <- read.csv(input$customfile$datapath, # filepath
-                         header = T,
-                         sep = ";")
-    }
-    upfile
-    #   get(input$ex_dataset, "package:datasets") # basically transforming the chr, e.g. "iris" to actual data  input
-  })
-  
-  ### Getting the right column names
-  observe({
-    col_names <- colnames(ex_data())
-    updateCheckboxGroupInput(inputId = "ex_columns",
-                             choices = col_names,
-                             selected = col_names[1])
-  })  
-  
-  ### Create the Datatable
-  output$ex_data_table <- renderTable(
-    head(ex_data(),  n = input$obs)
-  )
-  
-  ## Creating the right statistic (for CheckBox Auswahl) ----
-  observe({
-    lvars <- length(input$ex_columns)
-    pos_stats <- ifelse(lvars == 1, "Mittelwert", "t-Test")
-    
-    updateCheckboxGroupInput(inputId = "ex_stat",
-                             choices = pos_stats,
-                             selected = pos_stats[1])
-  })
-  
-  
-  output$ex_placeholder <- renderText(input$ex_columns)
-  
-  output$ex_statistic <- renderText(
-    switch(input$ex_stat,
-           "Mittelwert" = paste("Mittelwert: ", mean(ex_data()[[input$ex_columns]], na.rm = T) %>% round(3)), #mean
-           "t-Test" = paste("T-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],
-                                               ex_data()[[input$ex_columns[2]]])$statistic %>% round(3), "\n",
-                            "p-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],
-                                               ex_data()[[input$ex_columns[2]]])$p.value %>% round(3)) #ttest
-    )
-  )
+  # ex_data <- reactive({
+  #   if(input$ex_dataset %in% pos_datasets){
+  #     upfile <- get(input$ex_dataset, "package:datasets")
+  #   } else {
+  #     upfile <- read.csv(input$customfile$datapath, # filepath
+  #                        header = T,
+  #                        sep = ";")
+  #   }
+  #   upfile
+  #   #   get(input$ex_dataset, "package:datasets") # basically transforming the chr, e.g. "iris" to actual data  input
+  # })
+  # 
+  # ### Getting the right column names
+  # observe({
+  #   col_names <- colnames(ex_data())
+  #   updateCheckboxGroupInput(inputId = "ex_columns",
+  #                            choices = col_names,
+  #                            selected = col_names[1])
+  # })  
+  # 
+  # ### Create the Datatable
+  # output$ex_data_table <- renderTable(
+  #   head(ex_data() |> dplyr::select(input$ex_columns),  n = input$obs)
+  # )
+  # 
+  # ## Creating the right statistic (for CheckBox Auswahl) ----
+  # observe({
+  #   lvars <- length(input$ex_columns)
+  #   pos_stats <- ifelse(lvars == 1, "Mittelwert", "t-Test")
+  #   
+  #   updateCheckboxGroupInput(inputId = "ex_stat",
+  #                            choices = pos_stats,
+  #                            selected = pos_stats[1])
+  # })
+  # 
+  # 
+  # output$ex_placeholder <- renderText(input$ex_columns)
+  # 
+  # output$ex_statistic <- renderText(
+  #   switch(input$ex_stat,
+  #          "Mittelwert" = paste("Mittelwert: ", mean(ex_data()[[input$ex_columns]], na.rm = T) %>% round(3)), #mean
+  #          "t-Test" = paste("T-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],
+  #                                              ex_data()[[input$ex_columns[2]]])$statistic %>% round(3), "\n",
+  #                           "p-Wert: ", t.test(ex_data()[[input$ex_columns[1]]],
+  #                                              ex_data()[[input$ex_columns[2]]])$p.value %>% round(3)) #ttest
+  #   )
+  # )
   
   
   
@@ -449,7 +449,12 @@ output$coinPlot <- renderPlot({
 })
 
 
-  
+
+
+# observeEvent(input$goButton, {
+#   showNotification("Updated!", duration = 2)
+#   tags$a(href = "mailto:overlander@uni-konstanz.de")
+# })  
   
   
 }

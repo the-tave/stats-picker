@@ -268,10 +268,10 @@ Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struk
 <!-- ``` -->
 
 ## Übersicht der gängigen Statistiken 
-### [adaptiert von @uzh2023]
+<!-- ### [adaptiert von @uzh2023] -->
 
-```{r echo = F, out.width='150%', fig.align='center'}
-knitr::include_graphics("./img/deepdive3.png")
+```{r echo = F, out.width='190%', fig.align='center', fig.cap="Adaptiert von @uzh2023."}
+knitr::include_graphics("./img/DeepDiveViz.png") # deepdive3.png
 ```
 
 ## Literatur
