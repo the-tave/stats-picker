@@ -74,7 +74,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
                               Erst musst du angeben, welche Skalenniveaus deine Variable(n) haben. 
                               Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
-                              Ergebnisse visualisiert werden können!"),
+                              Ergebnisse visualisiert werden können! \
+                              WEnn du dir nicht sicher bist, welches Skalenniveu auf deine Variable(n) passt, schau im Deep Dive Tab vorbei!"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
                              selectInput("scale",
@@ -119,8 +120,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   tabPanel("Deep Dive",icon = icon("circle-info"),
                            # img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                            htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
-                                                  width = '100%',  
-                                                  height = 5500,  # does not work as relative currently?!
+                                                  width = '100%',
+                                                  height = 5900,  # does not work as relative currently?!
                                                   style = "border:none;")
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
