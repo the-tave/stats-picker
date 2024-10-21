@@ -75,7 +75,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                               Erst musst du angeben, welche Skalenniveaus deine Variable(n) haben. 
                               Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
                               Ergebnisse visualisiert werden können! \
-                              WEnn du dir nicht sicher bist, welches Skalenniveu auf deine Variable(n) passt, schau im Deep Dive Tab vorbei!"),
+                              Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variable(n) passt, schau im Deep Dive Tab vorbei!"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
                              selectInput("scale",
@@ -167,35 +167,27 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   tabPanel("Simulationen", icon = icon("flask"),
                            navset_pill_list(
                              
-                             nav_panel("Verteilung: Würfel", 
-                                       # sidebarPanel(
+                             nav_panel("Verteilung: Würfel",
                                        p("Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein?
                                          Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?"),
                                          numericInput("n",
                                                       "Wie oft möchtest du würfeln?",
                                                       min = 1,
-                                                      max = 10000,
+                                                      max = 1000,
                                                       step = 1,
                                                       value = 6),
                                          
                                          numericInput("ndice",
                                                       "Wie viele Würfel möchtest du werfen?",
                                                       min = 1,
-                                                      max = 100,
+                                                      max = 10,
                                                       step = 1,
-                                                      value = 1)
-                                       ,
+                                                      value = 1),
                                        
-                                       # ),
-                                       # mainPanel(
-                                       #   plotOutput("diePlot")
-                                       # ),
-                                       # p("Soon!"),
                                        plotOutput("diePlot")
                                        ),
                              
                              nav_panel("Verteilung: Münze",
-                                       # sidebarPanel(
                                        p("Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten.
                                        Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5, also fifty-fifty) oder gezinkt (p~Zahl~ > 0.5), verändert
                                          die Verteilung, aber auch so:
@@ -212,17 +204,167 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                          numericInput("coins",
                                                       "Wie oft möchtest du die Münze werfen?",
                                                       min = 1,
-                                                      max = Inf,
+                                                      max = 1000,
                                                       step = 1,
                                                       value = 10)
                                          ,
-                                       # ),
-                                       # mainPanel(
                                          plotOutput("coinPlot")
+                             ),
+                             
+                             nav_panel("Verteilung: Coefficient of variation",
+                                       p("Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem
+                                         Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles 
+                                         Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt."),
+                               
+                                       numericInput("cv_m",
+                                                   "Welchen Mittelwert hat die Verteilung?",
+                                                   min = 1,
+                                                   max = 100,
+                                                   value = 5),
+                                     
+                                       numericInput("cv_sd",
+                                                    "Was ist die Standardabweichung?",
+                                                    min = 0,
+                                                    max = 70,
+                                                    step = .1,
+                                                    value = 3),
+                                       
+                                       plotOutput("cvPlot")
+                             ),
+                             
+                             nav_panel("What's the T?",
+                                       p("Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie 
+                                       Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher 
+                                         T-Wert kommt bei dem Stichprobenvergleich heraus?"),
+                                
+                                       # fluidRow(
+                                       #   column(width = 6,
+                                       #         numericInput("t_m1",
+                                       #                      "Mittelwert von Stichprobe 1:",
+                                       #                      min = -500,
+                                       #                      max = 500,
+                                       #                      value = 7),
+                                       # 
+                                       #         numericInput("t_sd1",
+                                       #                      "Standardabweichung von Stichprobe 1:",
+                                       #                      min = -100,
+                                       #                      max = 100,
+                                       #                      step = .1,
+                                       #                      value = 1.8),
+                                       # 
+                                       #         numericInput("t_n",
+                                       #                      "Wie groß sind die Stichproben jeweils?",
+                                       #                      min = -1000,
+                                       #                      max = 1000,
+                                       #                      step = 1,
+                                       #                      value = 100)
+                                       #  ),
+                                       #  column(width = 6,
+                                       #         numericInput("t_m2",
+                                       #                      "Mittelwert von Stichprobe 2:",
+                                       #                      min = -500,
+                                       #                      max = 500,
+                                       #                      value = 5),
+                                       # 
+                                       #         numericInput("t_sd2",
+                                       #                      "Standardabweichung von Stichprobe 2:",
+                                       #                      min = -100,
+                                       #                      max = 100,
+                                       #                      step = .1,
+                                       #                      value = 2.3)
+                                       #  ),
                                        # ),
-                                       # p("Tight!")
-                             )
-                           )
+                                       
+                                       # fluidRow( #row 1
+                                       #   column(width = 6, p(tags$b(tags$u("Stichprobe 1:")))),
+                                       #   column(6, p(tags$b(tags$u("Stichprobe 2:"))))
+                                       # ),
+                                       
+                                       fluidRow( #row2
+                                         column(width = 3, p(tags$b(tags$u("Stichprobe 1:")))),
+                                         column(4, 
+                                                numericInput("t_m1",
+                                                             "Mittelwert:",
+                                                             min = -500,
+                                                             max = 500,
+                                                             value = 7, width = "90%")
+                                                ),
+                                         column(5, 
+                                                numericInput("t_sd1",
+                                                             "Standardabweichung:",
+                                                             min = -100,
+                                                             max = 100,
+                                                             step = .1,
+                                                             value = 1.8, width = "90%")
+                                                ),
+                                         column(3, p(tags$b(tags$u("Stichprobe 2:")))),
+                                         column(4,
+                                                numericInput("t_m2",
+                                                             "Mittelwert:",
+                                                             min = -500,
+                                                             max = 500,
+                                                             value = 5)
+                                                ),
+                                         column(5,
+                                                numericInput("t_sd2",
+                                                             "Standardabweichung:",
+                                                             min = -100,
+                                                             max = 100,
+                                                             step = .1,
+                                                             value = 2.3)
+                                                )
+                                       ),
+                                       
+                                       numericInput("t_n",
+                                                     "Wie groß sind die Stichproben jeweils?",
+                                                     min = -1000,
+                                                     max = 1000,
+                                                     step = 1,
+                                                     value = 100),
+                                       
+                                       fluidRow(
+                                         plotOutput("tPlot", height = "300px")
+                                       ),
+                                       
+                                       fluidRow(
+                                         column(5,
+                                                numericInput("tguessval", 
+                                                             "Und nun rate mal: What's the T?",
+                                                             min = -Inf,
+                                                             max = Inf,
+                                                             step = .01,
+                                                             value = 0, width = "90%")
+                                                ),
+                                         column(7,
+                                                p("Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.")
+                                                )
+                                         ),
+                                         actionButton("tbtn", "Antwort"),
+                                         shinyjs::hidden(htmlOutput("tguess"))
+                                       
+                             ), 
+                             
+                             nav_panel("Demo: Regressionsmodell",
+                                       p("Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b 
+                                         für die Verteilung der Daten bedeuten."),
+                                       
+                                       sliderInput("lm_e",
+                                                   "Wähle mean error e:",
+                                                   min = 0,
+                                                   max = 10,
+                                                   # step = .01,
+                                                   value = 1.5),
+                                       
+                                       sliderInput("lm_b",
+                                                   "Wähle slope b:",
+                                                   min = -5,
+                                                   max = 5,
+                                                   # step = .1,
+                                                   value = 2),
+                                       
+                                       plotOutput("lmPlot")
+                             ), # close nav_panel
+                           ) # close navset_pill_list
                            
                   ),### close tabPanel("Simulations")
                   tabPanel("About", icon = icon("code-merge"),

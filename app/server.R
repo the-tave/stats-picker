@@ -52,7 +52,7 @@ function(input, output) {
                                                 "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
                                 "intervall" = paste("Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen.
                                                     Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die 
-                                                    lineare Regression (in R mit glm()).", tags$br(),
+                                                    lineare Regression (in R mit lm()).", tags$br(),
                                                     "Wenn es um einen Unterschied geht, nutzt man am besten den T-Test (in R mit t.test())."),
                                 "ordinal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
                                                   verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
@@ -399,11 +399,24 @@ function(input, output) {
 # Dice: Normal Distribution
 output$diePlot <- renderPlot({
 
-  if (input$ndice == 1){
-    dice <- sample(1:6, input$n, T)
+  if (input$n > 1000){
+    n <- 1000
+    showNotification("Anzahl Würfe darf nicht größer als 1000 sein.", duration = 2)
+  } else {
+    n <- input$n
+  }
+  
+  ndice <- ifelse(input$ndice > 10, 10, input$ndice)
+  
+    if (input$ndice == 1){
+    dice <- sample(1:6, n, T)
   } else if (input$ndice > 1){
-    bla <- matrix(sample(1:6, input$n*input$ndice, T), nrow = input$ndice)
+    bla <- matrix(sample(1:6, n * ndice, T), nrow = ndice)
     dice <- colSums(bla)
+  } 
+  
+  if(input$ndice > 10) {
+    showNotification("Anzahl Würfel darf nicht mehr als 10 sein.", duration = 2)
   }
   
   nseqbreaks <- ifelse(input$n < 60,
@@ -419,16 +432,16 @@ output$diePlot <- renderPlot({
     labs(x = "Augenanzahl",
          y = "Häufigkeit",
          title = "Würfel",
-         subtitle = paste0(input$n, ifelse(input$n == 1,
+         subtitle = paste0(n, ifelse(n == 1,
                                            " Wurf mit ",
                                            " Würfe mit "),
-                           input$ndice, ifelse(input$ndice == 1,
+                           ndice, ifelse(ndice == 1,
                                                " Würfel",
                                                " Würfeln"))) +
-    scale_x_discrete(limits = as.character(1:(6*input$ndice)),
-                     labels = as.character(1:(6*input$ndice)),
+    scale_x_discrete(limits = as.character(1:(6*ndice)),
+                     labels = as.character(1:(6*ndice)),
                      expand = c(0.01, 0.01)) +
-    scale_y_continuous(breaks = seq(0, input$n, nseqbreaks))
+    scale_y_continuous(breaks = seq(0, n, nseqbreaks))
   
   
 })
@@ -436,27 +449,123 @@ output$diePlot <- renderPlot({
 # Coin: Probability
 
 output$coinPlot <- renderPlot({
-  vals <- dbinom(1:input$coins, input$coins, input$p)
+  
+  if (input$coins > 1000){
+    coins <- 1000
+    showNotification("Anzahl Münzen darf nicht größer als 1000 sein.", duration = 2)
+  } else {
+    coins <- input$coins
+  }
+  
+  vals <- dbinom(1:coins, coins, input$p)
 
   ggplot2::ggplot() +
-    geom_point(aes(1:input$coins, vals),
+    geom_point(aes(1:coins, vals),
                fill = "#fd8d3c", color = "#8C2D04", size = 3) +
-    geom_line(aes(1:input$coins, vals), alpha = .2) +
+    geom_line(aes(1:coins, vals), alpha = .2) +
     theme_minimal() +
     labs(x = "Häufigkeit 'Zahl'",
          y = "Wahrscheinlichkeit",
          title = "Münze")
 })
 
+# Distribution and the coefficient of variation
+
+output$cvPlot <- renderPlot({
+  m <- input$cv_m
+  sd <-input$cv_sd
+  
+  cvdata <- data.frame(x = rnorm(1000, mean = m, sd = sd))
+  
+ ggplot2:: ggplot(cvdata, aes(x)) +
+    geom_density(fill = "#fd8d3c", color = "#8C2D04", alpha = 0.8) +
+    geom_vline(xintercept = m, color = "#8C2D04") +
+   labs(x = "X", y = "Y",
+        title = paste0("Coefficient of variation = ", sd/m)) +
+    theme_minimal() +
+    coord_cartesian(xlim = c(m-2*m, m+2*m))
+})
 
 
+# What's the T?
 
-# observeEvent(input$goButton, {
-#   showNotification("Updated!", duration = 2)
-#   tags$a(href = "mailto:overlander@uni-konstanz.de")
-# })  
+t <- reactive({
+  m1 <- input$t_m1
+  m2 <- input$t_m2
+  sd1 <- input$t_sd1
+  sd2 <- input$t_sd2
+  n <- input$t_n
+  
+  t <- data.frame(x =  rnorm(n, m1, sd1),
+                  y =  rnorm(n, m2, sd2))
+  t
+})
+
+tval <- reactive({
+  t <- t()
+  round(
+    (mean(t$x) - mean(t$y)) / sqrt( (sd(t$x)^2/input$t_n) + (sd(t$y)^2/input$t_n)),
+    2)
+})
+
+output$tPlot <- renderPlot({
+  t <- t()
+  
+  longt <- tidyr::pivot_longer(t, cols = c(x,y))
+  
+  ggplot(longt, aes(name, value, color = name)) +
+    geom_boxplot() +
+    theme_minimal() +
+    theme(legend.position = "none") +
+    scale_color_manual(values = c("#fd8d3c", "#8C2D04")) +
+    labs(x = "",
+         y = "Werteverteilung" 
+         )
+})
+
+observeEvent(input$tbtn, {
+  toggle("tguess")
+})
+
+tdiff <- reactive({
+  round(abs(tval() - input$tguessval), 2)
+})
+
+output$tguess <- renderText(
+  # tval()
+  
+  c(paste("Der echte T-Wert ist ", tval(),
+        ", das heißt dein geratener Wert weicht um ", tdiff(),
+        " davon ab."),
+    ifelse(tdiff() > 2, "Du kriegst schon noch ein Gefühl dafür!",
+           "Super, das war schon nah dran!")
+  )
+  
+)
+
+# Demo: lm
+
+output$lmPlot <- renderPlot({
+  lmx <- sample(1:10, 100, T)
+  lmb <- input$lm_b
+  lme <- rnorm(length(lmx))*input$lm_e
+  
+  lmy <- lmb*lmx + lme
+  df <- tibble::tibble(lmx, lmy)
   
   
+  # draw the scatter plot with the specified number of bins
+  ggplot2::ggplot(df, aes(x = lmx, y = lmy)) +
+    geom_jitter(color = "#fd8d3c") +
+    stat_smooth(method = "lm", se = FALSE,
+                color = "#8C2D04", linewidth = .7) +
+    theme_minimal() +
+    labs(x = "X", y = "Y")+
+    coord_cartesian(ylim=c(-50,50))
+  
+})
+
+
 }
 
 
