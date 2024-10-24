@@ -121,7 +121,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            # img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
                            htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
                                                   width = '100%',
-                                                  height = 5900,  # does not work as relative currently?!
+                                                  height = 6000,  # does not work as relative 
                                                   style = "border:none;")
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
