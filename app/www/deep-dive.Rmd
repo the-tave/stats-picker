@@ -35,9 +35,9 @@ Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über b
 
 Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt [@crump2018].
 
-### Mittelwert
+### Arithmetischer Mittelwert
 
-Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den Mittelwert (Durchschnitt) berechnen.
+Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen.
 Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte.
 
 Achtung: Der Mittelwert wird durch extreme Werte  bzw. Ausreißer verzerrt. 
