@@ -11,8 +11,14 @@ library(shiny)
 library(shiny.i18n)
 library(ggplot2)
 
+# i18n <- Translator$new(translation_json_path='translations.json')
+# i18n$set_translation_language('en')
+
+# file with translations
 i18n <- Translator$new(translation_json_path='translations.json')
-i18n$set_translation_language('en')
+
+# change this to en
+i18n$set_translation_language("en")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(

@@ -118,11 +118,28 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
-                           # img(src='./img/dist.svg', height="50%", width="50%", align = "center"),
-                           htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html", 
-                                                  width = '100%',
-                                                  height = 6000,  # does not work as relative 
-                                                  style = "border:none;")
+                           fluidRow(
+                             htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html",
+                                                    width = '100%',
+                                                    height = 6000,  # does not work as relative
+                                                    style = "border:none;")
+                           ),
+                           
+                           htmltools::tags$img(# src="img/DeepDiveViz.png",
+                                               srcset="img/DeepDiveViz_long.png 681vw,
+                                               img/DeepDiveViz.png 680vw",
+                                               sizes="(max-width: 680px) 680vw, (min-width: 681px) 681vw",
+                                               
+                                               width="90%",
+                                               alt="Überblick gängiger Statistiken")
+                           
+                           
+                             # htmltools::tags$picture(
+                             #   htmltools::tags$source(media="(min-width: 681px)",
+                             #                          width="80%",
+                             #                          srcset="img/DeepDiveViz.png")
+                             # )
+                           
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
                   # tabPanel("Beispiele", icon = icon("code"),
