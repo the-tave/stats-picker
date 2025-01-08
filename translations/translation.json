@@ -21,6 +21,10 @@
         {
             "de": "Was hast du vor?",
             "en": "What do you want to achieve?"
+        },
+        {
+            "de": "Erlärung",
+            "en": "Explanation"
         }
     ]
 }

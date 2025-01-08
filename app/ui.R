@@ -117,7 +117,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  htmlOutput("statsex"),
                                  htmlOutput("var2data")
                              ),
-                             h4(id = "expl_h4", "Erklärung"),
+                             h4(id = "expl_h4", "Erklärung"|>i18n$t()),
                              # Text Outputs
                              div(class = "myclass",
                                  # verbatimTextOutput("statstypeout")
