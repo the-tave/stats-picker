@@ -33,7 +33,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
             style='float: right;',
             selectInput(
               inputId='selected_language',
-              label=i18n$t('Sprache aendern'),
+              label=i18n$t('Sprache ändern'),
               choices = setNames(
                 i18n$get_languages(),
                 c("Deutsch", "English") # Set labels for the languages
@@ -99,18 +99,20 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
                              selectInput("scale",
-                                         "Welches Skalenniveau hat Variable 1?",
+                                         i18n$t("Welches Skalenniveau hat Variable 1?"),
                                          choices = c("intervall", "ordinal", "nominal")), # defaults to first value of choices
                              selectInput("scale2",
-                                         "Welches Skalenniveau hat Variable 2?",
+                                         i18n$t("Welches Skalenniveau hat Variable 2?"),
                                          choices = c("keins", "intervall", "ordinal", "nominal")),
                              radioButtons("statstype",
-                                          "Was hast du vor?",
-                                          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")),
+                                          "Was hast du vor?"|>i18n$t(),
+                                          choices = c("Statistik rechnen", 
+                                                      "Visualisierung", 
+                                                      "Döner mit alles")), # TO DO: integrate function as described in i18n GitHub issue to translate choices
                            ), #### close sidebarPanel()
                            # Explain App and show the actual output
                            mainPanel(
-                             h4("Beispieldaten mit Zentralmaß"),
+                             h4("Beispieldaten mit Zentralmaß"|>i18n$t()),
                              div(class = "myclass",
                                  htmlOutput("statsex"),
                                  htmlOutput("var2data")

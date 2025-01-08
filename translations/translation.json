@@ -3,8 +3,36 @@
     "languages": ["de", "en"],
     "translation": [
         {
-            "de": "Sprache aendern",
+            "de": "Sprache ändern",
             "en": "Change language"
+        },
+        {
+            "de": "Beispieldaten mit Zentralmaß",
+            "en": "Example Data with central tendency"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 1?",
+            "en": "What scale of measurement applies to variable 1?"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 2?",
+            "en": "What scale of measurement applies to variable 2?"
+        },
+        {
+            "de": "Was hast du vor?",
+            "en": "What do you want to achieve?"
+        },
+        {
+            "de": "Statistik rechnen",
+            "en": "Calculate a statistic"
+        },
+        {
+            "de": "Visualisierung",
+            "en": "Visualization"
+        },
+        {
+            "de": "Döner mit alles",
+            "en": "Everything!"
         }
     ]
 }
