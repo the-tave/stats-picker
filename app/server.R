@@ -21,7 +21,11 @@ names(new_nom) <- c("Daten", "value")
 pos_datasets <- c("iris", "mtcars", "Orange")
 
 # Define server logic ----
-function(input, output) {
+function(input, output, session) {
+  # Translation
+  observeEvent(input$selected_language, {
+    update_lang(input$selected_language, session)
+  })
   
   # Home: Output ----
   ## Show Plot details for viz

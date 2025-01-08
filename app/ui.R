@@ -1,4 +1,3 @@
-#
 
 extrafont::loadfonts(quiet = T) # device = "postscript"
 # extrafont::loadfonts("C:/Windows/Fonts/", pattern = "Ubuntu")
@@ -8,8 +7,9 @@ library(shinyjs)
 library(dplyr)
 library(ggplot2)
 library(bslib)
-# global.R
 library(shiny.pwa)
+library(shiny.i18n) # for translations
+library(jsonlite)
 
 # library(knitr)
 
@@ -19,8 +19,28 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 # rmarkdown::render("./www/deep-dive.Rmd")
 # rmarkdown::render("./www/StatistikPicker.Rmd")
 
+# file with translations
+i18n <- Translator$new(translation_json_path="../translations/translation.json")
+# i18n <- Translator$new(translation_csvs_path='.../translations/translation_en.csv', translation_csv_config = "config.yml")
+# i18n <- Translator$new(translation_csvs_path='.')
+
+i18n$set_translation_language("de") #en
+
 # Define UI for application that draws a histogram
 fluidPage(theme = shinythemes::shinytheme("united"),
+              shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
+          tags$div(
+            style='float: right;',
+            selectInput(
+              inputId='selected_language',
+              label=i18n$t('Sprache aendern'),
+              choices = setNames(
+                i18n$get_languages(),
+                c("Deutsch", "English") # Set labels for the languages
+              )#,
+              # selected = i18n$get_key_translation()
+            )
+          ), # Add translation option MAYBE THIS NEEDS TO MOVE NOT SURE YET
                 useShinyjs(),
                 tags$style(HTML("
                                 .myclass {
@@ -74,7 +94,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            p("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.
                               Erst musst du angeben, welche Skalenniveaus deine Variable(n) haben. 
                               Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die 
-                              Ergebnisse visualisiert werden können! \
+                              Ergebnisse visualisiert werden können!
                               Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variable(n) passt, schau im Deep Dive Tab vorbei!"),
                            # Sidebar with all the inputs by users
                            sidebarPanel(
