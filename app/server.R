@@ -1,10 +1,13 @@
 library(shiny)
 
+# file with translations
+i18n <- Translator$new(translation_json_path="../translations/translation.json")
+
 # Define some default variables
 set.seed(123)
 num <- rnorm(10, mean = 3, sd = 1) |> round(2)
-ord <- factor(c("doof", "doof", "ok","ok","ok", "super", "super", "super", "super", "super"), 
-              order = TRUE, levels = c("doof", "ok", "super")) 
+ord <- factor(c("meh", "meh", "ok","ok","ok", "super", "super", "super", "super", "super"), 
+              order = TRUE, levels = c("meh", "ok", "super")) 
 nom <- c("bla", "bli", "blub", "bla", "blub", "blub", "bla", "bli", "blub", "blub")
 
 num2 <- rnorm(10, mean = 5, sd = 1) |> round(2)
@@ -51,76 +54,67 @@ function(input, output, session) {
   output$statstypeout <- renderText(
     switch(input$scale,
            "intervall" = switch(input$scale2,
-                                "keins" = paste("Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. 
-                                                Beispielsweise Alter oder Körpergröße sind intervallskaliert.", tags$br(),
-                                                "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."),
+                                "keins" = paste("Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. Beispielsweise Alter oder Körpergröße sind intervallskaliert."|>i18n$t(), #t
+                                                tags$br(),
+                                                "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'."|>i18n$t()), #t
                                 
-                                "intervall" = paste("Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen.
-                                                    Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die 
-                                                    lineare Regression (in R mit lm()).", tags$br(),
-                                                    "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test())."),
+                                "intervall" = paste("Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen. Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die lineare Regression (in R mit lm())."|>i18n$t(), #t 
+                                                    tags$br(),
+                                                    "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test())."|>i18n$t()), #t
                                 
-                                "ordinal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
-                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
-                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
-                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.", tags$br(),
-                                                  "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test."),
+                                "ordinal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test."|>i18n$t()), #t
                                 
-                                "nominal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
-                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA (siehe Deep Dive oder auch Erklärung zu
-                                                  intervallskalierter und ordinaler Variable).", tags$br(),
-                                                  "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation. Wenn du hier Unterschiede
-                                                  analysieren möchtest, ist der t-Test das übliche Maß.")
+                                "nominal" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation." |>i18n$t(), #t
+                                                  "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test())."|>i18n$t()) #t
            ),
            "ordinal" = switch(input$scale2,
-                              "keins" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge abbilden, 
-                                              aber nicht wirklich gleiche Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5).", tags$br(), 
-                                              "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'."),
+                              "keins" = paste("Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge, aber keine gleichen Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5)."|>i18n$t(), #t
+                                              tags$br(), 
+                                              "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'."|>i18n$t()), #t
                               
-                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
-                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
-                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
-                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.", tags$br(),
-                                                  "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test."),
+                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test."|>i18n$t()), #t
                               
-                              "ordinal" = paste("Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen.
-                                                Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt.",
+                              "ordinal" = paste("Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen. Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt."|>i18n$t(), #t
                                                 tags$br(),
-                                                "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Kombinationen der Werte beider Variablen darstellen. 
-                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
-                                                In R geht das mit 'chisq.test()'."),
+                                                "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Wertekombination beider Variablen darstellen."|>i18n$t(), #t
+                                                "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'."|>i18n$t()), #t
                               
-                              "nominal" = paste("Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
-                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
-                                                In R geht das mit 'chisq.test()'.",
+                              "nominal" = paste("Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen."|>i18n$t(), #t
+                                                "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'."|>i18n$t(), #t
                                                 tags$br(),
-                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. 
-                                                Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst.")
+                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst."|>i18n$t()) #t
                               ),
            "nominal" = switch(input$scale2,
-                              "keins" = paste("Hier nutzt man vor allem den Modus.", tags$br(), "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR."),
+                              "keins" = paste("Hier nutzt man vor allem den Modus."|>i18n$t(), #t
+                                              tags$br(), 
+                                              "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR."|>i18n$t()), #t
                               
-                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen
-                                                  verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.", tags$br(),
-                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten
-                                                  Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.", tags$br(),
-                                                  "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation. Wenn du hier Unterschiede
-                                                  analysieren möchtest, ist der t-Test das übliche Maß."),
+                              "intervall" = paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl."|>i18n$t(), #t
+                                                  tags$br(),
+                                                  "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation."|>i18n$t(), #t
+                                                  "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test())."|>i18n$t()), #t
                               
-                              "ordinal" = paste("Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
-                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
-                                                In R geht das mit 'chisq.test()'.",
+                              "ordinal" = paste("Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen."|>i18n$t(), #t
+                                                "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'."|>i18n$t(), #t
                                                 tags$br(),
-                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. 
-                                                Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst."),
+                                                "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst."|>i18n$t()), #t
                               
-                              "nominal" = paste("Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen. 
-                                                Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht.
-                                                In R geht das mit 'chisq.test()'.",
+                              "nominal" = paste("Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen."|>i18n$t(), #t
+                                                "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'."|>i18n$t(), #t
                                                 tags$br(),
-                                                "Wenn dich die Stärke des Zusammenhangs interessiert, kannst du Cramérs V berechnen. 
-                                                Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B.
-                                                mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd).")
+                                                "Wenn dich die Stärke des Zusammenhangs interessiert, kannst du Cramérs V berechnen. Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B. mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd)."|>i18n$t()) #t
                               )
     )
   )
@@ -128,23 +122,23 @@ function(input, output, session) {
   ## Beispiel zur Durchführung ----
   output$statsex <- renderText(
       switch(input$scale,
-             "intervall" = paste(" Daten: ", paste(num, collapse = ', '),  tags$br(), 
-                                 "Mittelwert: ", round(mean(num), 2)),
-             "ordinal" = paste(" Daten: ", paste(ord, collapse = ', '),  tags$br(),
-                               "Median: ", quantile(ord, .5, type=1)),
-             "nominal" = paste(" Daten: ", paste(nom, collapse = ', '),  tags$br(),
-                               "Modus: ", wobblynameR::getmode(nom))
+             "intervall" = paste(" Daten: "|>i18n$t(), paste(num, collapse = ', '),  tags$br(), 
+                                 "Mittelwert: "|>i18n$t(), round(mean(num), 2)),
+             "ordinal" = paste(" Daten: "|>i18n$t(), paste(ord, collapse = ', '),  tags$br(),
+                               "Median: "|>i18n$t(), quantile(ord, .5, type=1)),
+             "nominal" = paste(" Daten: "|>i18n$t(), paste(nom, collapse = ', '),  tags$br(),
+                               "Modus: "|>i18n$t(), wobblynameR::getmode(nom))
       )
   )
   
   output$var2data <- renderText(
     switch(input$scale2,
            "intervall" = paste(tags$br(), " 2. Variable: ", paste(num2, collapse = ', '),  tags$br(), 
-                               "Mittelwert: ", round(mean(num2), 2)),
+                               "Mittelwert: "|>i18n$t(), round(mean(num2), 2)),
            "ordinal" = paste( tags$br(), " 2. Variable: ", paste(ord2, collapse = ', '),  tags$br(),
-                             "Median: ", quantile(ord2, .5, type=1)),
+                             "Median: "|>i18n$t(), quantile(ord2, .5, type=1)),
            "nominal" = paste( tags$br(), " 2. Variable: ", paste(nom2, collapse = ', '),  tags$br(),
-                             "Modus: ", wobblynameR::getmode(nom2))
+                             "Modus: "|>i18n$t(), wobblynameR::getmode(nom2))
     )
   )
   
@@ -167,8 +161,8 @@ function(input, output, session) {
                                     axis.title.y = element_blank(),
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
-                              labs(x = "Daten",
-                                   title = "Visualisierung"),
+                              labs(x = "Daten"|>i18n$t(),
+                                   title = "Visualisierung"|>i18n$t()),
 
                             "ordinal" =
                               ggplot() +
@@ -180,8 +174,8 @@ function(input, output, session) {
                                     axis.title.y = element_blank(),
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
-                              labs(x = "Daten",
-                                   title = "Visualisierung"),
+                              labs(x = "Daten"|>i18n$t(),
+                                   title = "Visualisierung"|>i18n$t()),
 
                             "nominal" =
                               cowplot::plot_grid(ggplot() + #plot1
@@ -193,8 +187,8 @@ function(input, output, session) {
                                                          axis.title.y = element_blank(),
                                                          text=element_text(family="Ubuntu", size = 14),
                                                          title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
-                                                   labs(x = "Daten",
-                                                        title = "Visualisierung"),
+                                                   labs(x = "Daten"|>i18n$t(),
+                                                        title = "Visualisierung"|>i18n$t()),
 
                                                  ggplot(new_nom, aes(x = "", y = value, fill = Daten)) + #plot2
                                                    geom_bar(stat="identity", width=1) +
@@ -221,8 +215,8 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung",
-                                       subtitle = "Zwei intervallskalierte Variablen") +
+                                       title = "Visualisierung"|>i18n$t(),
+                                       subtitle = "Zwei intervallskalierte Variablen"|>i18n$t()) +
                                   xlim(1,5) +
                                   ylim(1,7),
                                 
@@ -237,8 +231,8 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 2",
                                        y = "Variable 1",
-                                       title = "Visualisierung",
-                                       subtitle = "Ordinal & Intervallskaliert") +
+                                       title = "Visualisierung"|>i18n$t(),
+                                       subtitle = "Ordinal & Intervall") +
                                   scale_fill_brewer(palette = 7)+
                                   scale_color_brewer(palette = 7)+
                                   # xlim(1.5,5) +
@@ -255,8 +249,8 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung",
-                                       subtitle = "Nominal & Intervallskaliert") +
+                                       title = "Visualisierung"|>i18n$t(),
+                                       subtitle = "Nominal & Intervall") +
                                   scale_fill_brewer(palette = 7) +
                                   scale_color_brewer(palette = 7)
                                 ),
@@ -275,8 +269,8 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Variable 2",
-                                     title = "Visualisierung",
-                                     subtitle = "Intervallskaliert & Ordinal") +
+                                     title = "Visualisierung"|>i18n$t(),
+                                     subtitle = "Intervall & Ordinal") +
                                 scale_fill_brewer(palette = 7)+
                                 scale_color_brewer(palette = 7)+
                                 xlim(1.5,5),
@@ -291,8 +285,8 @@ function(input, output, session) {
                                   text=element_text(family="Ubuntu", size = 14),
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
-                                     y = "Anzahl",
-                                     title = "Visualisierung",
+                                     y = "Anzahl"|>i18n$t(),
+                                     title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Ordinal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -308,8 +302,8 @@ function(input, output, session) {
                                   text=element_text(family="Ubuntu", size = 14),
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
-                                     y = "Anzahl",
-                                     title = "Visualisierung",
+                                     y = "Anzahl"|>i18n$t(),
+                                     title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -329,8 +323,8 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 2",
                                      y = "Variable 1",
-                                     title = "Visualisierung",
-                                     subtitle = "Intervallskaliert & Nominal") +
+                                     title = "Visualisierung"|>i18n$t(),
+                                     subtitle = "Intervall & Nominal") +
                                 scale_fill_brewer(palette = 7) +
                                 scale_color_brewer(palette = 7) +
                                 coord_flip(),
@@ -345,8 +339,8 @@ function(input, output, session) {
                                   text=element_text(family="Ubuntu", size = 14),
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
-                                     y = "Anzahl",
-                                     title = "Visualisierung",
+                                     y = "Anzahl"|>i18n$t(),
+                                     title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -418,7 +412,7 @@ output$diePlot <- renderPlot({
 
   if (input$n > 1000){
     n <- 1000
-    showNotification("Anzahl Würfe darf nicht größer als 1000 sein.", duration = 2)
+    showNotification("Anzahl Würfe darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
   } else {
     n <- input$n
   }
@@ -433,7 +427,7 @@ output$diePlot <- renderPlot({
   } 
   
   if(input$ndice > 10) {
-    showNotification("Anzahl Würfel darf nicht mehr als 10 sein.", duration = 2)
+    showNotification("Anzahl Würfel darf nicht mehr als 10 sein."|>i18n$t(), duration = 2)
   }
   
   nseqbreaks <- ifelse(input$n < 60,
@@ -446,15 +440,15 @@ output$diePlot <- renderPlot({
   ggplot2::ggplot() +
     geom_bar(aes(dice), fill = "#fd8d3c", color = "#8C2D04") +
     theme_minimal() +
-    labs(x = "Augenanzahl",
-         y = "Häufigkeit",
-         title = "Würfel",
+    labs(x = "Augenanzahl"|>i18n$t(),
+         y = "Häufigkeit"|>i18n$t(),
+         title = "Würfel"|>i18n$t(),
          subtitle = paste0(n, ifelse(n == 1,
-                                           " Wurf mit ",
-                                           " Würfe mit "),
+                                           " Wurf mit "|>i18n$t(),
+                                           " Würfe mit "|>i18n$t()),
                            ndice, ifelse(ndice == 1,
-                                               " Würfel",
-                                               " Würfeln"))) +
+                                               " Würfel"|>i18n$t(),
+                                               " Würfeln"|>i18n$t()))) +
     scale_x_discrete(limits = as.character(1:(6*ndice)),
                      labels = as.character(1:(6*ndice)),
                      expand = c(0.01, 0.01)) +
@@ -469,7 +463,7 @@ output$coinPlot <- renderPlot({
   
   if (input$coins > 1000){
     coins <- 1000
-    showNotification("Anzahl Münzen darf nicht größer als 1000 sein.", duration = 2)
+    showNotification("Anzahl Münzen darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
   } else {
     coins <- input$coins
   }
@@ -481,9 +475,9 @@ output$coinPlot <- renderPlot({
                fill = "#fd8d3c", color = "#8C2D04", size = 3) +
     geom_line(aes(1:coins, vals), alpha = .2) +
     theme_minimal() +
-    labs(x = "Häufigkeit 'Zahl'",
-         y = "Wahrscheinlichkeit",
-         title = "Münze")
+    labs(x = "Häufigkeit 'Zahl'"|>i18n$t(),
+         y = "Wahrscheinlichkeit 'Zahl'"|>i18n$t(),
+         title = "Münze"|>i18n$t())
 })
 
 # Distribution and the coefficient of variation
@@ -536,7 +530,7 @@ output$tPlot <- renderPlot({
     theme(legend.position = "none") +
     scale_color_manual(values = c("#fd8d3c", "#8C2D04")) +
     labs(x = "",
-         y = "Werteverteilung" 
+         y = "Werteverteilung"|>i18n$t() 
          )
 })
 
@@ -551,11 +545,11 @@ tdiff <- reactive({
 output$tguess <- renderText(
   # tval()
   
-  c(paste("Der echte T-Wert ist ", tval(),
-        ", das heißt dein geratener Wert weicht um ", tdiff(),
+  c(paste("Der echte T-Wert ist "|>i18n$t(), tval(),
+        ", das heißt dein geratener Wert weicht um "|>i18n$t(), tdiff(),
         " davon ab."),
-    ifelse(tdiff() > 2, "Du kriegst schon noch ein Gefühl dafür!",
-           "Super, das war schon nah dran!")
+    ifelse(tdiff() > 2, "Du kriegst schon noch ein Gefühl dafür!"|>i18n$t(),
+           "Super, das war schon nah dran!"|>i18n$t())
   )
   
 )

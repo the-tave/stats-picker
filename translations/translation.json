@@ -7,6 +7,15 @@
             "en": "Change language"
         },
         {
+            "de": "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst. Erst musst du angeben, welche Skalenniveaus deine Variablen haben.",
+            "en": "XXX"
+        },
+        {
+            "de": "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können. Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
+            "en": "XXX"
+        },
+        
+        {
             "de": "Beispieldaten mit Zentralmaß",
             "en": "Example Data with central tendency"
         },
@@ -23,8 +32,339 @@
             "en": "What do you want to achieve?"
         },
         {
-            "de": "Erlärung",
+            "de": "Erklärung",
             "en": "Explanation"
+        },
+
+
+
+        {
+            "de": "Simulationen",
+            "en": "Simulations"
+        },
+        {
+            "de": "Verteilung: Würfel",
+            "en": "Distribution: Dice"
+        },
+        {
+            "de": "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?",
+            "en": "XXX"
+        },
+        {
+            "de": "Wie oft möchtest du würfeln?",
+            "en": "XXX"
+        },
+        {
+            "de": "Wie viele Würfel möchtest du werfen?",
+            "en": "XXX"
+        },
+        {
+            "de": "Verteilung: Münze",
+            "en": "Distribution: Coin toss"
+        },
+        {
+            "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
+            "en": "XXX"
+        },
+        {
+            "de": "Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!",
+            "en": "XXX"
+        },
+        {
+            "de": "Was ist die Wahrscheinlichkeit für Zahl?",
+            "en": "XXX"
+        },
+        {
+            "de": "Wie oft möchtest du die Münze werfen?",
+            "en": "XXX"
+        },
+        {
+            "de": "Verteilung: Coefficient of variation",
+            "en": "XXX"
+        },
+        {
+            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
+            "en": "XXX"
+        },
+        {
+            "de": "Welchen Mittelwert hat die Verteilung?",
+            "en": "XXX"
+        },
+        {
+            "de": "Was ist die Standardabweichung?",
+            "en": "XXX"
+        },
+        {
+            "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
+            "en": "XXX"
+        },
+        {
+            "de": "Stichprobe 1:",
+            "en": "Sample 1:"
+        },
+        {
+            "de": "Stichprobe 2:",
+            "en": "Sample 2:"
+        },
+        {
+            "de": "Mittelwert:",
+            "en": "Mean:"
+        },
+        {
+            "de": "Standardabweichung:",
+            "en": "Standard deviation:"
+        },
+        {
+            "de": "Wie groß sind die Stichproben jeweils?",
+            "en": "XXX"
+        },
+        {
+            "de": "Und nun rate mal: What's the T?",
+            "en": "And now take a guess: What's the T?"
+        },
+        {
+            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
+            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+        },
+        {
+            "de": "Antwort",
+            "en": "Answer"
+        },
+        {
+            "de": "Demo: Regressionsmodell",
+            "en": "Demo: Regressionmodel"
+        },
+        {
+            "de": "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten.",
+            "en": "XXX"
+        },
+
+
+
+
+        {
+            "de": "Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
+            "en": "XXX"
+        },
+        {
+            "de": "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Daher findest du unter dem Tab Simulationen eine kleine (wachsende) Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!",
+            "en": "XXX"
+        },
+        {
+            "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!",
+            "en": "XXX"
+        },
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        {
+            "de": "Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. Beispielsweise Alter oder Körpergröße sind intervallskaliert.",
+            "en": "XXX"
+        },
+        {
+            "de": "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'.",
+            "en": "XXX"
+        },
+        {
+            "de": "Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.",
+            "en": "XXX"
+        },
+        {
+            "de": "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.",
+            "en": "XXX"
+        },
+        {
+            "de": "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test()).",
+            "en": "XXX"
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test.",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen. Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die lineare Regression (in R mit lm()).",
+            "en": "XXX"
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation.",
+            "en": "XXX"
+        },
+        {
+            "de": "Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge, aber keine gleichen Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5).",
+            "en": "XXX"
+        },
+        {
+            "de": "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'.",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'.",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen. Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt.",
+            "en": "XXX"
+        },
+        {
+            "de": "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Wertekombination beider Variablen darstellen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst.",
+            "en": "XXX"
+        },
+        {
+            "de": "Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Wenn dich die Stärke des Zusammenhangs interessiert, kannst du Cramérs V berechnen. Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B. mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd).",
+            "en": "XXX"
+        },
+        {
+            "de": "Hier nutzt man vor allem den Modus.",
+            "en": "XXX"
+        },
+        {
+            "de": "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR.",
+            "en": "XXX"
+        },
+
+        
+        {
+            "de": " Daten: ",
+            "en": "XXX"
+        },
+        {
+            "de": "Mittelwert: ",
+            "en": "XXX"
+        },
+        {
+            "de": "Median: ",
+            "en": "XXX"
+        },
+        {
+            "de": "Modus: ",
+            "en": "XXX"
+        },
+
+        {
+            "de": "Daten",
+            "en": "Data"
+        },
+        {
+            "de": "Visualisierung",
+            "en": "Visualization"
+        },
+
+        {
+            "de": "Zwei intervallskalierte Variablen",
+            "en": "Two interval scaled variables"
+        },
+        {
+            "de": "Anzahl",
+            "en": "Count"
+        },
+
+
+
+
+
+        {
+            "de": "Anzahl Würfe darf nicht größer als 1000 sein.",
+            "en": "XXX"
+        },
+        {
+            "de": "Anzahl Würfel darf nicht größer als 10 sein.",
+            "en": "XXX"
+        },
+        {
+            "de": "Augenanzahl",
+            "en": "XXX"
+        },
+        {
+            "de": "Häufigkeit",
+            "en": "XXX"
+        },
+        {
+            "de": "Würfel",
+            "en": "XXX"
+        },
+        {
+            "de": " Wurf mit ",
+            "en": " XXX "
+        },
+        {
+            "de": " Würfe mit ",
+            "en": " XXX "
+        },
+        {
+            "de": " Würfel",
+            "en": " die"
+        },
+        {
+            "de": " Würfeln",
+            "en": " dice"
+        },
+        {
+            "de": "Anzahl Münzen darf nicht größer als 1000 sein.",
+            "en": "XXX"
+        },
+        {
+            "de": "Häufigkeit 'Zahl'",
+            "en": "XXX"
+        },
+        {
+            "de": "Wahrscheinlichkeit 'Zahl'",
+            "en": "XXX"
+        },
+        {
+            "de": "Münze",
+            "en": "XXX"
+        },
+
+        {
+            "de": "Werteverteilung",
+            "en": "Distribution of values"
+        },
+
+        {
+            "de": "Der echte T-Wert ist ",
+            "en": "XXX"
+        },
+        {
+            "de": ", das heißt dein geratener Wert weicht um ",
+            "en": "XXX"
+        },
+        {
+            "de": " davon ab.",
+            "en": "XXX"
+        },
+        {
+            "de": "Du kriegst schon noch ein Gefühl dafür!",
+            "en": "XXX"
+        },
+        {
+            "de": "Super, das war schon nah dran!",
+            "en": "XXX"
         }
     ]
 }
