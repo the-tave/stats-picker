@@ -11,8 +11,12 @@
             "en": "With this tool you can find exactly which statistics you need for your project. First you need to specify the scale levels of your variables."
         },
         {
-            "de": "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können. Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
-            "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized. If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
+            "de": "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können.",
+            "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized."
+        },
+        {
+            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
+            "en": "If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
         },
         
         {
@@ -352,11 +356,11 @@
         },
         {
             "de": ", das heißt dein geratener Wert weicht um ",
-            "en": ", meaning your guessed value deviates by "
+            "en": ", meaning the value you guessed deviates by "
         },
         {
             "de": " davon ab.",
-            "en": "from it."
+            "en": " from it."
         },
         {
             "de": "Du kriegst schon noch ein Gefühl dafür!",

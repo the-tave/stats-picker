@@ -21,26 +21,25 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 
 # file with translations
 i18n <- Translator$new(translation_json_path="../translations/translation_complete.json")
-# i18n <- Translator$new(translation_csvs_path='.../translations/translation_en.csv', translation_csv_config = "config.yml")
-# i18n <- Translator$new(translation_csvs_path='.')
 
 i18n$set_translation_language("de") #en
 
-# Define UI for application that draws a histogram
+# Define UI for application 
 fluidPage(theme = shinythemes::shinytheme("united"),
               shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
           tags$div(
-            style='float: right;',
+            style='float: right;
+            width: 140px; 
+            padding-left: 20px;', # added sizing to div style
             selectInput(
               inputId='selected_language',
               label=i18n$t('Sprache ändern'),
               choices = setNames(
                 i18n$get_languages(),
                 c("Deutsch", "English") # Set labels for the languages
-              )#,
-              # selected = i18n$get_key_translation()
+              )
             )
-          ), # Add translation option MAYBE THIS NEEDS TO MOVE NOT SURE YET
+          ), # Add translation option 
                 useShinyjs(),
                 tags$style(HTML("
                                 .myclass {
@@ -80,11 +79,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage(position = "fixed-top", collapsible = TRUE,
                   div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
-                  # Create Right Side Text
-                  # tags$script(
-                  #   HTML("var header = $('.navbar > .container-fluid');
-                  #   header.append('<div style=\"float:right\"><a href=\"https://iscience.uni-konstanz.de/\" target=”_blank”><img src=\"./img/UniKonstanz_LogoW.svg\" alt=\"alt\" style=\"float:right;height:50px;\"> </a></div>');
-                  #   console.log(header)")),
+                  
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
                            pwa("https://the-tave.shinyapps.io/Statistik-Picker/", 
@@ -92,7 +87,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                output = "www", icon = "www/icon_Stats-Picker_logo.png",
                                color = "#e85620"),
                            i18n$t("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst. Erst musst du angeben, welche Skalenniveaus deine Variablen haben."),
-                           i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können. Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!"),
+                           i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."),
+                           tags$br(),
+                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!"),
                            
                            # Sidebar with all the inputs by users
                            sidebarPanel(
@@ -138,12 +135,16 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
-                           fluidRow(
-                             htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html",
-                                                    width = '100%',
-                                                    height = 6000,  # does not work as relative
-                                                    style = "border:none;")
-                           ),
+                           h2("Skalenniveaus"|>i18n$t()),
+                           i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen. Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
+                           tags$img(src="./img/Scales_of_Measurement.png", width = '80%'),
+                           
+                           # fluidRow(
+                           #   htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html",
+                           #                          width = '100%',
+                           #                          height = 6000,  # does not work as relative
+                           #                          style = "border:none;")
+                           # ),
                            
                            htmltools::tags$img(# src="img/DeepDiveViz.png",
                                                srcset="img/DeepDiveViz_long.png 681vw,
@@ -154,11 +155,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                alt="Überblick gängiger Statistiken")
                            
                            
-                             # htmltools::tags$picture(
-                             #   htmltools::tags$source(media="(min-width: 681px)",
-                             #                          width="80%",
-                             #                          srcset="img/DeepDiveViz.png")
-                             # )
+                            
                            
                   ), ### closetabPanel("Deep Dive")
                   ### tab: Beispiele ----
@@ -355,8 +352,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
                            tags$br(),
                            i18n$t("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."),
+                           tags$br(),
                            i18n$t("Daher findest du unter dem Tab Simulationen eine kleine (wachsende) Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
                            # tags$a("Mail an Tave", href = "mailto:overlander@uni-konstanz.de"),
+                           tags$br(), tags$br(),
                            tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "Mail"),
                            tags$br(),
                            tags$hr(),
