@@ -133,11 +133,197 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ) #### close mainPanel()
                   ),  ### close tabPanel("Home", ... )
                   ### tab: Deep Dive ---- 
-                  ## Commented out to reduce loading time
                   tabPanel("Deep Dive",icon = icon("circle-info"),
                            h2("Skalenniveaus"|>i18n$t()),
-                           i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen. Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
-                           tags$img(src="./img/Scales_of_Measurement.png", width = '80%'),
+                           i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
+                           tags$br(),
+                           i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
+                           tags$br(),
+                           tags$img(src="./img/Scales_of_Measurement.png", width = '90%'),
+                           tags$br(),
+                           
+                           h2("Univariat - eine Variable"|>i18n$t()),
+                           h3("Modus"|>i18n$t()),
+                           i18n$t("Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung)."),
+                           tags$br(),tags$br(),
+                           i18n$t("Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt (Kaliyadan & Kulkarni, 2019)."),
+                           
+                           h3("Median"|>i18n$t()),
+                           i18n$t("Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen. Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen."),
+                           tags$br(),tags$br(),
+                           i18n$t("Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt (Crump et al., 2018)."),
+                           
+                           h3("Arithmetischer Mittelwert"|>i18n$t()),
+                           i18n$t("Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen. Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte."),
+                           tags$br(),tags$br(),
+                           i18n$t("Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018)."),
+                           tags$br(),
+                           tags$img(src = "./img/dist.svg", width = '60%'),
+                           
+                           h3("Standardabweichung"|>i18n$t()),
+                           i18n$t("Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert."),
+                           tags$br(),tags$br(),
+                           i18n$t("Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."),
+                           plotOutput("dd_sdplot", width = '60%'),
+                           
+                           
+                           h2("Multivariat - mehrere Variablen"|>i18n$t()),
+                           h3("t-Test"),
+                           i18n$t("Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test. Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander. Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte."),
+                           tags$br(),
+                           i18n$t(" Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig. Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen. In theoretisch gut begründeten Fällen kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken."),
+                           tags$br(),tags$br(),
+                           i18n$t("Annahmen des t-Tests:"),
+                           tags$ul(
+                             tags$li("ausreichend große Stichprobe (Faustregel n=30)"),
+                             tags$li("normalverteilte Daten")
+                           ),
+                           tags$br(),
+                           i18n$t("Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018)."),
+                           tags$br(),
+                           tags$img(src = "./img/Bild2.png", width = '70%'),
+                           
+                           h4("Einstichproben t-Test"|>i18n$t()),
+                           i18n$t("Der one-sample t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen."),
+                           tags$br(),
+                           i18n$t("Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. Da so gut wie immer die Statistiken der Population unbekannt sind, muss man diese schätzen."),
+                           tags$br(),tags$br(),
+                           i18n$t("Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt."),
+                           tags$br(),tags$br(),
+                           i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test"),
+                           
+                           h4("Zweistichproben t-Test (abhängig)"|>i18n$t()),
+                           i18n$t("Der paired-sample t-Test ist dem one-sample t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.)."),
+                           tags$br(),
+                           i18n$t("Die Berechnung ist ähnlich wie beim one-sample t-Test. (Crump et al., 2018)"),
+                           tags$br(),tags$br(),
+                           i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test (wenn die Differenzen nicht normalverteilt sind; Variable darf ordinalskaliert sein)."),
+                           
+                           h4("Zweistichproben t-Test (unabhängig)"|>i18n$t()),
+                           i18n$t("Der two-sample t-Test (auch independent-sample t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt (Crump et al., 2018)."),
+                           tags$br(),tags$br(),
+                           i18n$t("Nicht-parametrische Alternative:"),
+                           tags$ul(
+                             tags$li("Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist)"),
+                             tags$li("Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)")
+                           ),
+                           
+                           h3("ANOVA"|>i18n$t()),
+                           i18n$t("Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Messfehler zustande kamen."),
+                           tags$br(),
+                           i18n$t("Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative"),
+                           tags$br(),
+                           i18n$t(" Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um 1 - (1 - alpha)^Anzahl Paarvergleiche (Janczyk & Pfister, 2015). Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon 1-(1-0.05)^6 = 26,5%!"),
+                           tags$br(),tags$br(),
+                           i18n$t("Annahmen der ANOVA:"),
+                           tags$ul(
+                             tags$li("intervallskalierte Daten"),
+                             tags$li("unabhängige und zufällige Ziehung von k Stichproben"),
+                             tags$li("gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten)(Crump et al., 2018)")
+                           ),
+                           tags$img(src = "./img/anova.svg", width = '70%'),
+                           
+                           h4("Einfaktorielle ANOVA"|>i18n$t()),
+                           i18n$t("Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen."),
+                           tags$br(),
+                           i18n$t("Die Versuchspersonen der einzelnen Faktorstufen sind dabei unkorreliert, wie beim independent-samples t-Test. Die resultierende F-Statistik ergibt das Verhältnis aus erklärbarer Varianz durch die experimentelle Manipulation und der Fehlervarianz."),
+                           tags$br(), tags$br(),
+                           i18n$t("Mit einer ANOVA kann man nur herausfinden, ob mindestens eine Faktorstufe sich signifikant von mindestens einer weiteren unterscheidet. Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tests durchführen."),
+                           tags$br(),
+                           i18n$t("Man kann genau einen Haupteffekt finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen. (Crump et al., 2018)"),
+                           tags$br(),
+                           i18n$t("Gängige post-hoc Tests (Auswahl):"),
+                           tags$ul(
+                             tags$li("Tukey HSD Test"),
+                             tags$li("Least Significant Difference (LSD)"),
+                             tags$li("Bonferroni")
+                           ),
+                           
+                           h4("ANOVA mit Messwiederholung"|>i18n$t()),
+                           i18n$t("Eine repeated-measures ANOVA nutzt man für within-subjects Designs. Man hat eine unabhängige Variable (UV; Faktor) mit mindestens zwei bzw. drei Faktorstufen. Im Gegensatz zur one-factor ANOVA sind aber die Versuchspersonen nicht unabhängig voneinander, sondern man erhebt z.B. Daten derselben Personen zu drei Messzeitpunkten und vergleicht dann sinngemäß jede Person mit sich selbst zu verschiedenen Zeitpunkten."),
+                           tags$br(),
+                           i18n$t("Nach wie vor werden aber nur Daten einer unabhängigen Variable erhoben, weshalb es auch hier nur Haupteffekte geben kann und noch keine Interaktionen.(Crump et al., 2018)"),
+                           
+                           h4("Faktorielle ANOVA"|>i18n$t()),
+                           i18n$t("Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man eine faktorielle ANOVA, d.h. man hat nun mehr als nur eine unabhängige Variable mit mehreren Faktorstufen. Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA berechnet werden. "),
+                           tags$br(),
+                           i18n$t("Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden (Crump et al., 2018)."),
+                           
+                           h3("Regression"),
+                           h4("Lineare Regression"|>i18n$t()),
+                           i18n$t("Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch. Grafisch dargestellt ist die Regressionsgerade die Linie, die die Daten am besten beschreibt, d.h. zu der die Abstände von jedem Datenpunkt eines Scatterplots aus minimal sind."),
+                           tags$br(),
+                           i18n$t("Diese Abstände zeigen den Messfehler an. Gäbe es keinen Messfehler, würden alle Datenpunkte auf der Regressionsgerade liegen (Crump et al., 2018; UZH, 2023)."),
+                           plotOutput("dd_regplot", width = '60%'),
+                           
+                           h4("Logistische Regression"|>i18n$t()),
+                           i18n$t("Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist. Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt."),
+                           tags$br(),
+                           i18n$t("Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren."),
+                           plotOutput("dd_logregplot", width = '60%'),
+                           
+                           h3("Chi", tags$sup("2")),
+                           i18n$t("Der Chi2 Test (Kontingenzanalyse) gehört zu den nicht-parametrischen Verfahren, es wird also keine Annahme über die Verteilung der zugrundeliegenden Daten gemacht. Er untersucht den Zusammenhang zweier nominal- bis ordinalskalierter Variablen, die in einer “Kreuztabelle” gegenübergestellt werden, indem beobachtete Häufigkeiten der Daten mit den erwarteten Häufigkeiten verglichen werden (nicht Mittelwerte!, s. t-Tests)."),
+                           tags$br(),
+                           i18n$t("Der Chi2 Test nutzt die Chi2 Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren. Chi2 Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023)."),
+                           
+                           
+                           h2("Faktorenanalyse"|>i18n$t()),
+                           i18n$t("Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."),
+                           tags$br(),
+                           i18n$t("Dabei ist das Ziel, hoch korrelierende Variablen zu übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren."),
+                           tags$br(), tags$br(),
+                           i18n$t("Für eine Faktorenanalyse braucht man:"),
+                           tags$ul(
+                             tags$li("eine ausreichend große Stichprobe"),
+                             tags$li("ausreichend viele Variablen"),
+                             tags$li("intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)")
+                           ),
+                           tags$br(),
+                           i18n$t("Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."),
+                           
+                           h2("Übersicht der gängigen Statistiken"|>i18n$t()),
+                           tags$img(src="img/DeepDiveViz.png",
+                                    alt="Überblick gängiger Statistiken",
+                                    width = '97%'),
+                           
+                           h2("Literatur"|>i18n$t()),
+                           
+                           tags$div(
+                             style="line-height: 2; margin-left: 2em; text-indent:-2em;",
+                             
+                             p("Crump, M. J. C., Navarro, D. J., & Suzuki, J. (2018).",
+                             tags$i("Answering questions with data."),
+                             tags$a(href="https://www.crumplab.com/statistics/", "https://www.crumplab.com/statistics/.")
+                             ),
+                             
+                             p("Janczyk, M., & Pfister, R. (2015)",
+                               tags$i("Inferenzstatistik verstehen: Von A wie Signifikanztest bis Z wie Konfidenzintervall."),
+                               "Springer.",
+                               tags$a(href="https://doi.org/10.1007/978-3-662-47106-7", "https://doi.org/10.1007/978-3-662-47106-7.")
+                             ),
+                             
+                             p("Kaliyadan, F., & Kulkarni, V. (2019). Types of Variables, Descriptive Statistics, and Sample Size.",
+                               tags$i("Indian Dermatology Online Journal, 10"), "(1), 82–86.",
+                               tags$a(href="https://doi.org/10.4103/idoj.IDOJ_468_18", "https://doi.org/10.4103/idoj.IDOJ_468_18.")
+                             ),
+                             
+                             p("Lowry, R. (1998).",
+                               tags$i("Concepts and Applications of Inferential Statistics."),
+                               tags$a(href="http://vassarstats.net/textbook/", "http://vassarstats.net/textbook/.")
+                             ),
+                             
+                             p("UZH. (2023). Datenanalyse mit SPSS. In",
+                               tags$i("Universität Zürich: Methodenberatung."),
+                               tags$a(href="http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html", "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.")
+                             )
+                             # p("xxx",
+                             #   tags$i("xxx"),
+                             #   tags$a(href="xxx", "xxx")
+                             # )
+                             
+                           ),
+                           
                            
                            # fluidRow(
                            #   htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html",
@@ -146,13 +332,13 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            #                          style = "border:none;")
                            # ),
                            
-                           htmltools::tags$img(# src="img/DeepDiveViz.png",
-                                               srcset="img/DeepDiveViz_long.png 681vw,
-                                               img/DeepDiveViz.png 680vw",
-                                               sizes="(max-width: 680px) 680vw, (min-width: 681px) 681vw",
-                                               
-                                               width="90%",
-                                               alt="Überblick gängiger Statistiken")
+                           # htmltools::tags$img(# src="img/DeepDiveViz.png",
+                           #   srcset="img/DeepDiveViz_long.png 681vw,
+                           #                     img/DeepDiveViz.png 680vw",
+                           #   sizes="(max-width: 680px) 680vw, (min-width: 681px) 681vw",
+                           #   
+                           #   width="90%",
+                           #   alt="Überblick gängiger Statistiken")
                            
                            
                             

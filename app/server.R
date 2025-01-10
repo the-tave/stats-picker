@@ -403,7 +403,70 @@ function(input, output, session) {
   # )
   
   
+  # Deep Dive Plots ----
+  library(ggridges)
   
+  output$dd_sdplot <- renderPlot({
+    normal <- data.frame(x = rnorm(10000, mean = 100, sd = 15),
+                         dummy = 1)
+    
+    ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
+      stat_density_ridges(
+        geom = "density_ridges_gradient",
+        calc_ecdf = TRUE,
+        quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
+        bandwidth = 2.1,
+        color = "white"
+      ) +
+      # geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
+      scale_fill_manual(values = c("#FDD0A2", "#fd8d3c", "#e95420", "#fd8d3c", "#FDD0A2")) +
+      scale_x_continuous(breaks = seq(55,145, 15),
+                         lim = c(55, 145),
+                         labels = c("M-3sd", "M-2sd","M-1sd", "M", "M+1sd", "M+2sd", "M+3sd")) +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
+            axis.text.y = element_blank(),
+            text = element_text(family="Ubuntu", size = 14, color = 'gray15'))
+  })
+  
+  output$dd_regplot <- renderPlot({
+    reg <- faux::rnorm_multi(n = 100,
+                              mu = c(0, 0.2),
+                              sd = c(1, 1.2),
+                              r = c(0.7),
+                              varnames = c("X", "Y"),
+                              empirical = F)
+    
+    ggplot(reg, aes(x = X, y = Y)) +
+      geom_jitter() +
+      geom_smooth(formula = 'y ~x', method = lm, se = FALSE, color = "#8C2D04") +
+      geom_vline(xintercept = mean(data$X), color = "#fd8d3c") +
+      geom_hline(yintercept = mean(data$Y), color = "#e95420") +
+      theme_minimal() +
+      theme(axis.title.x = element_text(color = "#fd8d3c", size = 12),
+            axis.title.y = element_text(color = "#e95420", size = 12))
+  })
+  
+  output$dd_logregplot <- renderPlot({
+    set.seed(666)
+    x <- rnorm(100)
+    y <- rbinom(100, 1, prob = plogis(x))
+    data <- data.frame(x = x, y = y)
+    
+    # Logistisches Regressionsmodell anpassen
+    # model <- glm(y ~ x, data = data, family = "binomial")
+    
+    # Visualisierung der Vorhersagewahrscheinlichkeit
+    ggplot(data, aes(x = x, y = y)) +
+      geom_point(alpha = 0.5) +
+      geom_smooth(method = "glm", formula = 'y ~ x', method.args = list(family = "binomial"), color = "#fd8d3c") +
+      labs(title = "Logistische Regression"|>i18n$t(), 
+           x = "Prädiktor (x)"|>i18n$t(), 
+           y = "Wahrscheinlichkeit (y)"|>i18n$t()) +
+      theme_minimal()
+  })
 
 # Simulations Tab ------
 
