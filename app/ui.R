@@ -20,7 +20,7 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 # rmarkdown::render("./www/StatistikPicker.Rmd")
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation.json")
+i18n <- Translator$new(translation_json_path="../translations/translation_complete.json")
 # i18n <- Translator$new(translation_csvs_path='.../translations/translation_en.csv', translation_csv_config = "config.yml")
 # i18n <- Translator$new(translation_csvs_path='.')
 
@@ -360,7 +360,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "Mail"),
                            tags$br(),
                            tags$hr(),
-                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive!")
+                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!")
                            
                   ),  ### close tabPanel("About")
                   nav_spacer(),

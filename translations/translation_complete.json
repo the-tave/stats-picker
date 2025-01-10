@@ -1,0 +1,370 @@
+{
+    "cultural_date_format": "%d-%m-%Y",
+    "languages": ["de", "en"],
+    "translation": [
+        {
+            "de": "Sprache ändern",
+            "en": "Change language"
+        },
+        {
+            "de": "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst. Erst musst du angeben, welche Skalenniveaus deine Variablen haben.",
+            "en": "With this tool you can find exactly which statistics you need for your project. First you need to specify the scale levels of your variables."
+        },
+        {
+            "de": "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können. Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
+            "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized. If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
+        },
+        
+        {
+            "de": "Beispieldaten mit Zentralmaß",
+            "en": "Example Data with central tendency"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 1?",
+            "en": "What scale level applies to variable 1?"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 2?",
+            "en": "What scale level applies to variable 2?"
+        },
+        {
+            "de": "Was hast du vor?",
+            "en": "What do you want to achieve?"
+        },
+        {
+            "de": "Erklärung",
+            "en": "Explanation"
+        },
+
+
+
+        {
+            "de": "Simulationen",
+            "en": "Simulations"
+        },
+        {
+            "de": "Verteilung: Würfel",
+            "en": "Distribution: Dice"
+        },
+        {
+            "de": "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?",
+            "en": "Throw one or more 6-sided dice digitally as many times as you like. How will the results be distributed? What do you expect to happen when you roll multiple dice (summing the faces) – will the distribution change?"
+        },
+        {
+            "de": "Wie oft möchtest du würfeln?",
+            "en": "How often would you like to roll?"
+        },
+        {
+            "de": "Wie viele Würfel möchtest du werfen?",
+            "en": "How many dice would you like to throw?"
+        },
+        {
+            "de": "Verteilung: Münze",
+            "en": "Distribution: Coin toss"
+        },
+        {
+            "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
+            "en": "Here you can see the probability distribution for getting 'heads' in a coin toss. Whether the coin is fair (probability of heads p = 0.5) or biased (p ≠ 0.5) affects the distribution of the results."
+        },
+        {
+            "de": "Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!",
+            "en": "But in reality, the chance of getting 'heads' is not always exactly 50%: it can happen that 'heads' appears multiple times in a row even if the coin is fair. Try it out!"
+        },
+        {
+            "de": "Was ist die Wahrscheinlichkeit für Zahl?",
+            "en": "What is the probability of heads"
+        },
+        {
+            "de": "Wie oft möchtest du die Münze werfen?",
+            "en": "How many times would you like to toss the coin?"
+        },
+        {
+            "de": "Verteilung: Coefficient of variation",
+            "en": "Distribution: Coefficient of variation"
+        },
+        {
+            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
+            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation. Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
+        },
+        {
+            "de": "Welchen Mittelwert hat die Verteilung?",
+            "en": "What is the mean of the distribution?"
+        },
+        {
+            "de": "Was ist die Standardabweichung?",
+            "en": "What is the standard deviation?"
+        },
+        {
+            "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
+            "en": "What do t-values actually mean and how are they calculated? Enter different sample means and standard deviations and observe how that affects the distributions! Below you can then guess: What t-value will result from the sample comparison?"
+        },
+        {
+            "de": "Stichprobe 1:",
+            "en": "Sample 1:"
+        },
+        {
+            "de": "Stichprobe 2:",
+            "en": "Sample 2:"
+        },
+        {
+            "de": "Mittelwert:",
+            "en": "Mean:"
+        },
+        {
+            "de": "Standardabweichung:",
+            "en": "Standard deviation:"
+        },
+        {
+            "de": "Wie groß sind die Stichproben jeweils?",
+            "en": "How large are the samples each?"
+        },
+        {
+            "de": "Und nun rate mal: What's the T?",
+            "en": "And now take a guess: What's the T?"
+        },
+        {
+            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
+            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+        },
+        {
+            "de": "Antwort",
+            "en": "Answer"
+        },
+        {
+            "de": "Demo: Regressionsmodell",
+            "en": "Demo: Linear regression model"
+        },
+        {
+            "de": "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten.",
+            "en": "Here is a demo of the regression model and what the error term 'e' and the slope parameter 'b' mean for the distribution of the data."
+        },
+
+
+
+
+        {
+            "de": "Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
+            "en": "The Statistics Picker is developed as part of the dissertation project by Annika Tave Overlander, M.Sc."
+        },
+        {
+            "de": "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.",
+            "en": "In the menu under the University of Konstanz logo, you will find some links that might also be helpful for you. In particular, the Online R Intro is a great way to get a better 'feel' for statistics! Looking at data and working with it is important for understanding – just as important as knowing the calculations."
+        },
+        {
+            "de": "Daher findest du unter dem Tab Simulationen eine kleine (wachsende) Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!",
+            "en": "Therefore, under the 'Simulations' tab, you will find a small (growing) collection of data simulations that, for example, show how different distributions come about. If you have ideas or requests for additional features, distributions, etc., feel free to contact me!"
+        },
+        {
+            "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!",
+            "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating!"
+        },
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        {
+            "de": "Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. Beispielsweise Alter oder Körpergröße sind intervallskaliert.",
+            "en": "Interval-scaled (or also: metric) data are numerical – that is, numbers – and are continuous. For example, age or body size are interval-scaled."
+        },
+        {
+            "de": "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'.",
+            "en": "Here, the mean is usually used. In R, this is done with 'mean()'."
+        },
+        {
+            "de": "Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.",
+            "en": "For an interval-scaled variable (or multiple), that should be compared with a categorical one, the analysis of variance (ANOVA) is usually appropriate."
+        },
+        {
+            "de": "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.",
+            "en": "Here, the categorical (ordinal or nominal) variable is used to test for differences in the means of groups within the interval-scaled variable. In R, the aov() command is typically used."
+        },
+        {
+            "de": "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test()).",
+            "en": "When it comes to a difference, it's best to use the t-test (in R with t.test())."
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test.",
+            "en": "If it's a binary variable, it's best to use the t-test."
+        },
+        {
+            "de": "Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen. Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die lineare Regression (in R mit lm()).",
+            "en": "With 2 or more interval-scaled variables, you have the most freedom in selecting statistics and models. If you want to find the relationship between two variables, correlations (in R with cor()) or linear regression (in R with lm()) are mostly used."
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation.",
+            "en": "If it's a binary variable, logistic regression or point-biserial correlation are also suitable."
+        },
+        {
+            "de": "Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge, aber keine gleichen Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5).",
+            "en": "Ordinal data are those where the assigned numbers reflect a true order, but not equal intervals, e.g. on a scale from 'stupid' to 'great' (1 to 5)."
+        },
+        {
+            "de": "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'.",
+            "en": "Here, for example, the median is used. In R, this is done with 'median()'."
+        },
+        {
+            "de": "Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "With an ordinal and a nominal variable, you can represent the frequencies of value combinations of both variables in a contingency table, just as you would with two ordinal variables."
+        },
+        {
+            "de": "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'.",
+            "en": "You can then perform a chi-squared test to check if there is a statistically significant relationship between the variables. In R, this is done with 'chisq.test()'."
+        },
+        {
+            "de": "Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen. Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt.",
+            "en": "With two ordinal variables, the order of values is considered without assuming a fixed distance between categories. For this, the Spearman rank correlation coefficient is used, which measures how strongly the rankings of values in both variables are related."
+        },
+        {
+            "de": "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Wertekombination beider Variablen darstellen.",
+            "en": "With a contingency table, you can represent the frequencies of value combinations of both variables."
+        },
+        {
+            "de": "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst.",
+            "en": "If you want to assess the ranking of the ordinal variable within the categories of the nominal variable, you can use Kendall's Tau. This test is an alternative to the chi-squared test and is useful if you want to consider the ranking information."
+        },
+        {
+            "de": "Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "If you want to analyze two nominal variables, you can represent the frequencies of value combinations of both variables in a contingency table, just as you would with two ordinal variables."
+        },
+        {
+            "de": "Wenn dich die Stärke des Zusammenhangs interessiert, kannst du Cramérs V berechnen. Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B. mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd).",
+            "en": "If you're interested in the strength of the relationship, you can calculate Cramér's V. This coefficient gives you a value between 0 (no relationship) and 1 (perfect relationship) – you can obtain it in R with the command 'vcd::assocstats()' (function called assocstats from the vcd package)."
+        },
+        {
+            "de": "Hier nutzt man vor allem den Modus.",
+            "en": "Here, the mode is mainly used."
+        },
+        {
+            "de": "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR.",
+            "en": "In R, this can be done with getmode() from the package wobblynameR."
+        },
+
+        
+        {
+            "de": " Daten: ",
+            "en": " Data: "
+        },
+        {
+            "de": "Mittelwert: ",
+            "en": "Mean: "
+        },
+        {
+            "de": "Median: ",
+            "en": "Median: "
+        },
+        {
+            "de": "Modus: ",
+            "en": "Mode: "
+        },
+
+        {
+            "de": "Daten",
+            "en": "Data"
+        },
+        {
+            "de": "Visualisierung",
+            "en": "Visualization"
+        },
+
+        {
+            "de": "Zwei intervallskalierte Variablen",
+            "en": "Two interval scaled variables"
+        },
+        {
+            "de": "Anzahl",
+            "en": "Count"
+        },
+
+
+
+
+
+        {
+            "de": "Anzahl Würfe darf nicht größer als 1000 sein.",
+            "en": "he number of rolls cannot exceed 1000."
+        },
+        {
+            "de": "Anzahl Würfel darf nicht größer als 10 sein.",
+            "en": "The number of dice cannot exceed 10."
+        },
+        {
+            "de": "Augenanzahl",
+            "en": "Face value"
+        },
+        {
+            "de": "Häufigkeit",
+            "en": "Frequency"
+        },
+        {
+            "de": "Würfel",
+            "en": "Dice"
+        },
+        {
+            "de": " Wurf mit ",
+            "en": " Roll with  "
+        },
+        {
+            "de": " Würfe mit ",
+            "en": " Rolls with  "
+        },
+        {
+            "de": " Würfel",
+            "en": " die"
+        },
+        {
+            "de": " Würfeln",
+            "en": " dice"
+        },
+        {
+            "de": "Anzahl Münzen darf nicht größer als 1000 sein.",
+            "en": "The number of coins cannot exceed 1000."
+        },
+        {
+            "de": "Häufigkeit 'Zahl'",
+            "en": "Frequency 'Heads'"
+        },
+        {
+            "de": "Wahrscheinlichkeit 'Zahl'",
+            "en": "Probability 'Heads'"
+        },
+        {
+            "de": "Münze",
+            "en": "Coin"
+        },
+
+        {
+            "de": "Werteverteilung",
+            "en": "Distribution of values"
+        },
+
+        {
+            "de": "Der echte T-Wert ist ",
+            "en": "The true T-value is "
+        },
+        {
+            "de": ", das heißt dein geratener Wert weicht um ",
+            "en": ", meaning your guessed value deviates by "
+        },
+        {
+            "de": " davon ab.",
+            "en": "from it."
+        },
+        {
+            "de": "Du kriegst schon noch ein Gefühl dafür!",
+            "en": "You'll get a feel for it soon!"
+        },
+        {
+            "de": "Super, das war schon nah dran!",
+            "en": "Great, that was really close!"
+        }
+    ]
+}
