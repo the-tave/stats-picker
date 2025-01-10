@@ -369,6 +369,366 @@
         {
             "de": "Super, das war schon nah dran!",
             "en": "Great, that was really close!"
+        },
+
+
+
+        
+        {
+            "de": "Skalenniveaus",
+            "en": "Scale Levels"
+        },
+        {
+            "de": "Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:",
+            "en": "XXX"
+        },
+        {
+            "de": "Univariat - eine Variable",
+            "en": "XXX"
+        },
+        {
+            "de": "Modus",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung).",
+            "en": "XXX"
+        },
+        {
+            "de": "Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt",
+            "en": "XXX"
+        },
+        {
+            "de": "Median",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen. Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Arithmetischer Mittelwert",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen. Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte.",
+            "en": "XXX"
+        },
+        {
+            "de": "Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Standardabweichung",
+            "en": "XXX"
+        },
+        {
+            "de": "Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert.",
+            "en": "XXX"
+        },
+        {
+            "de": "Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten.",
+            "en": "XXX"
+        },
+        {
+            "de": "Multivariat - mehrere Variablen",
+            "en": "XXX"
+        },
+        {
+            "de": "t-Test",
+            "en": "XXX"
+        },
+        {
+            "de": "Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test.",
+            "en": "XXX"
+        },
+        {
+            "de": "Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander. Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte.",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig. Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen. In theoretisch gut begründeten Fällen kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken.",
+            "en": "XXX"
+        },
+        {
+            "de": "Annahmen des t-Tests:",
+            "en": "XXX"
+        },
+        {
+            "de": "ausreichend große Stichprobe (Faustregel n=30)",
+            "en": "XXX"
+        },
+        {
+            "de": "normalverteilte Daten",
+            "en": "XXX"
+        },
+        {
+            "de": "Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Einstichproben t-Test",
+            "en": "XXX"
+        },
+        {
+            "de": "Der Einstichproben t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. Da so gut wie immer die Parameter der Population unbekannt sind, muss man diese schätzen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt.",
+            "en": "XXX"
+        },
+        {
+            "de": "Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test",
+            "en": "XXX"
+        },
+        {
+            "de": "Zweistichproben t-Test (abhängig)",
+            "en": "XXX"
+        },
+        {
+            "de": "Der abhängige t-Test ist dem Einstichproben t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.).",
+            "en": "XXX"
+        },
+        {
+            "de": "Die Berechnung ist ähnlich wie beim Einstichproben t-Test (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Zweistichproben t-Test (unabhängig)",
+            "en": "XXX"
+        },
+        {
+            "de": "Der Zweistichproben t-Test (auch unabhängiger t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Nicht-parametrische Alternative:",
+            "en": "XXX"
+        },
+        {
+            "de": "Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist)",
+            "en": "XXX"
+        },
+        {
+            "de": "Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)",
+            "en": "XXX"
+        },
+        {
+            "de": "Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Messfehler zustande kamen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative.",
+            "en": "XXX"
+        },
+        {
+            "de": "Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um 1 - (1 - alpha)",
+            "en": "XXX"
+        },
+        {
+            "de": "Anzahl Paarvergleiche",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon",
+            "en": "XXX"
+        },
+        {
+            "de": "Annahmen der ANOVA:",
+            "en": "XXX"
+        },
+        {
+            "de": "intervallskalierte Daten",
+            "en": "XXX"
+        },
+        {
+            "de": "unabhängige und zufällige Ziehung von k Stichproben",
+            "en": "XXX"
+        },
+        {
+            "de": "gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten; Crump et al., 2018)",
+            "en": "XXX"
+        },
+        {
+            "de": "Einfaktorielle ANOVA",
+            "en": "XXX"
+        },
+        {
+            "de": "Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Die Versuchspersonen der einzelnen Faktorstufen sind dabei unkorreliert, wie beim independent-samples t-Test. Die resultierende F-Statistik ergibt das Verhältnis aus erklärbarer Varianz durch die experimentelle Manipulation und der Fehlervarianz.",
+            "en": "XXX"
+        },
+        {
+            "de": "Mit einer ANOVA kann man nur herausfinden, ob mindestens eine Faktorstufe sich signifikant von mindestens einer weiteren unterscheidet. Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tests durchführen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Man kann genau einen Haupteffekt finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Gängige post-hoc Tests (Auswahl):",
+            "en": "XXX"
+        },
+        {
+            "de": "Tukey HSD Test",
+            "en": "XXX"
+        },
+        {
+            "de": "Least Significant Difference (LSD)",
+            "en": "XXX"
+        },
+        {
+            "de": "Bonferroni",
+            "en": "XXX"
+        },
+        {
+            "de": "ANOVA mit Messwiederholung",
+            "en": "XXX"
+        },
+        {
+            "de": "Eine repeated-measures ANOVA nutzt man für within-subjects Designs. Man hat eine unabhängige Variable (UV; Faktor) mit mindestens zwei bzw. drei Faktorstufen.",
+            "en": "XXX"
+        },
+        {
+            "de": "Im Gegensatz zur one-factor ANOVA sind aber die Versuchspersonen nicht unabhängig voneinander, sondern man erhebt z.B. Daten derselben Personen zu drei Messzeitpunkten und vergleicht dann sinngemäß jede Person mit sich selbst zu verschiedenen Zeitpunkten.",
+            "en": "XXX"
+        },
+        {
+            "de": "Nach wie vor werden aber nur Daten einer unabhängigen Variable erhoben, weshalb es auch hier nur Haupteffekte geben kann und noch keine Interaktionen (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Faktorielle ANOVA",
+            "en": "XXX"
+        },
+        {
+            "de": "Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man eine faktorielle ANOVA, d.h. man hat nun mehr als nur eine unabhängige Variable mit mehreren Faktorstufen. Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA analysiert werden.",
+            "en": "XXX"
+        },
+        {
+            "de": "Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden (Crump et al., 2018).",
+            "en": "XXX"
+        },
+        {
+            "de": "Lineare Regression",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch.",
+            "en": "XXX"
+        },
+        {
+            "de": "Grafisch dargestellt ist die Regressionsgerade die Linie, die die Daten am besten beschreibt, d.h. zu der die Abstände von jedem Datenpunkt eines Scatterplots aus minimal sind.",
+            "en": "XXX"
+        },
+        {
+            "de": "Diese Abstände zeigen den Messfehler an. Gäbe es keinen Messfehler, würden alle Datenpunkte auf der Regressionsgerade liegen (Crump et al., 2018; UZH, 2023).",
+            "en": "XXX"
+        },
+        {
+            "de": "Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist.",
+            "en": "XXX"
+        },
+        {
+            "de": "Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt.",
+            "en": "XXX"
+        },
+        {
+            "de": "Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren.",
+            "en": "XXX"
+        },
+        {
+            "de": "Der",
+            "en": "The"
+        },
+        {
+            "de": "Test (Kontingenzanalyse) gehört zu den nicht-parametrischen Verfahren, es wird also keine Annahme über die Verteilung der zugrundeliegenden Daten gemacht.",
+            "en": "XXX"
+        },
+        {
+            "de": "Er untersucht den Zusammenhang zweier nominal- oder ordinalskalierter Variablen, die in einer “Kreuztabelle” gegenübergestellt werden, indem beobachtete Häufigkeiten der Daten mit den erwarteten Häufigkeiten verglichen werden (nicht Mittelwerte!, s. t-Tests).",
+            "en": "XXX"
+        },
+        {
+            "de": "Test nutzt die",
+            "en": "XXX"
+        },
+        {
+            "de": "Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren.",
+            "en": "XXX"
+        },
+        {
+            "de": "Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).",
+            "en": "XXX"
+        },
+        {
+            "de": "Faktorenanalyse",
+            "en": "XXX"
+        },
+        {
+            "de": "Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse).",
+            "en": "XXX"
+        },
+        {
+            "de": "Dabei ist das Ziel, hoch korrelierende Variablen zu übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren.",
+            "en": "XXX"
+        },
+        {
+            "de": "Für eine Faktorenanalyse braucht man:",
+            "en": "XXX"
+        },
+        {
+            "de": "eine ausreichend große Stichprobe",
+            "en": "XXX"
+        },
+        {
+            "de": "ausreichend viele Variablen",
+            "en": "XXX"
+        },
+        {
+            "de": "intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)",
+            "en": "XXX"
+        },
+        {
+            "de": "Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023).",
+            "en": "XXX"
+        },
+        {
+            "de": "Übersicht der gängigen Statistiken",
+            "en": "XXX"
+        },
+        {
+            "de": "Literatur",
+            "en": "XXX"
+        },
+        {
+            "de": "Logistische Regression",
+            "en": "Logistic Regression"
+        },
+        {
+            "de": "Prädiktor (x)",
+            "en": "Predictor (x)"
+        },
+        {
+            "de": "Wahrscheinlichkeit (y)",
+            "en": "Probability (y)"
         }
     ]
 }
