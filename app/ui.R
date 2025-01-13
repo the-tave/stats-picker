@@ -104,9 +104,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                          choices = c("keins", "intervall", "ordinal", "nominal")),
                              radioButtons("statstype",
                                           "Was hast du vor?"|>i18n$t(),
-                                          choices = c("Statistik rechnen", 
-                                                      "Visualisierung", 
-                                                      "Döner mit alles")), # TO DO: integrate function as described in i18n GitHub issue to translate choices
+                                          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")), # TO DO: integrate function 
                            ), #### close sidebarPanel()
                            # Explain App and show the actual output
                            mainPanel(
