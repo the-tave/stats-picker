@@ -1,0 +1,767 @@
+{
+    "cultural_date_format": "%d-%m-%Y",
+    "languages": ["de", "en"],
+    "translation": [
+        {
+            "de": "Sprache ändern",
+            "en": "Change language"
+        },
+        {
+            "de": "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.",
+            "en": "With this tool you can find exactly which statistics you need for your project."
+        },
+        {
+            "de": "Erst musst du angeben, welche Skalenniveaus deine Variablen haben.",
+            "en": "First you need to specify the scale levels of your variables."
+        },
+        {
+            "de": "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können.",
+            "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized."
+        },
+        {
+            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
+            "en": "If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
+        },
+        
+        {
+            "de": "Beispieldaten mit Zentralmaß",
+            "en": "Example Data with central tendency"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 1?",
+            "en": "What scale level applies to variable 1?"
+        },
+        {
+            "de": "Welches Skalenniveau hat Variable 2?",
+            "en": "What scale level applies to variable 2?"
+        },
+        {
+            "de": "keins",
+            "en": "none"
+        },
+        {
+            "de": "intervall",
+            "en": "interval"
+        },
+        {
+            "de": "ordinal",
+            "en": "ordinal"
+        },
+        {
+            "de": "nominal",
+            "en": "nominal"
+        },
+        {
+            "de": "Was hast du vor?",
+            "en": "What do you want to achieve?"
+        },
+        {
+            "de": "Statistik rechnen",
+            "en": "Calculate statistic"
+        },
+        {
+            "de": "Visualisierung",
+            "en": "Visualization"
+        },
+        {
+            "de": "Döner mit alles",
+            "en": "Everything everywhere all at once"
+        },
+        {
+            "de": "Erklärung",
+            "en": "Explanation"
+        },
+
+
+
+
+
+        {
+            "de": "Simulationen",
+            "en": "Simulations"
+        },
+        {
+            "de": "Verteilung: Würfel",
+            "en": "Distribution: Dice"
+        },
+        {
+            "de": "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?",
+            "en": "Throw one or more 6-sided dice digitally as many times as you like. How will the results be distributed? What do you expect to happen when you roll multiple dice (summing the faces) – will the distribution change?"
+        },
+        {
+            "de": "Wie oft möchtest du würfeln?",
+            "en": "How often would you like to roll?"
+        },
+        {
+            "de": "Wie viele Würfel möchtest du werfen?",
+            "en": "How many dice would you like to throw?"
+        },
+        {
+            "de": "Verteilung: Münze",
+            "en": "Distribution: Coin toss"
+        },
+        {
+            "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
+            "en": "Here you can see the probability distribution for getting 'heads' in a coin toss. Whether the coin is fair (probability of heads p = 0.5) or biased (p ≠ 0.5) affects the distribution of the results."
+        },
+        {
+            "de": "Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!",
+            "en": "But in reality, the chance of getting 'heads' is not always exactly 50%: it can happen that 'heads' appears multiple times in a row even if the coin is fair. Try it out!"
+        },
+        {
+            "de": "Was ist die Wahrscheinlichkeit für Zahl?",
+            "en": "What is the probability of heads"
+        },
+        {
+            "de": "Wie oft möchtest du die Münze werfen?",
+            "en": "How many times would you like to toss the coin?"
+        },
+        {
+            "de": "Verteilung: Coefficient of variation",
+            "en": "Distribution: Coefficient of variation"
+        },
+        {
+            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
+            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation. Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
+        },
+        {
+            "de": "Welchen Mittelwert hat die Verteilung?",
+            "en": "What is the mean of the distribution?"
+        },
+        {
+            "de": "Was ist die Standardabweichung?",
+            "en": "What is the standard deviation?"
+        },
+        {
+            "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
+            "en": "What do t-values actually mean and how are they calculated? Enter different sample means and standard deviations and observe how that affects the distributions! Below you can then guess: What t-value will result from the sample comparison?"
+        },
+        {
+            "de": "Stichprobe 1:",
+            "en": "Sample 1:"
+        },
+        {
+            "de": "Stichprobe 2:",
+            "en": "Sample 2:"
+        },
+        {
+            "de": "Mittelwert:",
+            "en": "Mean:"
+        },
+        {
+            "de": "Standardabweichung:",
+            "en": "Standard deviation:"
+        },
+        {
+            "de": "Wie groß sind die Stichproben jeweils?",
+            "en": "How large are the samples each?"
+        },
+        {
+            "de": "Und nun rate mal: What's the T?",
+            "en": "And now take a guess: What's the T?"
+        },
+        {
+            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
+            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+        },
+        {
+            "de": "Antwort",
+            "en": "Answer"
+        },
+        {
+            "de": "Demo: Regressionsmodell",
+            "en": "Demo: Linear regression model"
+        },
+        {
+            "de": "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten.",
+            "en": "Here is a demo of the regression model and what the error term 'e' and the slope parameter 'b' mean for the distribution of the data."
+        },
+
+
+
+        {
+            "de": "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.",
+            "en": "In the menu under the University of Konstanz logo, you will find some links that might also be helpful for you. In particular, the Online R Intro is a great way to get a better 'feel' for statistics! Looking at data and working with it is important for understanding – just as important as knowing the calculations."
+        },
+        {
+            "de": "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!",
+            "en": "Therefore, under the 'Simulations' tab, you will find a collection of data simulations that, for example, show how different distributions come about. If you have ideas or requests for additional features, distributions, etc., feel free to contact me!"
+        },
+        
+        {
+            "de": "Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:",
+            "en": "To install the Stats Picker on the mobile device of you choosing, simply use the 'Add to homescreen' option in your browser: "
+        },
+        {
+            "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!",
+            "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating!"
+        },
+        {
+            "de": "Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
+            "en": "The Statistics Picker is developed as part of the dissertation project by Annika Tave Overlander, M.Sc."
+        },
+
+
+
+
+
+
+
+
+
+
+        
+
+        {
+            "de": "Intervallskalierte (oder auch: metrische) Daten sind numerisch - also Zahlen - und sind kontinuierlich. Beispielsweise Alter oder Körpergröße sind intervallskaliert.",
+            "en": "Interval-scaled (or also: metric) data are numerical – that is, numbers – and are continuous. For example, age or body size are interval-scaled."
+        },
+        {
+            "de": "Hier nutzt man meist den Mittelwert. In R geht das mit 'mean()'.",
+            "en": "Here, the mean is usually used. In R, this is done with 'mean()'."
+        },
+        {
+            "de": "Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA.",
+            "en": "For an interval-scaled variable (or multiple), that should be compared with a categorical one, the analysis of variance (ANOVA) is usually appropriate."
+        },
+        {
+            "de": "Hierbei wird die kategoriale (oridnal oder nominal) Variable genutzt um Gruppen in der intervallskalierten Variable auf Mittelwertsunterschiede zu testen. In R nutzt man meist den aov() Befehl.",
+            "en": "Here, the categorical (ordinal or nominal) variable is used to test for differences in the means of groups within the interval-scaled variable. In R, the aov() command is typically used."
+        },
+        {
+            "de": "Wenn es um einen Unterschied geht, nutzt man am besten den t-Test (in R mit t.test()).",
+            "en": "When it comes to a difference, it's best to use the t-test (in R with t.test())."
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable, nutzt man am besten den t-Test.",
+            "en": "If it's a binary variable, it's best to use the t-test."
+        },
+        {
+            "de": "Bei 2 oder mehr intervallsaklierten Variablen hat man den meisten Spielraum bei der Auswahl an Statistiken und Modellen. Möchte man den Zusammenhang zweier Variablen herausfinden, nutzt man vor allem Korrelationen (in R mit cor()) oder die lineare Regression (in R mit lm()).",
+            "en": "With 2 or more interval-scaled variables, you have the most freedom in selecting statistics and models. If you want to find the relationship between two variables, correlations (in R with cor()) or linear regression (in R with lm()) are mostly used."
+        },
+        {
+            "de": "Handelt es sich um eine binäre Variable eignet sich auch die Logistische Regression oder Punktbiseriale Korrelation.",
+            "en": "If it's a binary variable, logistic regression or point-biserial correlation are also suitable."
+        },
+        {
+            "de": "Ordinal sind Daten, bei denen die zugeordneten Zahlen zwar eine echte Reihenfolge, aber keine gleichen Abstände abbilden, z.B. bei einer Skala von 'doof' bis 'super' (1 bis 5).",
+            "en": "Ordinal data are those where the assigned numbers reflect a true order, but not equal intervals, e.g. on a scale from 'stupid' to 'great' (1 to 5)."
+        },
+        {
+            "de": "Hier nutzt man zum Beispiel den Median. In R geht das mit 'median()'.",
+            "en": "Here, for example, the median is used. In R, this is done with 'median()'."
+        },
+        {
+            "de": "Bei einer ordinalen und einer nominalen Variable kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "With an ordinal and a nominal variable, you can represent the frequencies of value combinations of both variables in a contingency table, just as you would with two ordinal variables."
+        },
+        {
+            "de": "Anschließend kannst du einen Chi-Quadrat-Test durchführen, um zu prüfen, ob ein statistisch signifikanter Zusammenhang zwischen den Variablen besteht. In R geht das mit 'chisq.test()'.",
+            "en": "You can then perform a chi-squared test to check if there is a statistically significant relationship between the variables. In R, this is done with 'chisq.test()'."
+        },
+        {
+            "de": "Bei zwei ordinalskalierten Variablen wird die Reihenfolge der Werte berücksichtigt, ohne von einem festen Abstand zwischen den Kategorien auszugehen. Man nutzt dafür unter anderem den Spearman-Rangkorrelationskoeffizienten, welcher misst, wie stark die Rangordnung der Werte in beiden Variablen zusammenhängt.",
+            "en": "With two ordinal variables, the order of values is considered without assuming a fixed distance between categories. For this, the Spearman rank correlation coefficient is used, which measures how strongly the rankings of values in both variables are related."
+        },
+        {
+            "de": "Mit einer Kontingenztabelle kannst du die Häufigkeiten der Wertekombination beider Variablen darstellen.",
+            "en": "With a contingency table, you can represent the frequencies of value combinations of both variables."
+        },
+        {
+            "de": "Wenn du die Rangordnung der ordinalen Variable in den Kategorien der nominalen Variable bewerten möchtest, kannst du Kendall's Tau verwenden. Dieser Test ist eine Alternative zum Chi-Quadrat-Test und eignet sich gut, wenn du auch die Ranginformationen berücksichtigen willst.",
+            "en": "If you want to assess the ranking of the ordinal variable within the categories of the nominal variable, you can use Kendall's Tau. This test is an alternative to the chi-squared test and is useful if you want to consider the ranking information."
+        },
+        {
+            "de": "Wenn du zwei nominale Variablen analysieren möchtest, kannst du wie bei zwei ordinalen in einer Kontingenztabelle die Häufigkeiten der Wertekombinationen beider Variablen darstellen.",
+            "en": "If you want to analyze two nominal variables, you can represent the frequencies of value combinations of both variables in a contingency table, just as you would with two ordinal variables."
+        },
+        {
+            "de": "Wenn dich die Stärke des Zusammenhangs interessiert, kannst du Cramérs V berechnen. Dieser Koeffizient gibt dir einen Wert zwischen 0 (kein Zusammenhang) und 1 (perfekter Zusammenhang) - du erhälst ihn in R z.B. mit dem Befehl 'vcd::assocstats()' (Funktion namens assocstats aus dem package vcd).",
+            "en": "If you're interested in the strength of the relationship, you can calculate Cramér's V. This coefficient gives you a value between 0 (no relationship) and 1 (perfect relationship) – you can obtain it in R with the command 'vcd::assocstats()' (function called assocstats from the vcd package)."
+        },
+        {
+            "de": "Hier nutzt man vor allem den Modus.",
+            "en": "Here, the mode is mainly used."
+        },
+        {
+            "de": "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR.",
+            "en": "In R, this can be done with getmode() from the package wobblynameR."
+        },
+
+        
+        {
+            "de": " Daten: ",
+            "en": " Data: "
+        },
+        {
+            "de": "Mittelwert: ",
+            "en": "Mean: "
+        },
+        {
+            "de": "Median: ",
+            "en": "Median: "
+        },
+        {
+            "de": "Modus: ",
+            "en": "Mode: "
+        },
+
+        {
+            "de": "Daten",
+            "en": "Data"
+        },
+
+        {
+            "de": "Zwei intervallskalierte Variablen",
+            "en": "Two interval scaled variables"
+        },
+        {
+            "de": "Anzahl",
+            "en": "Count"
+        },
+
+
+
+
+
+        {
+            "de": "Anzahl Würfe darf nicht größer als 1000 sein.",
+            "en": "The number of rolls cannot exceed 1000."
+        },
+        {
+            "de": "Anzahl Würfel darf nicht größer als 10 sein.",
+            "en": "The number of dice cannot exceed 10."
+        },
+        {
+            "de": "Augenanzahl",
+            "en": "Face value"
+        },
+        {
+            "de": "Häufigkeit",
+            "en": "Frequency"
+        },
+        {
+            "de": "Würfel",
+            "en": "Dice"
+        },
+        {
+            "de": " Wurf mit ",
+            "en": " Roll with  "
+        },
+        {
+            "de": " Würfe mit ",
+            "en": " Rolls with  "
+        },
+        {
+            "de": " Würfel",
+            "en": " die"
+        },
+        {
+            "de": " Würfeln",
+            "en": " dice"
+        },
+        {
+            "de": "Anzahl Münzen darf nicht größer als 1000 sein.",
+            "en": "The number of coins cannot exceed 1000."
+        },
+        {
+            "de": "Häufigkeit 'Zahl'",
+            "en": "Frequency 'Heads'"
+        },
+        {
+            "de": "Wahrscheinlichkeit 'Zahl'",
+            "en": "Probability 'Heads'"
+        },
+        {
+            "de": "Münze",
+            "en": "Coin"
+        },
+
+        {
+            "de": "Werteverteilung",
+            "en": "Distribution of values"
+        },
+
+        {
+            "de": "Der echte T-Wert ist ",
+            "en": "The true T-value is "
+        },
+        {
+            "de": ", das heißt dein geratener Wert weicht um ",
+            "en": ", meaning the value you guessed deviates by "
+        },
+        {
+            "de": " davon ab.",
+            "en": " from it."
+        },
+        {
+            "de": "Du kriegst schon noch ein Gefühl dafür!",
+            "en": "You'll get a feel for it soon!"
+        },
+        {
+            "de": "Super, das war schon nah dran!",
+            "en": "Great, that was really close!"
+        },
+
+
+
+        
+        {
+            "de": "Skalenniveaus",
+            "en": "Scale Levels"
+        },
+        {
+            "de": "Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen.",
+            "en": "The most important factor in selecting the correct statistical method is knowing the scale level of your variables."
+        },
+        {
+            "de": "Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:",
+            "en": "Therefore, here is a simple decision aid to help you determine the scale level of a variable:"
+        },
+        {
+            "de": "Univariat - eine Variable",
+            "en": "Univariate - one variable"
+        },
+        {
+            "de": "Modus",
+            "en": "Mode"
+        },
+        {
+            "de": "Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung).",
+            "en": "For data that are at least nominally scaled (i.e., categorical), the mode can be calculated. The mode as a measure of central tendency is the value that the variable most frequently takes (e.g., the local maximum of a normal distribution)."
+        },
+        {
+            "de": "Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt",
+            "en": "The mode is not distorted by extreme values or outliers, unlike the mean (for metric data)"
+        },
+        {
+            "de": "Median",
+            "en": "Median"
+        },
+        {
+            "de": "Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen. Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen.",
+            "en": "For data that are at least ordinally scaled (categorical with order), the median can be calculated. The median as a measure of central tendency is the point in the distribution above or below which 50% of the data lie."
+        },
+        {
+            "de": "Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt (Crump et al., 2018).",
+            "en": "The median is not distorted by extreme values or outliers, unlike the mean (Crump et al., 2018)."
+        },
+        {
+            "de": "Arithmetischer Mittelwert",
+            "en": "Mean"
+        },
+        {
+            "de": "Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen. Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte.",
+            "en": "For data that are at least interval-scaled (i.e., metric), the arithmetic mean (average) can be calculated. The mean as a measure of central tendency is the sum of all values the variable has taken, divided by the number of those values."
+        },
+        {
+            "de": "Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018).",
+            "en": "Caution: The mean is distorted by extreme values or outliers. In the case of highly skewed distributions, the median might be a better measure of central tendency (Crump et al., 2018)."
+        },
+        {
+            "de": "Standardabweichung",
+            "en": "Standard Deviation"
+        },
+        {
+            "de": "Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert.",
+            "en": "The standard deviation is a measure of dispersion, indicating how much the data spread around the mean. The greater the variation in values, the larger the standard deviation. It is the square root of the variance of a variable and thus requires the same scale level as the mean."
+        },
+        {
+            "de": "Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten.",
+            "en": "Within the first standard deviations above and below the mean of a normal distribution, approximately 68% of the data lie. Within the first two standard deviations above and below the mean of a normal distribution, more than 95% of the data lie."
+        },
+        {
+            "de": "Multivariat - mehrere Variablen",
+            "en": "Multivariate - multiple variables"
+        },
+        {
+            "de": "t-Test",
+            "en": "t-Test"
+        },
+        {
+            "de": "Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test.",
+            "en": "In general, the t-test compares means using a t-distributed statistic, making it a parametric test."
+        },
+        {
+            "de": "Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander. Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte.",
+            "en": "Depending on the data situation and research question, one can test a sample against a reference value or compare two sample means against each other. This means you have two variables that are at least interval-scaled, which you want to compare."
+        },
+        {
+            "de": "Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig. Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen. In theoretisch gut begründeten Fällen kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken.",
+            "en": "For a directional hypothesis, the test is one-sided; for a non-directional hypothesis, the test is two-sided. If you are unsure about the direction of the expected effect, it is worth testing two-sided. In theoretically well-founded cases, a one-sided test can be used; this increases the probability of detecting an effect."
+        },
+        {
+            "de": "Annahmen des t-Tests:",
+            "en": "Assumptions of the t-test:"
+        },
+        {
+            "de": "ausreichend große Stichprobe (Faustregel n=30)",
+            "en": "sufficiently large sample size (rule of thumb n=30)"
+        },
+        {
+            "de": "normalverteilte Daten",
+            "en": "normally distributed data"
+        },
+        {
+            "de": "Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018).",
+            "en": "If the assumptions are violated, non-parametric alternatives to the respective t-test can be used (Crump et al., 2018)."
+        },
+        {
+            "de": "Einstichproben t-Test",
+            "en": "One-sample t-test"
+        },
+        {
+            "de": "Der Einstichproben t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen.",
+            "en": "The one-sample t-test compares a sample mean with an estimated or fixed population mean to see if the sample is likely to come from this population or from another."
+        },
+        {
+            "de": "Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. Da so gut wie immer die Parameter der Population unbekannt sind, muss man diese schätzen.",
+            "en": "For this, you need the mean and standard deviation of the sample and the population, as well as the standard error of the sampling distribution. Since population parameters are almost always unknown, these must be estimated."
+        },
+        {
+            "de": "Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt.",
+            "en": "If the t-test is significant, there is a deviation between the sample and the population that is unlikely to have occurred by chance. If it is not significant, it is assumed that the sample comes from the population."
+        },
+        {
+            "de": "Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test",
+            "en": "Non-parametric alternative: Wilcoxon Signed-Rank Test"
+        },
+        {
+            "de": "Zweistichproben t-Test (abhängig)",
+            "en": "Two-sample t-test (dependent)"
+        },
+        {
+            "de": "Der abhängige t-Test ist dem Einstichproben t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.).",
+            "en": "The dependent t-test is very similar to the one-sample t-test. It is commonly used for within-subjects experiments (e.g., comparing a person’s memory performance before and after training) or when participants from two groups are paired (e.g., twins, couples, etc.)."
+        },
+        {
+            "de": "Die Berechnung ist ähnlich wie beim Einstichproben t-Test (Crump et al., 2018).",
+            "en": "The calculation is similar to the one-sample t-test (Crump et al., 2018)."
+        },
+        {
+            "de": "Zweistichproben t-Test (unabhängig)",
+            "en": "Two-sample t-test (independent)"
+        },
+        {
+            "de": "Der Zweistichproben t-Test (auch unabhängiger t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt (Crump et al., 2018).",
+            "en": "The two-sample t-test (or independent t-test) is used for between-subjects experiments (e.g., comparing the means of two groups that received different treatments; Crump et al., 2018)."
+        },
+        {
+            "de": "Nicht-parametrische Alternative:",
+            "en": "Non-parametric alternative:"
+        },
+        {
+            "de": "Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist)",
+            "en": "Welch's test (if the assumption of variance homogeneity for the two independent groups is violated)"
+        },
+        {
+            "de": "Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)",
+            "en": "Mann-Whitney U test (if the assumption of normality is violated; variable can be ordinally scaled)"
+        },
+        {
+            "de": "Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Zufall oder Messfehler zustande kamen.",
+            "en": "The analysis of variance (ANOVA) structurally resembles t-tests. The F-statistic used in an ANOVA is a squared t-statistic. ANOVA is used to determine whether mean differences found between more than two groups are statistically significant or occurred due to chance or measurement error."
+        },
+        {
+            "de": "Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative.",
+            "en": "This is useful, for example, when there are more than two experimental conditions to be compared. Simply conducting multiple t-tests would increase the probability of a Type I error and is therefore not a sensible alternative."
+        },
+        {
+            "de": "Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um 1 - (1 - alpha)",
+            "en": "The probability of obtaining at least one significant test result increases with the number of pairwise comparisons by 1 - (1 - alpha)"
+        },
+        {
+            "de": "Anzahl Paarvergleiche",
+            "en": "Number of pairwise comparisons"
+        },
+        {
+            "de": "Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon",
+            "en": "With four groups (= six pairwise comparisons), the probability of a false-positive result would no longer be 5%, but already"
+        },
+        {
+            "de": "Annahmen der ANOVA:",
+            "en": "Assumptions of ANOVA"
+        },
+        {
+            "de": "intervallskalierte Daten",
+            "en": "interval-scaled data"
+        },
+        {
+            "de": "unabhängige und zufällige Ziehung von k Stichproben",
+            "en": "independent and random sampling of k samples"
+        },
+        {
+            "de": "gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten; Crump et al., 2018)",
+            "en": "equal size of the k samples (or normal distribution of the data and homogeneity of variances for the k samples must be given; Crump et al., 2018)"
+        },
+        {
+            "de": "Einfaktorielle ANOVA",
+            "en": "One-way ANOVA"
+        },
+        {
+            "de": "Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen.",
+            "en": "A one-way ANOVA is used when you have one independent variable (IV; factor) with at least two factor levels (preferably at least three, otherwise a t-test could also be used). Essentially, you are comparing the means of the factor levels, but you take a 'detour' through the variances."
+        },
+        {
+            "de": "Die Versuchspersonen der einzelnen Faktorstufen sind dabei unkorreliert, wie beim independent-samples t-Test. Die resultierende F-Statistik ergibt das Verhältnis aus erklärbarer Varianz durch die experimentelle Manipulation und der Fehlervarianz.",
+            "en": "The participants in the different factor levels need to be uncorrelated, as in the independent-samples t-test. The resulting F-statistic represents the ratio of the explained variance due to the experimental manipulation to the error variance."
+        },
+        {
+            "de": "Mit einer ANOVA kann man nur herausfinden, ob mindestens eine Faktorstufe sich signifikant von mindestens einer weiteren unterscheidet. Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tests durchführen.",
+            "en": "An ANOVA can only determine if at least one factor level differs significantly from at least one other. To determine which factor levels differ, post-hoc tests must be conducted."
+        },
+        {
+            "de": "Man kann genau einen Haupteffekt finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen (Crump et al., 2018).",
+            "en": "You can find exactly one main effect because there is only one factor. To uncover potential interactions, data from at least two independent variables are required (Crump et al., 2018)."
+        },
+        {
+            "de": "Gängige post-hoc Tests (Auswahl):",
+            "en": "Common post-hoc tests (selection):"
+        },
+        {
+            "de": "Tukey HSD Test",
+            "en": "Tukey HSD Test"
+        },
+        {
+            "de": "Least Significant Difference (LSD)",
+            "en": "Least Significant Difference (LSD)"
+        },
+        {
+            "de": "Bonferroni",
+            "en": "Bonferroni"
+        },
+        {
+            "de": "ANOVA mit Messwiederholung",
+            "en": "Repeated-measures ANOVA"
+        },
+        {
+            "de": "Eine repeated-measures ANOVA nutzt man für within-subjects Designs. Man hat eine unabhängige Variable (UV; Faktor) mit mindestens zwei bzw. drei Faktorstufen.",
+            "en": "A repeated-measures ANOVA is used for within-subjects designs. You have one independent variable (IV; factor) with at least two or three factor levels."
+        },
+        {
+            "de": "Im Gegensatz zur one-factor ANOVA sind aber die Versuchspersonen nicht unabhängig voneinander, sondern man erhebt z.B. Daten derselben Personen zu drei Messzeitpunkten und vergleicht dann sinngemäß jede Person mit sich selbst zu verschiedenen Zeitpunkten.",
+            "en": "In contrast to the one-factor ANOVA, the participants are not independent from each other, but for example, data from the same individuals are collected at three time points and each person is compared with themselves at different times."
+        },
+        {
+            "de": "Nach wie vor werden aber nur Daten einer unabhängigen Variable erhoben, weshalb es auch hier nur Haupteffekte geben kann und noch keine Interaktionen (Crump et al., 2018).",
+            "en": "Still, only data from one independent variable are collected, which means that only main effects can be found and no interactions yet (Crump et al., 2018)."
+        },
+        {
+            "de": "Faktorielle ANOVA",
+            "en": "Factorial ANOVA"
+        },
+        {
+            "de": "Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man eine faktorielle ANOVA, d.h. man hat nun mehr als nur eine unabhängige Variable mit mehreren Faktorstufen. Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA analysiert werden.",
+            "en": "To find interactions between two (or more) factors, a factorial ANOVA is needed, meaning you have more than one independent variable with several factor levels. Popular research designs using a factorial ANOVA include 2x2 designs (two independent variables, each with two factor levels) or 2x3 designs (two independent variables, one with two and one with three factor levels)."
+        },
+        {
+            "de": "Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden (Crump et al., 2018).",
+            "en": "Factorial ANOVAs allow for measuring main effects and interaction effects of the factors on the dependent variable, and can be used for both within- and between-subjects experiments (Crump et al., 2018)."
+        },
+        {
+            "de": "Lineare Regression",
+            "en": "Linear Regression"
+        },
+        {
+            "de": "Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch.",
+            "en": "In linear regression, the goal is to predict a dependent variable using one or more independent variables (predictors). Both the independent variables and the dependent variable are metric."
+        },
+        {
+            "de": "Grafisch dargestellt ist die Regressionsgerade die Linie, die die Daten am besten beschreibt, d.h. zu der die Abstände von jedem Datenpunkt eines Scatterplots aus minimal sind.",
+            "en": "Graphically, the regression line is the line that best describes the data, meaning the distances from each data point in a scatter plot to the line are minimal."
+        },
+        {
+            "de": "Diese Abstände zeigen den Messfehler an. Gäbe es keinen Messfehler, würden alle Datenpunkte auf der Regressionsgerade liegen (Crump et al., 2018; UZH, 2023).",
+            "en": "These distances indicate the measurement error. If there were no measurement error, all data points would lie on the regression line (Crump et al., 2018; UZH, 2023)."
+        },
+        {
+            "de": "Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist.",
+            "en": "Logistic regression is a statistical model used to predict the probability of a specific outcome when the dependent variable is binary (e.g., Yes/No, Success/Failure)."
+        },
+        {
+            "de": "Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt.",
+            "en": "In contrast to linear regression, which predicts a continuous variable, logistic regression predicts the probability of an event occurring, which lies between 0 and 1."
+        },
+        {
+            "de": "Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren.",
+            "en": "Logistic regression uses the logit function to model the relationship between the independent variables (predictors) and the probability of the occurrence of a specific event."
+        },
+        {
+            "de": "Der",
+            "en": "The"
+        },
+        {
+            "de": "Test (Kontingenzanalyse) gehört zu den nicht-parametrischen Verfahren, es wird also keine Annahme über die Verteilung der zugrundeliegenden Daten gemacht.",
+            "en": "test (contingency analysis) is part of non-parametric methods, meaning no assumptions are made about the distribution of the underlying data."
+        },
+        {
+            "de": "Er untersucht den Zusammenhang zweier nominal- oder ordinalskalierter Variablen, die in einer “Kreuztabelle” gegenübergestellt werden, indem beobachtete Häufigkeiten der Daten mit den erwarteten Häufigkeiten verglichen werden (nicht Mittelwerte!, s. t-Tests).",
+            "en": "It examines the relationship between two nominal or ordinal variables presented in a 'contingency table,' comparing observed frequencies with expected frequencies (not means, see t-tests)."
+        },
+        {
+            "de": "Test nutzt die",
+            "en": "test uses the"
+        },
+        {
+            "de": "Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren.",
+            "en": "statistic, otherwise the significance testing works analogously to the previously mentioned methods."
+        },
+        {
+            "de": "Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).",
+            "en": "tests can be applied to both unidimensional and multidimensional relationships (Lowry, 1998; UZH, 2023)."
+        },
+        {
+            "de": "Faktorenanalyse",
+            "en": "Factor Analysis"
+        },
+        {
+            "de": "Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse).",
+            "en": "Factor analyses are interdependence analyses. They are used to discover structures in the data (exploratory factor analysis) or confirm expected structures (confirmatory factor analysis)."
+        },
+        {
+            "de": "Dabei ist das Ziel, hoch korrelierende Variablen zu übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren.",
+            "en": "The goal is to summarize highly correlated variables into higher-order factors. Those factors found should correlate as little as possible with each other."
+        },
+        {
+            "de": "Für eine Faktorenanalyse braucht man:",
+            "en": "For factor analysis, you need:"
+        },
+        {
+            "de": "eine ausreichend große Stichprobe",
+            "en": "a sufficiently large sample"
+        },
+        {
+            "de": "ausreichend viele Variablen",
+            "en": "a sufficient number of variables"
+        },
+        {
+            "de": "intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)",
+            "en": "interval-scaled variables (although ordinal-scaled variables are often used)."
+        },
+        {
+            "de": "Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023).",
+            "en": "For exploratory factor analyses (EFA), you do not have hypotheses about the structure to be tested, unlike in confirmatory factor analysis (CFA), which is a structure-testing method (UZH, 2023)."
+        },
+        {
+            "de": "Übersicht der gängigen Statistiken",
+            "en": "Overview of common statistics"
+        },
+        {
+            "de": "Literatur",
+            "en": "Literature"
+        },
+        {
+            "de": "Logistische Regression",
+            "en": "Logistic Regression"
+        },
+        {
+            "de": "Prädiktor (x)",
+            "en": "Predictor (x)"
+        },
+        {
+            "de": "Wahrscheinlichkeit (y)",
+            "en": "Probability (y)"
+        }
+    ]
+}

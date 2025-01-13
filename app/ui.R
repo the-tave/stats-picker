@@ -20,7 +20,7 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 # rmarkdown::render("./www/StatistikPicker.Rmd")
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation_complete.json")
+i18n <- Translator$new(translation_json_path="../translations/translation_withDeepDive.json")
 
 i18n$set_translation_language("de") #en
 
@@ -86,10 +86,13 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                title = "Statistik Picker",
                                output = "www", icon = "www/icon_Stats-Picker_logo.png",
                                color = "#e85620"),
-                           i18n$t("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst. Erst musst du angeben, welche Skalenniveaus deine Variablen haben."),
+                           i18n$t("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst."),
+                           tags$br(),
+                           tags$b(i18n$t("Erst musst du angeben, welche Skalenniveaus deine Variablen haben.")),
                            i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."),
                            tags$br(),
                            i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!"),
+                           tags$br(), tags$br(),
                            
                            # Sidebar with all the inputs by users
                            sidebarPanel(
@@ -138,7 +141,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
                            tags$br(),
                            i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
-                           tags$br(),
+                           tags$br(), tags$br(),
                            tags$img(src="./img/Scales_of_Measurement.png", width = '90%'),
                            tags$br(),
                            
@@ -213,7 +216,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ),
                            
                            h3("ANOVA"),
-                           i18n$t("Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Messfehler zustande kamen."),
+                           i18n$t("Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Zufall oder Messfehler zustande kamen."),
                            tags$br(),
                            i18n$t("Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative."),
                            tags$br(),
@@ -271,6 +274,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            i18n$t("Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt."),
                            tags$br(),
                            i18n$t("Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren."),
+                           tags$br(),
                            plotOutput("dd_logregplot", width = '60%'),
                            
                            h3("Chi", tags$sup("2")),
@@ -551,17 +555,25 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            
                   ),### close tabPanel("Simulations")
                   tabPanel("About", icon = icon("code-merge"),
-                           i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
-                           tags$br(),
                            i18n$t("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."),
-                           tags$br(),
-                           i18n$t("Daher findest du unter dem Tab Simulationen eine kleine (wachsende) Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
+                           tags$br(), tags$br(),
+                           i18n$t("Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
                            # tags$a("Mail an Tave", href = "mailto:overlander@uni-konstanz.de"),
                            tags$br(), tags$br(),
-                           tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "Mail"),
+                           tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "E-Mail"),
                            tags$br(),
                            tags$hr(),
-                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!")
+                           
+                           tags$br(),
+                           i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
+                           tags$br(),
+                           
+                           tags$img(src = "./img/install_pwa.png", width = "35%"),
+                           
+                           tags$hr(),
+                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
+                           tags$br(), tags$br(),
+                           i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.")
                            
                   ),  ### close tabPanel("About")
                   nav_spacer(),

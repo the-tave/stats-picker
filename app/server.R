@@ -1,7 +1,7 @@
 library(shiny)
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation_complete.json")
+i18n <- Translator$new(translation_json_path="../translations/translation_withDeepDive.json")
 
 # Define some default variables
 set.seed(123)
@@ -442,8 +442,8 @@ function(input, output, session) {
     ggplot(reg, aes(x = X, y = Y)) +
       geom_jitter() +
       geom_smooth(formula = 'y ~x', method = lm, se = FALSE, color = "#8C2D04") +
-      geom_vline(xintercept = mean(data$X), color = "#fd8d3c") +
-      geom_hline(yintercept = mean(data$Y), color = "#e95420") +
+      geom_vline(xintercept = mean(reg$X), color = "#fd8d3c") +
+      geom_hline(yintercept = mean(reg$Y), color = "#e95420") +
       theme_minimal() +
       theme(axis.title.x = element_text(color = "#fd8d3c", size = 12),
             axis.title.y = element_text(color = "#e95420", size = 12))
@@ -462,7 +462,7 @@ function(input, output, session) {
     ggplot(data, aes(x = x, y = y)) +
       geom_point(alpha = 0.5) +
       geom_smooth(method = "glm", formula = 'y ~ x', method.args = list(family = "binomial"), color = "#fd8d3c") +
-      labs(title = "Logistische Regression"|>i18n$t(), 
+      labs(# title = "Logistische Regression"|>i18n$t(), 
            x = "Prädiktor (x)"|>i18n$t(), 
            y = "Wahrscheinlichkeit (y)"|>i18n$t()) +
       theme_minimal()
