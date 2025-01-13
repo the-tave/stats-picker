@@ -8,7 +8,7 @@ csl: apa.csl
 ## Skalenniveaus
 
 Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen.
-Dahert findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:
+Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:
 
 ```{r echo = F, out.width='100%'}
 knitr::include_graphics("./img/Scales_of_Measurement.png")
