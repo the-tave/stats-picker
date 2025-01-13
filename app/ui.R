@@ -20,7 +20,7 @@ pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base e
 # rmarkdown::render("./www/StatistikPicker.Rmd")
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation_withDeepDive.json")
+i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
 
 i18n$set_translation_language("de") #en
 

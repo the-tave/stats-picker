@@ -1,7 +1,7 @@
 library(shiny)
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation_withDeepDive.json")
+i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
 
 # Define some default variables
 set.seed(123)
