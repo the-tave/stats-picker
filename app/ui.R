@@ -26,7 +26,13 @@ i18n$set_translation_language("de") #en
 
 # Define UI for application 
 fluidPage(theme = shinythemes::shinytheme("united"),
-              shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
+          tags$head(
+            tags$title("Stats Picker"),
+            tags$meta(name = "description", content = "The Stats Picker helps you with statistics with explanations, examples and simulations!"),
+            tags$meta(name = "keywords", content = "Shiny, R, Data Visualization, Statistics, Teaching, Learning")
+          ),
+          
+          shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
           tags$div(
             style='float: right;
             width: 140px; 
