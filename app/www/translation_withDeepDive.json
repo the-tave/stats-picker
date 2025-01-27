@@ -71,6 +71,22 @@
             "de": "Döner mit alles",
             "en": "Everything everywhere all at once"
         },
+         {
+            "de": "Passende Statistik:",
+            "en": "Possible Statistic:"
+        },
+        {
+            "de": "t-Test, Korrelation / Regression",
+            "en": "t-test, correlation / regression"
+        },
+          {
+            "de": "Logistische Regression, t-test / ANOVA",
+            "en": "logistic regression, t-test / ANOVA"
+        },
+          {
+            "de": "Spearman-Rangkorrelationskoeffizienten / ",
+            "en": "Spearman-Rank correlation coefficient / "
+        },
         {
             "de": "Erklärung",
             "en": "Explanation"

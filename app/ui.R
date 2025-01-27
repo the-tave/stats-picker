@@ -57,6 +57,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 color: #e95420;
                                 }
                                 
+                                h5{
+                                font-weight: bold;
+                                }
+                                
                                 hr {
                                 height: 0px;
                                 border-width: 2px;
@@ -138,10 +142,17 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  htmlOutput("statsex"),
                                  htmlOutput("var2data")
                              ),
+                             
+                             h4(id = "statataglance", "Passende Statistik:"|>i18n$t()), #TO DO
+                             h5(htmlOutput("ataglanceout")),
+                             # Text Outputs
+                             # div(class = "myclass",
+                             #     htmlOutput("ataglanceout")
+                             # ),
+                             
                              h4(id = "expl_h4", "Erklärung"|>i18n$t()),
                              # Text Outputs
                              div(class = "myclass",
-                                 # verbatimTextOutput("statstypeout")
                                  htmlOutput("statstypeout")
                              ),
                              
@@ -152,6 +163,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  tableOutput("table")),
                              
                              # Plot Output
+                             h4(id = "viz_h4", "Visualisierung"|>i18n$t()),
                              plotOutput("dataViz"),
                             
                            ) #### close mainPanel()
