@@ -19,8 +19,12 @@
             "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized."
         },
         {
-            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
-            "en": "If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
+            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im ",
+            "en": "If you're unsure which scale level applies to your variables, check the "
+        },
+        {
+            "de": " Tab vorbei!",
+            "en": " tab!"
         },
         
         {

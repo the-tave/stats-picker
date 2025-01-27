@@ -57,6 +57,13 @@ function(input, output, session) {
   })
   
  
+  # Update navbar page for internal links???
+  observeEvent(input$controller, {
+    updateNavbarPage(session, "stats",
+                      selected = "deep-dive"
+    )
+  })
+  
   
   
   # Home: Output ----
@@ -442,7 +449,7 @@ function(input, output, session) {
     normal <- data.frame(x = rnorm(10000, mean = 100, sd = 15),
                          dummy = 1)
     
-    ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
+    ggplot(normal, aes(x = x, y = dummy, fill = factor(after_stat(quantile)))) +
       stat_density_ridges(
         geom = "density_ridges_gradient",
         calc_ecdf = TRUE,

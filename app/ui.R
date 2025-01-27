@@ -11,13 +11,8 @@ library(shiny.pwa)
 library(shiny.i18n) # for translations
 library(jsonlite)
 
-# library(knitr)
+# pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
 
-pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base envir coz everything else is just a PITA
-
-# Commented out for faster processing!
-# rmarkdown::render("./www/deep-dive.Rmd")
-# rmarkdown::render("./www/StatistikPicker.Rmd")
 
 # file with translations
 i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
@@ -48,10 +43,30 @@ fluidPage(theme = shinythemes::shinytheme("united"),
           ), # Add translation option 
                 useShinyjs(),
                 tags$style(HTML("
+                                @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+                                h2 {
+                                      font-family: 'Yusei Magic', sans-serif;
+                                      color: #42403f; 
+                                    }
+                                h3 {
+                                      font-family: 'Yusei Magic', sans-serif;
+                                      color: #fd8d3c; 
+                                    }
+                                h4{ 
+                                font-family: 'Yusei Magic', sans-serif;
+                                color: #e95420;
+                                }
+                                
+                                hr {
+                                height: 0px;
+                                border-width: 2px;
+                                border-color: #943313;
+                                border: inset;
+                                }
+      
+                
                                 .myclass {
-                                  color: #333;
                                   background-color: #ffffff;
-                                  font-family: Ubuntu;
                                   border: 0px !important;
                                   
                                   word-break: break-word;
@@ -83,11 +98,12 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  
                                 ")
                 ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
-                navbarPage(position = "fixed-top", collapsible = TRUE,
-                  div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
+                navbarPage(position = "fixed-top", collapsible = TRUE, id = "stats",
+                  title = div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
                   
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
+                           value = "home", #added to make tabs in tabPanel linkable?!
                            pwa("https://the-tave.shinyapps.io/Statistik-Picker/", 
                                title = "Statistik Picker",
                                output = "www", icon = "www/icon_Stats-Picker_logo.png",
@@ -97,7 +113,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$b(i18n$t("Erst musst du angeben, welche Skalenniveaus deine Variablen haben.")),
                            i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."),
                            tags$br(),
-                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!"),
+                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im "),
+                           actionButton("controller", "Deep Dive", style = "padding:3px;"), 
+                           tags$p(i18n$t(" Tab vorbei!"), style = "display:inline-block;"),
+                           
                            tags$br(), tags$br(),
                            
                            # Sidebar with all the inputs by users
@@ -134,13 +153,12 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              
                              # Plot Output
                              plotOutput("dataViz"),
-                             
-                             #4 Make the final row bold using tags$style
-                             # tags$style(type="text/css", "td:first-child {font-weight:bold;}")
+                            
                            ) #### close mainPanel()
                   ),  ### close tabPanel("Home", ... )
                   ### tab: Deep Dive ---- 
                   tabPanel("Deep Dive",icon = icon("circle-info"),
+                           value = "deep-dive",
                            h2("Skalenniveaus"|>i18n$t()),
                            i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
                            tags$br(),
@@ -148,6 +166,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(), tags$br(),
                            tags$img(src="./img/Scales_of_Measurement.png", width = '90%'),
                            tags$br(),
+                           
+                           tags$hr(),
                            
                            h2("Univariat - eine Variable"|>i18n$t()),
                            h3("Modus"|>i18n$t()),
@@ -176,6 +196,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            i18n$t("Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."),
                            plotOutput("dd_sdplot", width = '60%'),
                            
+                           tags$hr(),
                            
                            h2("Multivariat - mehrere Variablen"|>i18n$t()),
                            h3("t-Test"),
@@ -291,6 +312,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            p(i18n$t("Der"), "Chi", tags$sup("2"), i18n$t("Test nutzt die"), "Chi", tags$sup("2"), i18n$t("Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren."),
                              "Chi", tags$sup("2"), i18n$t("Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).")),
                            
+                           tags$hr(),
                            
                            h2("Faktorenanalyse"|>i18n$t()),
                            i18n$t("Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."),
@@ -305,6 +327,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ),
                            tags$br(),
                            i18n$t("Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."),
+                           
+                           tags$hr(),
                            
                            h2("Übersicht der gängigen Statistiken"|>i18n$t()),
                            tags$img(src="img/DeepDiveViz.png",
@@ -568,11 +592,16 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),
                            tags$hr(),
                            
-                           tags$br(),
-                           i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
-                           tags$br(),
+                           tags$div(style = "text-align: center;",
+                                    # tags$br(),
+                                    i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
+                                    tags$br(),tags$br(),
+                                    
+                                    tags$img(src = "./img/install_pwa.png", width = "35%")
+                                    ),
                            
-                           tags$img(src = "./img/install_pwa.png", width = "35%"),
+                           
+                           
                            
                            tags$hr(),
                            i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
