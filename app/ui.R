@@ -40,20 +40,22 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                 c("Deutsch", "English") # Set labels for the languages
               )
             )
-          ), # Add translation option 
+          ), # Add translation option #@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap'); #'Yusei Magic', sans-serif; # @20..48,100..700,0..1,-50..200
                 useShinyjs(),
                 tags$style(HTML("
-                                @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+                                
+                                @import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Atma:wght@300;400;500;600;700&display=swap');
+                                
                                 h2 {
-                                      font-family: 'Yusei Magic', sans-serif;
+                                      font-family: 'Atma', serif;
                                       color: #42403f; 
                                     }
                                 h3 {
-                                      font-family: 'Yusei Magic', sans-serif;
+                                      font-family: 'Atma', serif;
                                       color: #fd8d3c; 
                                     }
                                 h4{ 
-                                font-family: 'Yusei Magic', sans-serif;
+                                font-family: 'Atma', serif;
                                 color: #e95420;
                                 }
                                 
@@ -171,16 +173,38 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Deep Dive ---- 
                   tabPanel("Deep Dive",icon = icon("circle-info"),
                            value = "deep-dive",
-                           h2("Skalenniveaus"|>i18n$t()),
+                           
+                           tags$div(style="border-radius: 6px;  background-color: #fff0d9; margin-right: 130px; padding: 10px;",
+                                    i18n$t("Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige"),
+                                    # scales
+                                    i18n$t("informieren."),
+                                    tags$br(),
+                                    i18n$t("Dann findest du einige"),
+                                    # Maße für eine Variable univar
+                                    tags$br(),
+                                    i18n$t("Der größte Teil behandelt"),
+                                    # multivariate Statistik multivar
+                                    tags$br(),
+                                    i18n$t("Am Ende gibt es noch eine kleine Erklärung zur"),
+                                    # Faktoranalyse factanal
+                                    i18n$t("sowie eine")
+                                    # visuelle Zusammenfassung. summary
+                                    
+                                    ),
+                          # tags$a(href = "#multivar", "Navigate down to multivariate stats!"), #TO DO: Add Section at the beginning to explain the Deep Dive and offer easier navigation
+                           
+                           tags$section(id="scales", 
+                           h2("Skalenniveaus"|>i18n$t()),  # google icon!
                            i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
                            tags$br(),
                            i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
                            tags$br(), tags$br(),
                            tags$img(src="./img/Scales_of_Measurement.png", width = '90%'),
                            tags$br(),
-                           
+                           ),
                            tags$hr(),
                            
+                           tags$section(id="univar", 
                            h2("Univariat - eine Variable"|>i18n$t()),
                            h3("Modus"|>i18n$t()),
                            i18n$t("Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung)."),
@@ -207,9 +231,11 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),tags$br(),
                            i18n$t("Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."),
                            plotOutput("dd_sdplot", width = '60%'),
+                           ),
                            
                            tags$hr(),
                            
+                           tags$section(id="multivar", 
                            h2("Multivariat - mehrere Variablen"|>i18n$t()),
                            h3("t-Test"),
                            i18n$t("Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test."),
@@ -323,9 +349,11 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            
                            p(i18n$t("Der"), "Chi", tags$sup("2"), i18n$t("Test nutzt die"), "Chi", tags$sup("2"), i18n$t("Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren."),
                              "Chi", tags$sup("2"), i18n$t("Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).")),
+                           ),
                            
                            tags$hr(),
                            
+                          tags$section(id="factanal", 
                            h2("Faktorenanalyse"|>i18n$t()),
                            i18n$t("Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."),
                            tags$br(),
@@ -339,9 +367,11 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ),
                            tags$br(),
                            i18n$t("Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."),
-                           
+                          ),
+                          
                            tags$hr(),
                            
+                          tags$section(id="summary", 
                            h2("Übersicht der gängigen Statistiken"|>i18n$t()),
                            tags$img(src="img/DeepDiveViz.png",
                                     alt="Überblick gängiger Statistiken",
@@ -383,6 +413,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              # )
                              
                            ),
+                          ),
                            
                            
                            # fluidRow(
