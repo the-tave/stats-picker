@@ -491,7 +491,7 @@ function(input, output, session) {
         calc_ecdf = TRUE,
         quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
         bandwidth = 2.1,
-        color = "white"
+        color = "white", na.rm=TRUE
       ) +
       # geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
       scale_fill_manual(values = c("#FDD0A2", "#fd8d3c", "#e95420", "#fd8d3c", "#FDD0A2")) +
@@ -643,7 +643,15 @@ t <- reactive({
   m2 <- input$t_m2
   sd1 <- input$t_sd1
   sd2 <- input$t_sd2
-  n <- input$t_n
+  
+  if (input$t_n > 1000){
+    n <- 1000
+    showNotification("Stichprobe darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
+  } else {
+    n <- input$t_n
+  }
+  
+  
   
   t <- data.frame(x =  rnorm(n, m1, sd1),
                   y =  rnorm(n, m2, sd2))

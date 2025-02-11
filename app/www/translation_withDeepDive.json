@@ -402,7 +402,11 @@
             "de": "Werteverteilung",
             "en": "Distribution of values"
         },
-
+        
+          {
+            "de": "Stichprobe darf nicht größer als 1000 sein.",
+            "en": "The sample size cannot exceed 1000."
+        },
         {
             "de": "Der echte T-Wert ist ",
             "en": "The true T-value is "
@@ -426,11 +430,47 @@
 
 
 
-        
         {
-            "de": "Skalenniveaus",
-            "en": "Scale Levels"
+            "de": "Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige",
+            "en": "Here you can go on a deep dive about statistics! First you can read about the right"
         },
+        {
+            "de": "Skalenniveau",
+            "en": "Scale Level"
+        },
+        {
+            "de": "informieren.",
+            "en": "."
+        },
+        {
+            "de": "Dann findest du einige",
+            "en": "Then you will find several"
+        },
+        {
+            "de": "Maße für eine Variable.",
+            "en": "Univariate Statistics."
+        },
+        {
+            "de": "Der größte Teil behandelt",
+            "en": "The largest part covers"
+        },
+        {
+            "de": "Multivariate Statistik.",
+            "en": "Multivariate Statistics."
+        },
+        {
+            "de": "Am Ende gibt es noch eine kleine Erklärung zur",
+            "en": "At the end there is a small explanation on"
+        },
+        {
+            "de": "sowie eine",
+            "en": "as well as a "
+        },
+        {
+            "de": "visuelle Zusammenfassung.",
+            "en": "visual summary."
+        },
+        
         {
             "de": "Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen.",
             "en": "The most important factor in selecting the correct statistical method is knowing the scale level of your variables."
