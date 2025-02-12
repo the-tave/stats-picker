@@ -167,29 +167,16 @@ hr {
 }
 
 /* Image wrap for visual summary in DD */
-.wrap {
-  width: 85%; 
-  margin: auto; 
-  overflow: hidden;
+.left {float: left; width: 60%;}
+.right {float: left; width: 40%;}
+
+@media all and (max-width: 850px) {
+    .left, .right {float: none;}
+    
+     .right {
+    clear: left;
+  }
 }
-
-.left {float: right; height: 510px; width: 49%; background: pink;}
-.right {float: left; height: 250px; margin-bottom: 10px; width: 49%;}
-
-@media all and (max-width: 400px) {
-    .left, .right {float: none; margin-bottom: 5px; height: 200px;}
-}
-
-
-.gMapDiv {float:right; height:250px; width:49%; background:pink;}
-.inputDiv {float:left; height:200px; width:49%;background:green;}
-@media all and (max-width:400px) {
-    .gMapDiv, .inputDiv {float:none;}
-}
-
-
-
-
 
 
 
@@ -218,6 +205,4 @@ body {margin-top: 60px;}
     width: 90%;
     margin: 0 auto;
   }
-
-  
 }

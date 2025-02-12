@@ -347,21 +347,21 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            #                   )
                            #          ),
                            
-                           tags$div(
-                                    tags$div(style="float: left; background: red;",
-                                             includeHTML("minex.html")),
-                                    tags$div(class="style=float: left; background: green;",
-                                             includeHTML("minex.html"))
+                           # tags$div(style="margin: 0 auto;",
+                                    tags$div(class="left",
+                                             includeHTML("diffs.html")),
+                                    tags$div(class="right",
+                                             includeHTML("rels.html")),
                                     
                                       
-                                    ),
+                                    # ),
                              
                            
                            
                            
-                           tags$img(src="img/DeepDiveViz.png",
-                                    alt="Überblick gängiger Statistiken",
-                                    width = '90%'),
+                           # tags$img(src="img/DeepDiveViz.png",
+                           #          alt="Überblick gängiger Statistiken",
+                           #          width = '90%'),
                            
                            # draw io try
                            
@@ -377,16 +377,16 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            #     <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
                            #     '
                            # ),
-                           includeHTML("minex.html"),
+                           # includeHTML("minex.html"),
                            
                            
                            
                            
                            
+                           tags$br(),
                            
                            
-                           
-                           h2("Literatur"|>i18n$t()),
+                           h2("Literatur"|>i18n$t(), style="clear: left;"),
                            
                            tags$div(
                              style="line-height: 2; margin-left: 2em; text-indent:-2em;",
