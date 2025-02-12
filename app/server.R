@@ -57,6 +57,13 @@ function(input, output, session) {
   })
   
  
+  # Update navbar page for internal links???
+  observeEvent(input$controller, {
+    updateNavbarPage(session, "stats",
+                      selected = "deep-dive"
+    )
+  })
+  
   
   
   # Home: Output ----
@@ -72,6 +79,7 @@ function(input, output, session) {
   observe({
     # ## Show dataViz only for conditions other than pure statistics
     # shinyjs::toggle("dataViz", condition = input$statstype != "Statistik rechnen") 
+    shinyjs::toggle("viz_h4", condition = !input$statstype %in% c("Statistik rechnen", "Calculate statistic"))
     shinyjs::toggle("dataViz", condition = !input$statstype %in% c("Statistik rechnen", "Calculate statistic"))
     # ## show table for 2 vars that can't be shown well in plots
     shinyjs::toggle("table", condition = input$scale == "nominal" && input$scale2 == "nominal") #input$statstype != "Statistik rechnen" &&
@@ -81,6 +89,38 @@ function(input, output, session) {
   })
   
   
+  # Statistic at a glance
+  output$ataglanceout <- renderText(
+    switch(input$scale,
+           "intervall" = , "interval" = switch(input$scale2,
+                                               "keins" = , "none" = paste("Arithmetischer Mittelwert"|>i18n$t()), #t
+                                               
+                                               "intervall" = , "interval" = paste("t-Test, Korrelation / Regression"|>i18n$t()), #t
+                                               
+                                               "ordinal" = paste("t-test / ANOVA"), #t
+                                               
+                                               "nominal" = paste("Logistische Regression, t-test / ANOVA"|>i18n$t()) #t
+           ),
+           "ordinal" = switch(input$scale2,
+                              "keins" = , "none" =  paste("Median"), #t
+                              
+                              "intervall" = , "interval" =  paste("t-test / ANOVA"), #t
+                              
+                              "ordinal" = paste("Spearman-Rangkorrelationskoeffizienten / "|>i18n$t(), "Chi", tags$sup("2"), "Test"), 
+                              
+                              "nominal" = paste("Chi", tags$sup("2"), "Test") #t
+           ),
+           "nominal" = switch(input$scale2,
+                              "keins" = , "none" =  paste("Modus"|>i18n$t()), #t
+                              
+                              "intervall" = , "interval" =  paste("Logistische Regression, t-test / ANOVA"|>i18n$t()), #t
+                              
+                              "ordinal" = paste("Chi", tags$sup("2"), "Test"), #t
+                              
+                              "nominal" = paste("Chi", tags$sup("2"), "Test") #t
+           )
+    )
+  )
   
   ## Text generation for the first variable ----
   output$statstypeout <- renderText(
@@ -194,7 +234,8 @@ function(input, output, session) {
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten"|>i18n$t(),
-                                   title = "Visualisierung"|>i18n$t()),
+                                   #title = "Visualisierung"|>i18n$t()
+                                   ),
 
                             "ordinal" =
                               ggplot() +
@@ -207,7 +248,8 @@ function(input, output, session) {
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten"|>i18n$t(),
-                                   title = "Visualisierung"|>i18n$t()),
+                                   #title = "Visualisierung"|>i18n$t()
+                                   ),
 
                             "nominal" =
                               cowplot::plot_grid(ggplot() + #plot1
@@ -220,7 +262,8 @@ function(input, output, session) {
                                                          text=element_text(size = 14), #family="Ubuntu", 
                                                          title = element_text(size = 16, color = 'gray15')) + #family="Ubuntu", 
                                                    labs(x = "Daten"|>i18n$t(),
-                                                        title = "Visualisierung"|>i18n$t()),
+                                                        #title = "Visualisierung"|>i18n$t()
+                                                        ),
 
                                                  ggplot(new_nom, aes(x = "", y = value, fill = Daten)) + #plot2
                                                    geom_bar(stat="identity", width=1) +
@@ -247,7 +290,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung"|>i18n$t(),
+                                       #title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Zwei intervallskalierte Variablen"|>i18n$t()) +
                                   xlim(1,5) +
                                   ylim(1,7),
@@ -263,7 +306,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 2",
                                        y = "Variable 1",
-                                       title = "Visualisierung"|>i18n$t(),
+                                      # title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Ordinal & Intervall") +
                                   scale_fill_brewer(palette = 7)+
                                   scale_color_brewer(palette = 7)+
@@ -281,7 +324,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung"|>i18n$t(),
+                                      # title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Nominal & Intervall") +
                                   scale_fill_brewer(palette = 7) +
                                   scale_color_brewer(palette = 7)
@@ -301,7 +344,7 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Variable 2",
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Intervall & Ordinal") +
                                 scale_fill_brewer(palette = 7)+
                                 scale_color_brewer(palette = 7)+
@@ -335,7 +378,7 @@ function(input, output, session) {
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Anzahl"|>i18n$t(),
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -355,7 +398,7 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 2",
                                      y = "Variable 1",
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Intervall & Nominal") +
                                 scale_fill_brewer(palette = 7) +
                                 scale_color_brewer(palette = 7) +
@@ -372,7 +415,7 @@ function(input, output, session) {
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Anzahl"|>i18n$t(),
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -442,13 +485,13 @@ function(input, output, session) {
     normal <- data.frame(x = rnorm(10000, mean = 100, sd = 15),
                          dummy = 1)
     
-    ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
+    ggplot(normal, aes(x = x, y = dummy, fill = factor(after_stat(quantile)))) +
       stat_density_ridges(
         geom = "density_ridges_gradient",
         calc_ecdf = TRUE,
         quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
         bandwidth = 2.1,
-        color = "white"
+        color = "white", na.rm=TRUE
       ) +
       # geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
       scale_fill_manual(values = c("#FDD0A2", "#fd8d3c", "#e95420", "#fd8d3c", "#FDD0A2")) +
@@ -600,7 +643,15 @@ t <- reactive({
   m2 <- input$t_m2
   sd1 <- input$t_sd1
   sd2 <- input$t_sd2
-  n <- input$t_n
+  
+  if (input$t_n > 1000){
+    n <- 1000
+    showNotification("Stichprobe darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
+  } else {
+    n <- input$t_n
+  }
+  
+  
   
   t <- data.frame(x =  rnorm(n, m1, sd1),
                   y =  rnorm(n, m2, sd2))

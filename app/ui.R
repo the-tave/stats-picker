@@ -11,13 +11,8 @@ library(shiny.pwa)
 library(shiny.i18n) # for translations
 library(jsonlite)
 
-# library(knitr)
+# pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
 
-pos_datasets <- c("iris", "mtcars", "Orange") # must be from the packages:base envir coz everything else is just a PITA
-
-# Commented out for faster processing!
-# rmarkdown::render("./www/deep-dive.Rmd")
-# rmarkdown::render("./www/StatistikPicker.Rmd")
 
 # file with translations
 i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
@@ -29,7 +24,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
           tags$head(
             tags$title("Stats Picker"),
             tags$meta(name = "description", content = "The Stats Picker helps you with statistics with explanations, examples and simulations!"),
-            tags$meta(name = "keywords", content = "Shiny, R, Data Visualization, Statistics, Teaching, Learning")
+            tags$meta(name = "keywords", content = "Shiny, R, Data Visualization, Statistics, Teaching, Learning"),
+            tags$link(rel = "stylesheet", type = "text/css", href = "styling.css")
           ),
           
           shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
@@ -45,59 +41,42 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                 c("Deutsch", "English") # Set labels for the languages
               )
             )
-          ), # Add translation option 
+          ), # Add translation option #@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap'); #'Yusei Magic', sans-serif; # @20..48,100..700,0..1,-50..200
                 useShinyjs(),
-                tags$style(HTML("
-                                .myclass {
-                                  color: #333;
-                                  background-color: #ffffff;
-                                  font-family: Ubuntu;
-                                  border: 0px !important;
-                                  
-                                  word-break: break-word;
-                                }
-                                
-                                .btn {
-                                    background-color: #e85620;
-                                    border: none;
-                                }
-                                
-                                .nomclass td:first-child {font-weight:bold;}
-                                
-                                @media screen and (min-width: 681px) { 
-                                body {margin-top: 60px;}
-                                
-                                 .navbar {min-height: 40px;
-                                         padding-top:5px ; 
-                                         padding-bottom:0px}
-                                
-                                .navbar-nav > li > a, .navbar-brand {padding-top:0px !important; 
-                                                                     padding-bottom:0px !important;
-                                                                     height: 45px;
-                                                                     }
-                                }
-                                
-                                @media screen and (max-width: 680px) {
-                                body {margin-top: 60px;}
-                                }
-                                 
-                                ")
-                ), ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
-                navbarPage(position = "fixed-top", collapsible = TRUE,
-                  div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
+                
+           ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
+                navbarPage(position = "fixed-top", collapsible = TRUE, id = "stats",
+                  title = div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
                   
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
+                           value = "home", #added to make tabs in tabPanel linkable?!
                            pwa("https://the-tave.shinyapps.io/Statistik-Picker/", 
                                title = "Statistik Picker",
                                output = "www", icon = "www/icon_Stats-Picker_logo.png",
                                color = "#e85620"),
+                           
+                           tags$div(class = "fancy-container", 
+                                    # tags$div(class="ray-left-up"),
+                                    # tags$div(class="ray-left-middle"),
+                                    # tags$div(class="ray-left-down"),
+                                    # tags$div(class="ray-right-up"),
+                                    # tags$div(class="ray-right-middle"),
+                                    # tags$div(class="ray-right-down"),
+                                    tags$div(class="content",
+                                             
                            i18n$t("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst."),
                            tags$br(),
                            tags$b(i18n$t("Erst musst du angeben, welche Skalenniveaus deine Variablen haben.")),
                            i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."),
                            tags$br(),
-                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!"),
+                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im "),
+                           actionButton("controller", "Deep Dive", style = "padding:3px;"), 
+                           tags$p(i18n$t(" Tab vorbei!"), style = "display:inline-block;")
+                                    ) 
+                           ),
+                           
+                           
                            tags$br(), tags$br(),
                            
                            # Sidebar with all the inputs by users
@@ -119,10 +98,17 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  htmlOutput("statsex"),
                                  htmlOutput("var2data")
                              ),
+                             
+                             h4(id = "statataglance", "Passende Statistik:"|>i18n$t()), #TO DO
+                             h5(htmlOutput("ataglanceout")),
+                             # Text Outputs
+                             # div(class = "myclass",
+                             #     htmlOutput("ataglanceout")
+                             # ),
+                             
                              h4(id = "expl_h4", "Erklärung"|>i18n$t()),
                              # Text Outputs
                              div(class = "myclass",
-                                 # verbatimTextOutput("statstypeout")
                                  htmlOutput("statstypeout")
                              ),
                              
@@ -133,22 +119,54 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  tableOutput("table")),
                              
                              # Plot Output
+                             h4(id = "viz_h4", "Visualisierung"|>i18n$t()),
                              plotOutput("dataViz"),
-                             
-                             #4 Make the final row bold using tags$style
-                             # tags$style(type="text/css", "td:first-child {font-weight:bold;}")
+                            
                            ) #### close mainPanel()
                   ),  ### close tabPanel("Home", ... )
                   ### tab: Deep Dive ---- 
                   tabPanel("Deep Dive",icon = icon("circle-info"),
-                           h2("Skalenniveaus"|>i18n$t()),
+                           value = "deep-dive",
+                           
+                           tags$div(class = "fancy-container", 
+                                      # tags$div(class="ray-left-up"),
+                                      # tags$div(class="ray-left-middle"),
+                                      # tags$div(class="ray-left-down"),
+                                      # tags$div(class="ray-right-up"),
+                                      # tags$div(class="ray-right-middle"),
+                                      # tags$div(class="ray-right-down"),
+                             tags$div(class="content",
+                                    i18n$t("Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige"),
+                                      tags$a(href = "#scales", "Skalenniveau" |> i18n$t()),
+                                    i18n$t("informieren."),
+                                    tags$br(),
+                                    i18n$t("Dann findest du einige"),
+                                      tags$a(href = "#univar", "Maße für eine Variable." |> i18n$t()),
+                                    tags$br(),
+                                    i18n$t("Der größte Teil behandelt"),
+                                      tags$a(href = "#multivar", "Multivariate Statistik." |> i18n$t()),
+                                    tags$br(),
+                                    i18n$t("Am Ende gibt es noch eine kleine Erklärung zur"),
+                                      tags$a(href = "#factanal", "Faktorenanalyse" |> i18n$t()),
+                                    i18n$t("sowie eine"),
+                                      tags$a(href = "#summary", "visuelle Zusammenfassung." |> i18n$t())
+                             
+                                    )
+                             ),
+                          # tags$a(href = "#multivar", "Navigate down to multivariate stats!"), #TO DO: Add Section at the beginning to explain the Deep Dive and offer easier navigation
+                           
+                           tags$section(id="scales", style = "width: 80%;",
+                           h2("Skalenniveaus"|>i18n$t()),  # google icon!
                            i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
                            tags$br(),
                            i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
                            tags$br(), tags$br(),
-                           tags$img(src="./img/Scales_of_Measurement.png", width = '90%'),
+                           tags$img(src="./img/Scales_of_Measurement.png", width = '70%'),
                            tags$br(),
+                           ),
+                           tags$hr(),
                            
+                           tags$section(id="univar",  style = "width: 80%;",
                            h2("Univariat - eine Variable"|>i18n$t()),
                            h3("Modus"|>i18n$t()),
                            i18n$t("Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung)."),
@@ -168,15 +186,18 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),tags$br(),
                            i18n$t("Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018)."),
                            tags$br(),
-                           tags$img(src = "./img/dist.svg", width = '60%'),
+                           tags$img(src = "./img/dist.svg", width = '45%'),
                            
                            h3("Standardabweichung"|>i18n$t()),
                            i18n$t("Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert."),
                            tags$br(),tags$br(),
                            i18n$t("Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."),
-                           plotOutput("dd_sdplot", width = '60%'),
+                           plotOutput("dd_sdplot", width = '50%', height = '200px'),
+                           ),
                            
+                           tags$hr(),
                            
+                           tags$section(id="multivar",  style = "width: 80%;",
                            h2("Multivariat - mehrere Variablen"|>i18n$t()),
                            h3("t-Test"),
                            i18n$t("Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test."),
@@ -192,7 +213,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),
                            i18n$t("Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018)."),
                            tags$br(),
-                           tags$img(src = "./img/Bild2.png", width = '70%'),
+                           tags$img(src = "./img/Bild2.png", width = '65%'),
                            
                            h4("Einstichproben t-Test"|>i18n$t()),
                            i18n$t("Der Einstichproben t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen."),
@@ -236,7 +257,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              tags$li("unabhängige und zufällige Ziehung von k Stichproben"|>i18n$t()),
                              tags$li("gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten; Crump et al., 2018)"|>i18n$t())
                            ),
-                           tags$img(src = "./img/anova.svg", width = '70%'),
+                           tags$img(src = "./img/anova.svg", width = '55%'),
                            
                            h4("Einfaktorielle ANOVA"|>i18n$t()),
                            i18n$t("Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen."),
@@ -290,8 +311,11 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            
                            p(i18n$t("Der"), "Chi", tags$sup("2"), i18n$t("Test nutzt die"), "Chi", tags$sup("2"), i18n$t("Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren."),
                              "Chi", tags$sup("2"), i18n$t("Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).")),
+                           ),
                            
+                           tags$hr(),
                            
+                          tags$section(id="factanal",  style = "width: 80%;",
                            h2("Faktorenanalyse"|>i18n$t()),
                            i18n$t("Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."),
                            tags$br(),
@@ -305,13 +329,64 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            ),
                            tags$br(),
                            i18n$t("Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."),
+                          ),
+                          
+                           tags$hr(),
                            
+                          tags$section(id="summary", 
                            h2("Übersicht der gängigen Statistiken"|>i18n$t()),
-                           tags$img(src="img/DeepDiveViz.png",
-                                    alt="Überblick gängiger Statistiken",
-                                    width = '97%'),
                            
-                           h2("Literatur"|>i18n$t()),
+                           # tags$div(class = "wrap",
+                           #          tags$div(class = "left",
+                           #                   tags$img(src="img/DeepDiveViz.png",
+                           #                            alt="Überblick gängiger Statistiken")
+                           #                   ),
+                           #          tags$div(class = "right",
+                           #                   tags$img(src="img/DeepDiveViz.png",
+                           #                            alt="Überblick gängiger Statistiken")
+                           #                   )
+                           #          ),
+                           
+                           # tags$div(style="margin: 0 auto;",
+                                    tags$div(class="left",
+                                             includeHTML("diffs.html")),
+                                    tags$div(class="right",
+                                             includeHTML("rels.html")),
+                                    
+                                      
+                                    # ),
+                             
+                           
+                           
+                           
+                           # tags$img(src="img/DeepDiveViz.png",
+                           #          alt="Überblick gängiger Statistiken",
+                           #          width = '90%'),
+                           
+                           # draw io try
+                           
+                           # tags$script(type="text/javascript", src="https://app.diagrams.net/js/viewer-static.min.js"),
+                           # 
+                           # tags$div(class="mxgraph",
+                           #          style="max-width:100%;border:1px solid transparent;",
+                           #          data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;Electron\&quot; agent=\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36\&quot; version=\&quot;26.0.4\&quot;&gt;&lt;diagram name=\&quot;Page-1\&quot; id=\&quot;74e2e168-ea6b-b213-b513-2b3c1d86103e\&quot;&gt;&lt;mxGraphModel dx=\&quot;1500\&quot; dy=\&quot;887\&quot; grid=\&quot;1\&quot; gridSize=\&quot;10\&quot; guides=\&quot;1\&quot; tooltips=\&quot;1\&quot; connect=\&quot;1\&quot; arrows=\&quot;1\&quot; fold=\&quot;1\&quot; page=\&quot;1\&quot; pageScale=\&quot;1\&quot; pageWidth=\&quot;1100\&quot; pageHeight=\&quot;850\&quot; background=\&quot;none\&quot; math=\&quot;0\&quot; shadow=\&quot;0\&quot;&gt;&lt;root&gt;&lt;mxCell id=\&quot;0\&quot;/&gt;&lt;mxCell id=\&quot;1\&quot; parent=\&quot;0\&quot;/&gt;&lt;mxCell id=\&quot;Ugo8PBe7z2_gKXs79vz0-1\&quot; value=\&quot;\&quot; style=\&quot;rounded=1;whiteSpace=wrap;html=1;\&quot; vertex=\&quot;1\&quot; parent=\&quot;1\&quot;&gt;&lt;mxGeometry x=\&quot;420\&quot; y=\&quot;340\&quot; width=\&quot;120\&quot; height=\&quot;60\&quot; as=\&quot;geometry\&quot;/&gt;&lt;/mxCell&gt;&lt;/root&gt;&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;&quot;,&quot;toolbar&quot;:&quot;pages zoom layers lightbox&quot;,&quot;page&quot;:0}"),
+                           # 
+                           
+                           # tags$html('
+                           #     <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#FF8000&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;dark-mode&quot;:&quot;auto&quot;,&quot;toolbar&quot;:&quot;zoom tags lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;Electron\&quot; agent=\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36\&quot; version=\&quot;26.0.4\&quot;&gt;\n  &lt;diagram name=\&quot;Page-1\&quot; id=\&quot;74e2e168-ea6b-b213-b513-2b3c1d86103e\&quot;&gt;\n    &lt;mxGraphModel dx=\&quot;1500\&quot; dy=\&quot;887\&quot; grid=\&quot;1\&quot; gridSize=\&quot;10\&quot; guides=\&quot;1\&quot; tooltips=\&quot;1\&quot; connect=\&quot;1\&quot; arrows=\&quot;1\&quot; fold=\&quot;1\&quot; page=\&quot;1\&quot; pageScale=\&quot;1\&quot; pageWidth=\&quot;1100\&quot; pageHeight=\&quot;850\&quot; background=\&quot;none\&quot; math=\&quot;0\&quot; shadow=\&quot;0\&quot;&gt;\n      &lt;root&gt;\n        &lt;mxCell id=\&quot;0\&quot; /&gt;\n        &lt;mxCell id=\&quot;1\&quot; parent=\&quot;0\&quot; /&gt;\n        &lt;mxCell id=\&quot;Ugo8PBe7z2_gKXs79vz0-1\&quot; value=\&quot;\&quot; style=\&quot;rounded=1;whiteSpace=wrap;html=1;\&quot; vertex=\&quot;1\&quot; parent=\&quot;1\&quot;&gt;\n          &lt;mxGeometry x=\&quot;420\&quot; y=\&quot;340\&quot; width=\&quot;120\&quot; height=\&quot;60\&quot; as=\&quot;geometry\&quot; /&gt;\n        &lt;/mxCell&gt;\n      &lt;/root&gt;\n    &lt;/mxGraphModel&gt;\n  &lt;/diagram&gt;\n&lt;/mxfile&gt;\n&quot;}"></div>
+                           #     <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
+                           #     '
+                           # ),
+                           # includeHTML("minex.html"),
+                           
+                           
+                           
+                           
+                           
+                           tags$br(),
+                           
+                           
+                           h2("Literatur"|>i18n$t(), style="clear: left;"),
                            
                            tags$div(
                              style="line-height: 2; margin-left: 2em; text-indent:-2em;",
@@ -339,7 +414,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              
                              p("UZH. (2023). Datenanalyse mit SPSS. In",
                                tags$i("Universität Zürich: Methodenberatung."),
-                               tags$a(href="http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html", "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.")
+                               tags$a(href="http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html", "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.", 
+                                      style = "overflow-wrap: break-word;")
                              )
                              # p("xxx",
                              #   tags$i("xxx"),
@@ -347,6 +423,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              # )
                              
                            ),
+                          ),
                            
                            
                            # fluidRow(
@@ -495,7 +572,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                              "Mittelwert:"|>i18n$t(),
                                                              min = -500,
                                                              max = 500,
-                                                             value = 5)
+                                                             value = 5, width = "90%")
                                                 ),
                                          column(5,
                                                 numericInput("t_sd2",
@@ -503,7 +580,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                              min = -100,
                                                              max = 100,
                                                              step = .1,
-                                                             value = 2.3)
+                                                             value = 2.3, width = "90%")
                                                 )
                                        ),
                                        
@@ -568,11 +645,16 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$br(),
                            tags$hr(),
                            
-                           tags$br(),
-                           i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
-                           tags$br(),
+                           tags$div(style = "text-align: center;",
+                                    # tags$br(),
+                                    i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
+                                    tags$br(),tags$br(),
+                                    
+                                    tags$img(src = "./img/install_pwa.png", width = "35%")
+                                    ),
                            
-                           tags$img(src = "./img/install_pwa.png", width = "35%"),
+                           
+                           
                            
                            tags$hr(),
                            i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),

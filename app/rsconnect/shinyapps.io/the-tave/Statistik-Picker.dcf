@@ -5,9 +5,9 @@ account: the-tave
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12848805
-bundleId: 9641787
+bundleId: 9788135
 url: https://the-tave.shinyapps.io/Statistik-Picker/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData
+ignoredFiles: .$minex.html.dtmp|.RData|minex.html

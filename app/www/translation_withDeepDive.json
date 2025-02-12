@@ -19,8 +19,12 @@
             "en": "Then you will be given some suggestions on what statistics you can calculate with this data or how the results can be visualized."
         },
         {
-            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im Deep Dive Tab vorbei!",
-            "en": "If you're unsure which scale level applies to your variables, check the Deep Dive tab!"
+            "de": "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im ",
+            "en": "If you're unsure which scale level applies to your variables, check the "
+        },
+        {
+            "de": " Tab vorbei!",
+            "en": " tab!"
         },
         
         {
@@ -66,6 +70,22 @@
         {
             "de": "Döner mit alles",
             "en": "Everything everywhere all at once"
+        },
+         {
+            "de": "Passende Statistik:",
+            "en": "Possible Statistic:"
+        },
+        {
+            "de": "t-Test, Korrelation / Regression",
+            "en": "t-test, correlation / regression"
+        },
+          {
+            "de": "Logistische Regression, t-test / ANOVA",
+            "en": "logistic regression, t-test / ANOVA"
+        },
+          {
+            "de": "Spearman-Rangkorrelationskoeffizienten / ",
+            "en": "Spearman-Rank correlation coefficient / "
         },
         {
             "de": "Erklärung",
@@ -382,7 +402,11 @@
             "de": "Werteverteilung",
             "en": "Distribution of values"
         },
-
+        
+          {
+            "de": "Stichprobe darf nicht größer als 1000 sein.",
+            "en": "The sample size cannot exceed 1000."
+        },
         {
             "de": "Der echte T-Wert ist ",
             "en": "The true T-value is "
@@ -406,11 +430,47 @@
 
 
 
-        
         {
-            "de": "Skalenniveaus",
-            "en": "Scale Levels"
+            "de": "Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige",
+            "en": "Here you can go on a deep dive about statistics! First you can read about the right"
         },
+        {
+            "de": "Skalenniveau",
+            "en": "Scale Level"
+        },
+        {
+            "de": "informieren.",
+            "en": "."
+        },
+        {
+            "de": "Dann findest du einige",
+            "en": "Then you will find several"
+        },
+        {
+            "de": "Maße für eine Variable.",
+            "en": "Univariate Statistics."
+        },
+        {
+            "de": "Der größte Teil behandelt",
+            "en": "The largest part covers"
+        },
+        {
+            "de": "Multivariate Statistik.",
+            "en": "Multivariate Statistics."
+        },
+        {
+            "de": "Am Ende gibt es noch eine kleine Erklärung zur",
+            "en": "At the end there is a small explanation on"
+        },
+        {
+            "de": "sowie eine",
+            "en": "as well as a "
+        },
+        {
+            "de": "visuelle Zusammenfassung.",
+            "en": "visual summary."
+        },
+        
         {
             "de": "Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen.",
             "en": "The most important factor in selecting the correct statistical method is knowing the scale level of your variables."
