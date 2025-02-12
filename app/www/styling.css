@@ -166,7 +166,36 @@ hr {
   color: #2d3748;
 }
 
+/* Image wrap for visual summary in DD */
+.wrap {
+  width: 85%; 
+  margin: auto; 
+  overflow: hidden;
+}
 
+.left {float: right; height: 510px; width: 49%; background: pink;}
+.right {float: left; height: 250px; margin-bottom: 10px; width: 49%;}
+
+@media all and (max-width: 400px) {
+    .left, .right {float: none; margin-bottom: 5px; height: 200px;}
+}
+
+
+.gMapDiv {float:right; height:250px; width:49%; background:pink;}
+.inputDiv {float:left; height:200px; width:49%;background:green;}
+@media all and (max-width:400px) {
+    .gMapDiv, .inputDiv {float:none;}
+}
+
+
+
+
+
+
+
+
+/*Screen size reactivity*/
+/* Big Screen*/
 @media screen and (min-width: 681px) { 
 body {margin-top: 60px;}
 
@@ -180,6 +209,7 @@ body {margin-top: 60px;}
                                      }
 }
 
+/* Small Screen */
 @media screen and (max-width: 680px) {
   body {margin-top: 60px;}
   
@@ -188,5 +218,6 @@ body {margin-top: 60px;}
     width: 90%;
     margin: 0 auto;
   }
+
   
 }
