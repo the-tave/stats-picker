@@ -156,7 +156,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                           # tags$a(href = "#multivar", "Navigate down to multivariate stats!"), #TO DO: Add Section at the beginning to explain the Deep Dive and offer easier navigation
                            
                            tags$section(id="scales", style = "width: 80%;",
-                           h2("Skalenniveaus"|>i18n$t()),  # google icon!
+                           h2("Skalenniveau"|>i18n$t()),  # google icon!
                            i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
                            tags$br(),
                            i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
