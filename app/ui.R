@@ -662,6 +662,12 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.")
                            
                   ),  ### close tabPanel("About")
+                  
+                  tabPanel("AI PromptR", icon = icon("robot"),
+                           i18n$t("Etwas etwas"),
+                           
+                  ),  ### close tabPanel("AI PromptR")
+                  
                   nav_spacer(),
                   nav_menu(
                     title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
