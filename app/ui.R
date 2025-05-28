@@ -10,6 +10,7 @@ library(bslib)
 library(shiny.pwa)
 library(shiny.i18n) # for translations
 library(jsonlite)
+library(rclipboard) # to copy prompt output
 
 # pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
 
@@ -18,6 +19,8 @@ library(jsonlite)
 i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
 
 i18n$set_translation_language("de") #en
+
+rclipboardSetup()
 
 # Define UI for application 
 fluidPage(theme = shinythemes::shinytheme("united"),
@@ -129,12 +132,6 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            value = "deep-dive",
                            
                            tags$div(class = "fancy-container", 
-                                      # tags$div(class="ray-left-up"),
-                                      # tags$div(class="ray-left-middle"),
-                                      # tags$div(class="ray-left-down"),
-                                      # tags$div(class="ray-right-up"),
-                                      # tags$div(class="ray-right-middle"),
-                                      # tags$div(class="ray-right-down"),
                              tags$div(class="content",
                                     i18n$t("Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige"),
                                       tags$a(href = "#scales", "Skalenniveau" |> i18n$t()),
@@ -664,7 +661,41 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ),  ### close tabPanel("About")
                   
                   tabPanel("AI PromptR", icon = icon("robot"),
+                           tags$div(class = "fancy-container", 
+                                    tags$div(class="content",
+                                             i18n$t("Künstliche Intelligenz (artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden."),
+                                             i18n$t("Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!"),
+                                             br(),
+                                             i18n$t("Im Folgenden findest du eine Leitfragen, die dir helfen sollen, einen möglichst präzisen prompt zu formulieren.")
+                                             # i18n$t("XXX"),
+                                             # i18n$t("XXX"),
+                                             # i18n$t("XXX"),
+                                             # i18n$t("XXX"),
+                                             # i18n$t("XXX"),
+                                             # i18n$t("XXX")
+                                             
+                                    )
+                           ),
+                           
                            i18n$t("Etwas etwas"),
+                           # Text Outputs
+                           verbatimTextOutput("promptout"),
+                           # div(class = "myclass",
+                           #     htmlOutput("promptout")
+                           # ),
+                           actionButton("copy", "Copy prompt"),
+                           
+                           tags$script(HTML("
+                              Shiny.addCustomMessageHandler('copyOutputText', function(id) {
+                                const text = document.getElementById(id).innerText;
+                                const el = document.createElement('textarea');
+                                el.value = text;
+                                document.body.appendChild(el);
+                                el.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(el);
+                              });
+                            "))
                            
                   ),  ### close tabPanel("AI PromptR")
                   

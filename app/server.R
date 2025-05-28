@@ -723,6 +723,19 @@ output$lmPlot <- renderPlot({
 })
 
 
+
+## Prompt Tab
+output$promptout <- renderText(
+  paste("Wow! Ein output!")
+)
+
+# Add clipboard buttons
+observeEvent(input$copy, {
+  session$sendCustomMessage("copyOutputText", "promptout")
+})
+
+
+
 }
 
 
