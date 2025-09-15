@@ -3,8 +3,8 @@
     "languages": ["de", "en"],
     "translation": [
         {
-            "de": "Sprache ändern",
-            "en": "Change language"
+            "de": "Change language",
+            "en": "Sprache ändern"
         },
         {
             "de": "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.",

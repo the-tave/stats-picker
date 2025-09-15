@@ -35,7 +35,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
             padding-left: 20px;', # added sizing to div style
             selectInput(
               inputId='selected_language',
-              label=i18n$t('Sprache ändern'),
+              label=i18n$t('Change language'),
               choices = setNames(
                 i18n$get_languages(),
                 c("Deutsch", "English") # Set labels for the languages
