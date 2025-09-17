@@ -206,3 +206,12 @@ body {margin-top: 60px;}
     margin: 0 auto;
   }
 }
+
+
+/* Format AI outputer */
+.aiclass {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  
+  word-break: break-word;
+}

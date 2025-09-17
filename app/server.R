@@ -54,6 +54,14 @@ function(input, output, session) {
     
     updateRadioButtons(session, "statstype", label = i18n_r()$t("Was hast du vor?"),
                        choices = i18n_r()$t(c("Statistik rechnen", "Visualisierung", "Döner mit alles")))
+    
+    # AI promptR texte
+    updateTextInput(session, "goal", label = i18n_r()$t("Was ist dein Ziel?"), value = i18n_r()$t("einen t-Test zu berechnen"))
+    
+    updateTextInput(session, "context", label = i18n_r()$t("Was ist der Kontext?"), value = i18n_r()$t("mein Psychologie Studium"))
+    
+    updateTextInput(session, "wish", label = i18n_r()$t("Was soll die KI dir ausgeben?"), value = i18n_r()$t("eine einfache Erklärung"))
+    
   })
   
  
@@ -169,7 +177,7 @@ function(input, output, session) {
            "nominal" = switch(input$scale2,
                               "keins" = , "none" =  paste("Hier nutzt man vor allem den Modus."|>i18n$t(), #t
                                               tags$br(), 
-                                              "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR."|>i18n$t()), #t
+                                              "In R geht das zum Beispiel mit getmode() aus dem package rextor."|>i18n$t()), #t
                               
                               "intervall" = , "interval" =  paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
                                                   tags$br(),
@@ -199,7 +207,7 @@ function(input, output, session) {
              "ordinal" = paste(" Daten: "|>i18n$t(), paste(ord, collapse = ', '),  tags$br(),
                                "Median: "|>i18n$t(), quantile(ord, .5, type=1)),
              "nominal" = paste(" Daten: "|>i18n$t(), paste(nom, collapse = ', '),  tags$br(),
-                               "Modus: "|>i18n$t(), wobblynameR::getmode(nom))
+                               "Modus: "|>i18n$t(), rextor::getmode(nom))
       )
   )
   
@@ -210,7 +218,7 @@ function(input, output, session) {
            "ordinal" = paste( tags$br(), " 2. Variable: ", paste(ord2(), collapse = ', '),  tags$br(),
                              "Median: "|>i18n$t(), quantile(ord2(), .5, type=1)),
            "nominal" = paste( tags$br(), " 2. Variable: ", paste(nom2, collapse = ', '),  tags$br(),
-                             "Modus: "|>i18n$t(), wobblynameR::getmode(nom2))
+                             "Modus: "|>i18n$t(), rextor::getmode(nom2))
     )
   )
   
@@ -726,7 +734,8 @@ output$lmPlot <- renderPlot({
 
 ## Prompt Tab
 output$promptout <- renderText(
-  paste("Wow! Ein output!")
+  paste0("Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist " |> i18n$t(), input$goal, ". Der Kontext ist " |> i18n$t(),
+         input$context, ". Ich brauche von dir " |> i18n$t(), input$wish, ". ", input$other)
 )
 
 # Add clipboard buttons

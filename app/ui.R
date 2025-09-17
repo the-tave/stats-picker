@@ -38,7 +38,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
             padding-left: 20px;', # added sizing to div style
             selectInput(
               inputId='selected_language',
-              label=i18n$t('Sprache ändern'),
+              label=i18n$t('Change language'),
               choices = setNames(
                 i18n$get_languages(),
                 c("Deutsch", "English") # Set labels for the languages
@@ -92,7 +92,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                          choices = c("keins", "intervall", "ordinal", "nominal")),
                              radioButtons("statstype",
                                           "Was hast du vor?"|>i18n$t(),
-                                          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")), # TO DO: integrate function 
+                                          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")),
                            ), #### close sidebarPanel()
                            # Explain App and show the actual output
                            mainPanel(
@@ -102,7 +102,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  htmlOutput("var2data")
                              ),
                              
-                             h4(id = "statataglance", "Passende Statistik:"|>i18n$t()), #TO DO
+                             h4(id = "statataglance", "Passende Statistik:"|>i18n$t()),
                              h5(htmlOutput("ataglanceout")),
                              # Text Outputs
                              # div(class = "myclass",
@@ -677,15 +677,23 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                     )
                            ),
                            
-                           i18n$t("Etwas etwas"),
-                           # Text Outputs
-                           verbatimTextOutput("promptout"),
-                           # div(class = "myclass",
-                           #     htmlOutput("promptout")
-                           # ),
-                           actionButton("copy", "Copy prompt"),
-                           
-                           tags$script(HTML("
+                           fluidRow(
+                             column(width = 5,
+                               # Text Inputs
+                               textInput("goal", label = "Was ist dein Ziel?", value = "einen t-Test zu berechnen"),
+                               textInput("context", label = "Was ist der Kontext?", value = "mein Psychologie Studium"),
+                               textInput("wish", label = "Was soll die KI dir ausgeben?", value = "eine einfache Erklärung"),
+                               textInput("other", label = i18n$t("Was könnte noch hilfreich für die KI sein?"), placeholder = "optional")
+                             ),
+                             column(width = 7,
+                               # Text Output
+                               # textOutput("promptout"),
+                               div(class = "aiclass",
+                                   htmlOutput("promptout")
+                               ),
+                               actionButton("copy", i18n$t("Prompt kopieren")),
+                               
+                               tags$script(HTML("
                               Shiny.addCustomMessageHandler('copyOutputText', function(id) {
                                 const text = document.getElementById(id).innerText;
                                 const el = document.createElement('textarea');
@@ -696,6 +704,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 document.body.removeChild(el);
                               });
                             "))
+                             )
+                           )
                            
                   ),  ### close tabPanel("AI PromptR")
                   

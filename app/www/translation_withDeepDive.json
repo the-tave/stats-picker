@@ -3,8 +3,8 @@
     "languages": ["de", "en"],
     "translation": [
         {
-            "de": "Sprache ändern",
-            "en": "Change language"
+            "de": "Change language",
+            "en": "Sprache ändern"
         },
         {
             "de": "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst.",
@@ -305,8 +305,8 @@
             "en": "Here, the mode is mainly used."
         },
         {
-            "de": "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR.",
-            "en": "In R, this can be done with getmode() from the package wobblynameR."
+            "de": "In R geht das zum Beispiel mit getmode() aus dem package rextor.",
+            "en": "In R, this can be done with getmode() from the package rextor."
         },
 
         
@@ -822,6 +822,70 @@
         {
             "de": "Wahrscheinlichkeit (y)",
             "en": "Probability (y)"
+        },
+        
+        
+        
+        {
+            "de": "Künstliche Intelligenz (artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden.",
+            "en": "Artifical intelligence (AI) has become an important part of everyday life."
+        },
+        {
+            "de": "Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!",
+            "en": "Therefore, formulating a clear and effective prompt (also called 'prompt engineering') to the AI is very helpful!"
+        },
+        {
+            "de": "Im Folgenden findest du eine Leitfragen, die dir helfen sollen, einen möglichst präzisen prompt zu formulieren.",
+            "en": "Here you can find some inspiration to help you craft a precise prompt to use in an AI of your choice."
+        },
+        {
+            "de": "Was ist dein Ziel?",
+            "en": "What is your goal?"
+        },
+        {
+            "de": "einen t-Test zu berechnen",
+            "en": "calculate a t-test"
+        },
+        {
+            "de": "Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist ",
+            "en": "Hi! I need some help with statistics. My goal is to "
+        },
+        {
+            "de": ". Der Kontext ist ",
+            "en": ". The context is "
+        },
+        {
+            "de": ". Ich brauche von dir ",
+            "en": ". I need you to "
+        },
+        {
+            "de": "Was ist der Kontext?",
+            "en": "What is the context?"
+        },
+        {
+            "de": "mein Psychologie Studium",
+            "en": "my psychology class"
+        },
+        {
+            "de": "Was soll die KI dir ausgeben?",
+            "en": "What output do you want from the AI?"
+        },
+        {
+            "de": "eine einfache Erklärung",
+            "en": "explain in simple terms"
+        },
+        {
+            "de": "Prompt kopieren",
+            "en": "Copy prompt"
+        },
+        {
+            "de": "XXX",
+            "en": "XXX"
+        },
+        {
+            "de": "Was könnte noch hilfreich für die KI sein?",
+            "en": "What else might help the AI understand you better?"
         }
+        
     ]
 }
