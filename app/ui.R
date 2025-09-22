@@ -15,7 +15,7 @@ library(rclipboard) # to copy prompt output
 # pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
 
 
-# file with translations
+# Translation setup ----
 i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
 
 i18n$set_translation_language("de") #en
@@ -44,8 +44,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                 c("Deutsch", "English") # Set labels for the languages
               )
             )
-          ), # Add translation option #@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap'); #'Yusei Magic', sans-serif; # @20..48,100..700,0..1,-50..200
-                useShinyjs(),
+          ), 
+          useShinyjs(),
                 
            ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage(position = "fixed-top", collapsible = TRUE, id = "stats",
@@ -102,7 +102,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                  htmlOutput("var2data")
                              ),
                              
-                             h4(id = "statataglance", "Passende Statistik:"|>i18n$t()),
+                             h4(id = "statataglance", "Passende Statistik"|>i18n$t()),
                              h5(htmlOutput("ataglanceout")),
                              # Text Outputs
                              # div(class = "myclass",
@@ -150,7 +150,6 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                              
                                     )
                              ),
-                          # tags$a(href = "#multivar", "Navigate down to multivariate stats!"), #TO DO: Add Section at the beginning to explain the Deep Dive and offer easier navigation
                            
                            tags$section(id="scales", style = "width: 80%;",
                            h2("Skalenniveau"|>i18n$t()),  # google icon!
@@ -354,32 +353,6 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                     # ),
                              
                            
-                           
-                           
-                           # tags$img(src="img/DeepDiveViz.png",
-                           #          alt="Überblick gängiger Statistiken",
-                           #          width = '90%'),
-                           
-                           # draw io try
-                           
-                           # tags$script(type="text/javascript", src="https://app.diagrams.net/js/viewer-static.min.js"),
-                           # 
-                           # tags$div(class="mxgraph",
-                           #          style="max-width:100%;border:1px solid transparent;",
-                           #          data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;Electron\&quot; agent=\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36\&quot; version=\&quot;26.0.4\&quot;&gt;&lt;diagram name=\&quot;Page-1\&quot; id=\&quot;74e2e168-ea6b-b213-b513-2b3c1d86103e\&quot;&gt;&lt;mxGraphModel dx=\&quot;1500\&quot; dy=\&quot;887\&quot; grid=\&quot;1\&quot; gridSize=\&quot;10\&quot; guides=\&quot;1\&quot; tooltips=\&quot;1\&quot; connect=\&quot;1\&quot; arrows=\&quot;1\&quot; fold=\&quot;1\&quot; page=\&quot;1\&quot; pageScale=\&quot;1\&quot; pageWidth=\&quot;1100\&quot; pageHeight=\&quot;850\&quot; background=\&quot;none\&quot; math=\&quot;0\&quot; shadow=\&quot;0\&quot;&gt;&lt;root&gt;&lt;mxCell id=\&quot;0\&quot;/&gt;&lt;mxCell id=\&quot;1\&quot; parent=\&quot;0\&quot;/&gt;&lt;mxCell id=\&quot;Ugo8PBe7z2_gKXs79vz0-1\&quot; value=\&quot;\&quot; style=\&quot;rounded=1;whiteSpace=wrap;html=1;\&quot; vertex=\&quot;1\&quot; parent=\&quot;1\&quot;&gt;&lt;mxGeometry x=\&quot;420\&quot; y=\&quot;340\&quot; width=\&quot;120\&quot; height=\&quot;60\&quot; as=\&quot;geometry\&quot;/&gt;&lt;/mxCell&gt;&lt;/root&gt;&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;&quot;,&quot;toolbar&quot;:&quot;pages zoom layers lightbox&quot;,&quot;page&quot;:0}"),
-                           # 
-                           
-                           # tags$html('
-                           #     <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#FF8000&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;dark-mode&quot;:&quot;auto&quot;,&quot;toolbar&quot;:&quot;zoom tags lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;Electron\&quot; agent=\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36\&quot; version=\&quot;26.0.4\&quot;&gt;\n  &lt;diagram name=\&quot;Page-1\&quot; id=\&quot;74e2e168-ea6b-b213-b513-2b3c1d86103e\&quot;&gt;\n    &lt;mxGraphModel dx=\&quot;1500\&quot; dy=\&quot;887\&quot; grid=\&quot;1\&quot; gridSize=\&quot;10\&quot; guides=\&quot;1\&quot; tooltips=\&quot;1\&quot; connect=\&quot;1\&quot; arrows=\&quot;1\&quot; fold=\&quot;1\&quot; page=\&quot;1\&quot; pageScale=\&quot;1\&quot; pageWidth=\&quot;1100\&quot; pageHeight=\&quot;850\&quot; background=\&quot;none\&quot; math=\&quot;0\&quot; shadow=\&quot;0\&quot;&gt;\n      &lt;root&gt;\n        &lt;mxCell id=\&quot;0\&quot; /&gt;\n        &lt;mxCell id=\&quot;1\&quot; parent=\&quot;0\&quot; /&gt;\n        &lt;mxCell id=\&quot;Ugo8PBe7z2_gKXs79vz0-1\&quot; value=\&quot;\&quot; style=\&quot;rounded=1;whiteSpace=wrap;html=1;\&quot; vertex=\&quot;1\&quot; parent=\&quot;1\&quot;&gt;\n          &lt;mxGeometry x=\&quot;420\&quot; y=\&quot;340\&quot; width=\&quot;120\&quot; height=\&quot;60\&quot; as=\&quot;geometry\&quot; /&gt;\n        &lt;/mxCell&gt;\n      &lt;/root&gt;\n    &lt;/mxGraphModel&gt;\n  &lt;/diagram&gt;\n&lt;/mxfile&gt;\n&quot;}"></div>
-                           #     <script type="text/javascript" src="https://viewer.diagrams.net/js/viewer-static.min.js"></script>
-                           #     '
-                           # ),
-                           # includeHTML("minex.html"),
-                           
-                           
-                           
-                           
-                           
                            tags$br(),
                            
                            
@@ -414,74 +387,10 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                tags$a(href="http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html", "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.", 
                                       style = "overflow-wrap: break-word;")
                              )
-                             # p("xxx",
-                             #   tags$i("xxx"),
-                             #   tags$a(href="xxx", "xxx")
-                             # )
-                             
-                           ),
-                          ),
-                           
-                           
-                           # fluidRow(
-                           #   htmltools::tags$iframe(src = "deep-dive.html", # src = "deep-dive.html",
-                           #                          width = '100%',
-                           #                          height = 6000,  # does not work as relative
-                           #                          style = "border:none;")
-                           # ),
-                           
-                           # htmltools::tags$img(# src="img/DeepDiveViz.png",
-                           #   srcset="img/DeepDiveViz_long.png 681vw,
-                           #                     img/DeepDiveViz.png 680vw",
-                           #   sizes="(max-width: 680px) 680vw, (min-width: 681px) 681vw",
-                           #   
-                           #   width="90%",
-                           #   alt="Überblick gängiger Statistiken")
-                           
-                           
-                            
-                           
+                           )
+                          )
                   ), ### closetabPanel("Deep Dive")
-                  ### tab: Beispiele ----
-                  # tabPanel("Beispiele", icon = icon("code"),
-                  #          p("Schau dir hier beispielhafte Daten an und analysiere sie!
-                  #            Du kannst dafür bereits ausgewählte Datensätze direkt aus R nutzen oder auch eigene Daten hochladen."),
-                  #          sidebarPanel(
-                  #            # SelectInput for which dataset to use
-                  #            selectInput("ex_dataset",
-                  #                        "Welchen Datensatz möchtest du nutzen?",
-                  #                        c(pos_datasets, "eigene")), # defaults to first value of choices
-                  #            p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
-                  #              (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
-                  #            
-                  #            fileInput('customfile', '',
-                  #                      accept=c('text/csv', 
-                  #                               'text/comma-separated-values,text/plain', 
-                  #                               '.csv')),
-                  #            
-                  #            checkboxGroupInput("ex_columns", 
-                  #                               "Welche Variable(n) möchtest du nutzen?", 
-                  #                               inline = T),
-                  #            verbatimTextOutput("ex_placeholder"), 
-                  #            checkboxGroupInput("ex_stat", 
-                  #                               "Welche Statistik möchtest du sehen?", 
-                  #                               inline = T)
-                  #          ), #### close sidebar
-                  #          mainPanel(
-                  #            # Output: HTML table with requested number of observations
-                  #            # Input: Numeric entry for number of obs to view
-                  #            numericInput(inputId = "obs",
-                  #                         label = "Anzahl angezeigter Zeilen:",
-                  #                         value = 6),
-                  #            
-                  #            tableOutput("ex_data_table"),
-                  #            
-                  #            div(class = "myclass",
-                  #                verbatimTextOutput("ex_statistic")
-                  #            )
-                  #            
-                  #          ) #### close main panel
-                  # ),  ### close tabPanel("Beispiele")
+                  ### tab: Sims ----
                   tabPanel("Simulationen"|>i18n$t(), icon = icon("flask"),
                            navset_pill_list(
                              
@@ -501,7 +410,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                       step = 1,
                                                       value = 1),
                                        
-                                       plotOutput("diePlot")
+                                       plotOutput("diePlot"),
+                                       tags$br()
                                        ),
                              
                              nav_panel("Verteilung: Münze"|>i18n$t(),
@@ -519,9 +429,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                       min = 1,
                                                       max = 1000,
                                                       step = 1,
-                                                      value = 10)
-                                         ,
-                                         plotOutput("coinPlot")
+                                                      value = 10),
+                                         plotOutput("coinPlot"),
+                                       tags$br()
                              ),
                              
                              nav_panel("Verteilung: Coefficient of variation"|>i18n$t(),
@@ -540,7 +450,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                     step = .1,
                                                     value = 3),
                                        
-                                       plotOutput("cvPlot")
+                                       plotOutput("cvPlot"),
+                                       tags$br()
                              ),
                              
                              nav_panel("What's the T?",
@@ -606,7 +517,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                 )
                                          ),
                                          actionButton("tbtn", "Antwort"|>i18n$t()),
-                                         shinyjs::hidden(htmlOutput("tguess"))
+                                       tags$br(),
+                                         shinyjs::hidden(htmlOutput("tguess")),
+                                       tags$br()
                                        
                              ), 
                              
@@ -627,39 +540,13 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                                    # step = .1,
                                                    value = 2),
                                        
-                                       plotOutput("lmPlot")
+                                       plotOutput("lmPlot"),
+                                       tags$br()
                              ), # close nav_panel
                            ) # close navset_pill_list
                            
                   ),### close tabPanel("Simulations")
-                  tabPanel("About", icon = icon("code-merge"),
-                           i18n$t("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."),
-                           tags$br(), tags$br(),
-                           i18n$t("Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
-                           # tags$a("Mail an Tave", href = "mailto:overlander@uni-konstanz.de"),
-                           tags$br(), tags$br(),
-                           tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "E-Mail"),
-                           tags$br(),
-                           tags$hr(),
-                           
-                           tags$div(style = "text-align: center;",
-                                    # tags$br(),
-                                    i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
-                                    tags$br(),tags$br(),
-                                    
-                                    tags$img(src = "./img/install_pwa.png", width = "35%")
-                                    ),
-                           
-                           
-                           
-                           
-                           tags$hr(),
-                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
-                           tags$br(), tags$br(),
-                           i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.")
-                           
-                  ),  ### close tabPanel("About")
-                  
+                  ### tab: AI promptR ----
                   tabPanel("AI PromptR", icon = icon("robot"),
                            tags$div(class = "fancy-container", 
                                     tags$div(class="content",
@@ -667,33 +554,27 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                              i18n$t("Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!"),
                                              br(),
                                              i18n$t("Im Folgenden findest du eine Leitfragen, die dir helfen sollen, einen möglichst präzisen prompt zu formulieren.")
-                                             # i18n$t("XXX"),
-                                             # i18n$t("XXX"),
-                                             # i18n$t("XXX"),
-                                             # i18n$t("XXX"),
-                                             # i18n$t("XXX"),
-                                             # i18n$t("XXX")
-                                             
                                     )
                            ),
                            
                            fluidRow(
                              column(width = 5,
-                               # Text Inputs
-                               textInput("goal", label = "Was ist dein Ziel?", value = "einen t-Test zu berechnen"),
-                               textInput("context", label = "Was ist der Kontext?", value = "mein Psychologie Studium"),
-                               textInput("wish", label = "Was soll die KI dir ausgeben?", value = "eine einfache Erklärung"),
-                               textInput("other", label = i18n$t("Was könnte noch hilfreich für die KI sein?"), placeholder = "optional")
+                                    # Text Inputs
+                                    textInput("goal", label = "Was ist dein Ziel?", value = "einen t-Test zu berechnen"),
+                                    textInput("context", label = "Was ist der Kontext?", value = "mein Psychologie Studium"),
+                                    textInput("wish", label = "Was soll die KI dir ausgeben?", value = "eine einfache Erklärung"),
+                                    textInput("other", label = i18n$t("Was könnte noch hilfreich für die KI sein?"), placeholder = "optional")
                              ),
                              column(width = 7,
-                               # Text Output
-                               # textOutput("promptout"),
-                               div(class = "aiclass",
-                                   htmlOutput("promptout")
-                               ),
-                               actionButton("copy", i18n$t("Prompt kopieren")),
-                               
-                               tags$script(HTML("
+                                    div(class = "aiclass",
+                                        htmlOutput("promptout")
+                                    ),
+                                    tags$br(),
+                                    actionButton("copy", i18n$t("Prompt kopieren")),
+                                    tags$br(),
+                                    tags$br(),
+                                    
+                                    tags$script(HTML("
                               Shiny.addCustomMessageHandler('copyOutputText', function(id) {
                                 const text = document.getElementById(id).innerText;
                                 const el = document.createElement('textarea');
@@ -708,7 +589,38 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            )
                            
                   ),  ### close tabPanel("AI PromptR")
-                  
+                  ### tab: About ----
+                  tabPanel("About", icon = icon("code-merge"),
+                           
+                           i18n$t("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. "),
+                           i18n$t("Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! "),
+                           i18n$t("Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."),
+                           i18n$t("Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. "),
+                           tags$br(), tags$br(),
+                           div(
+                             style = "display: flex; gap: 0.5em; align-items: center;",
+                               i18n$t("Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
+                             tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "E-Mail")
+                           ),
+                           
+                           
+                           tags$hr(),
+                           
+                           tags$div(style = "display: flex; gap: 0.5em; align-items: center; text-align: center;",
+                                    # tags$br(),
+                                    i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
+                                    tags$br(),tags$br(),
+                                    
+                                    tags$img(src = "./img/install_pwa.png", style = "width: 45%; max-width: 500px; height: auto;")
+                                    ),
+                           
+                           tags$hr(),
+                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
+                           tags$br(), tags$br(),
+                           i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
+                           tags$br(), tags$br()
+                  ),  ### close tabPanel("About")
+                  ### Menu ----
                   nav_spacer(),
                   nav_menu(
                     title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
@@ -721,4 +633,46 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   )
                   ### ----
                 ) ## close navbarPage("Statistics Picker", ...
-) # close fluidPage 
+) # close fluidPage
+
+
+### tab: Beispiele ----
+# tabPanel("Beispiele", icon = icon("code"),
+#          p("Schau dir hier beispielhafte Daten an und analysiere sie!
+#            Du kannst dafür bereits ausgewählte Datensätze direkt aus R nutzen oder auch eigene Daten hochladen."),
+#          sidebarPanel(
+#            # SelectInput for which dataset to use
+#            selectInput("ex_dataset",
+#                        "Welchen Datensatz möchtest du nutzen?",
+#                        c(pos_datasets, "eigene")), # defaults to first value of choices
+#            p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
+#              (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
+#            
+#            fileInput('customfile', '',
+#                      accept=c('text/csv', 
+#                               'text/comma-separated-values,text/plain', 
+#                               '.csv')),
+#            
+#            checkboxGroupInput("ex_columns", 
+#                               "Welche Variable(n) möchtest du nutzen?", 
+#                               inline = T),
+#            verbatimTextOutput("ex_placeholder"), 
+#            checkboxGroupInput("ex_stat", 
+#                               "Welche Statistik möchtest du sehen?", 
+#                               inline = T)
+#          ), #### close sidebar
+#          mainPanel(
+#            # Output: HTML table with requested number of observations
+#            # Input: Numeric entry for number of obs to view
+#            numericInput(inputId = "obs",
+#                         label = "Anzahl angezeigter Zeilen:",
+#                         value = 6),
+#            
+#            tableOutput("ex_data_table"),
+#            
+#            div(class = "myclass",
+#                verbatimTextOutput("ex_statistic")
+#            )
+#            
+#          ) #### close main panel
+# ),  ### close tabPanel("Beispiele")
