@@ -49,7 +49,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                 
            ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
                 navbarPage(position = "fixed-top", collapsible = TRUE, id = "stats",
-                  title = div(img(icon("wand-magic-sparkles")), "Statistik Picker"),
+                  title = div(img(icon("wand-magic-sparkles")), "Stats Picker"),
                   
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
@@ -553,7 +553,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                              i18n$t("Künstliche Intelligenz (artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden."),
                                              i18n$t("Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!"),
                                              br(),
-                                             i18n$t("Im Folgenden findest du eine Leitfragen, die dir helfen sollen, einen möglichst präzisen prompt zu formulieren.")
+                                             tags$p(i18n$t("Im Folgenden findest du einige Leitfragen, die dir helfen sollen, einen"), tags$b(i18n$t("präzisen prompt")), i18n$t("zu formulieren."))
                                     )
                            ),
                            
@@ -566,6 +566,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                     textInput("other", label = i18n$t("Was könnte noch hilfreich für die KI sein?"), placeholder = "optional")
                              ),
                              column(width = 7,
+                                    tags$br(),
                                     div(class = "aiclass",
                                         htmlOutput("promptout")
                                     ),
@@ -584,7 +585,27 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                 document.execCommand('copy');
                                 document.body.removeChild(el);
                               });
-                            "))
+                            ")),
+                                    
+                                  tags$b("Tips & Tricks"), tags$br(),
+                                  tags$li(i18n$t("Schreib der KI klare und spezifische Anweisungen")),
+                                  tags$li(i18n$t("Gib ausreichend Details für deine Anfrage")),
+                                  tags$li(i18n$t("Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)")),
+                                  tags$li(i18n$t("Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!")),
+                                  tags$li(i18n$t("Beschreibe deine Erwartungen")),
+                                  tags$li(i18n$t("Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten hochladen)")),
+                                  # tags$li(i18n$t("")),
+                                  
+                                  tags$br(),
+                                  tags$hr(),
+                                  tags$b("Sources"),
+                                  
+                                  tags$p("Kulkarni, N. D., & Tupsakhare, P. (2024). Crafting Effective Prompts: Enhancing AI Performance through Structured Input Design.", tags$em("JOURNAL OF RECENT TRENDS IN COMPUTER SCIENCE AND ENGINEERING (JRTCSE), 12"), "(5), Article 5."),
+                                  tags$p("Denny, P., Leinonen, J., Prather, J., Luxton-Reilly, A., Amarouche, T., Becker, B. A., & Reeves, B. N. (2023). Promptly: Using Prompt Problems to Teach Learners How to Effectively Utilize AI Code Generators (No. arXiv:2307.16364).", em("arXiv."), "https://doi.org/10.48550/arXiv.2307.16364")
+                                  
+
+                                 
+                                  
                              )
                            )
                            
@@ -617,7 +638,7 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                            tags$hr(),
                            i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
                            tags$br(), tags$br(),
-                           i18n$t("Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
+                           i18n$t("Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
                            tags$br(), tags$br()
                   ),  ### close tabPanel("About")
                   ### Menu ----

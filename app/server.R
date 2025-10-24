@@ -64,7 +64,11 @@ function(input, output, session) {
     
   })
   
- 
+ # Add feedback about copied text for AI promptR
+  observeEvent(input$copy, {
+    showNotification("Copied!", duration = 2)
+  })
+  
   # Update navbar page for internal links???
   observeEvent(input$controller, {
     updateNavbarPage(session, "stats",

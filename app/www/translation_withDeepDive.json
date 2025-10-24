@@ -232,8 +232,8 @@
             "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating!"
         },
         {
-            "de": "Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
-            "en": "The Statistics Picker is developed as part of the Ph.D. project by Annika Tave Overlander, M.Sc."
+            "de": "Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
+            "en": "The Stats Picker is developed as part of the Ph.D. project by Annika Tave Overlander, M.Sc."
         },
 
 
@@ -850,8 +850,16 @@
             "en": "Therefore, formulating a clear and effective prompt (also called 'prompt engineering') to the AI is very helpful!"
         },
         {
-            "de": "Im Folgenden findest du eine Leitfragen, die dir helfen sollen, einen möglichst präzisen prompt zu formulieren.",
-            "en": "Here you can find some inspiration to help you craft a precise prompt to use in an AI of your choice."
+            "de": "Im Folgenden findest du einige Leitfragen, die dir helfen sollen, einen",
+            "en": "Here you can find some inspiration to help you craft a"
+        },
+        {
+            "de": "präzisen prompt",
+            "en": "precise prompt"
+        },
+        {
+            "de": "zu formulieren.",
+            "en": "to use in an AI of your choice."
         },
         {
             "de": "Was ist dein Ziel?",
@@ -894,13 +902,41 @@
             "en": "Copy prompt"
         },
         {
-            "de": "XXX",
-            "en": "XXX"
-        },
-        {
             "de": "Was könnte noch hilfreich für die KI sein?",
             "en": "What else might help the AI understand you better?"
+        },
+        
+        
+        {
+            "de": "Schreib der KI klare und spezifische Anweisungen",
+            "en": "Give the AI clear and specific instructions"
+        },
+        
+        {
+            "de": "Gib ausreichend Details für deine Anfrage",
+            "en": "Provide sufficient details"
+        },
+        
+        {
+            "de": "Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)",
+            "en": "Be prepared that you may need to give several prompts (iterative process)"
+        },
+        
+        {
+            "de": "Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!",
+            "en": "Remember that most AIs are trained with text from the Internet so they may not be great with numbers. Always fact-check important answers!"
+        },
+        
+        {
+            "de": "Beschreibe deine Erwartungen",
+            "en": "Describe your expectations"
+        },
+        
+        {
+            "de": "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten hochladen)",
+            "en": "Make sure you respect data security and ethical behavior (e.g. don't upload personal data)"
         }
+                                  
         
     ]
 }
