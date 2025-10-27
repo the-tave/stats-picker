@@ -636,9 +636,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                     ),
                            
                            tags$hr(),
-                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!"),
+                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!"),
                            tags$br(), tags$br(),
-                           i18n$t("Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc."),
+                           i18n$t("Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc."),
                            tags$br(), tags$br()
                   ),  ### close tabPanel("About")
                   ### Menu ----
