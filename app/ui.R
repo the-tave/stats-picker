@@ -54,9 +54,9 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                   ### tab: Home ----
                   tabPanel("", icon = icon("house"),
                            value = "home", #added to make tabs in tabPanel linkable?!
-                           pwa("https://the-tave.shinyapps.io/Statistik-Picker/", 
-                               title = "Statistik Picker",
-                               output = "www", icon = "www/icon_Stats-Picker_logo.png",
+                           pwa("https://the-tave.shinyapps.io/Stats-Picker/", 
+                               title = "Stats Picker",
+                               output = "www", icon = "www/newicon_Stats-Picker_logo.png",
                                color = "#e85620"),
                            
                            tags$div(class = "fancy-container", 
