@@ -153,7 +153,7 @@
             "en": "What is the standard deviation?"
         },
         {
-            "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
+            "de": "Was bedeuten eigentlich t-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
             "en": "What do t-values actually mean and how are they calculated? Enter different sample means and standard deviations and observe how that affects the distributions! Below you can then guess: What t-value will result from the sample comparison?"
         },
         {
@@ -177,11 +177,11 @@
             "en": "How large are the samples each?"
         },
         {
-            "de": "Und nun rate mal: What's the T?",
-            "en": "And now take a guess: What's the T?"
+            "de": "Und nun rate mal: What's the t?",
+            "en": "And now take a guess: What's the t?"
         },
         {
-            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
+            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.",
             "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
         },
         {
@@ -423,20 +423,20 @@
             "en": "The sample size cannot exceed 1000."
         },
         {
-            "de": "Der echte T-Wert ist ",
-            "en": "The true T-value is "
+            "de": "Der echte t-Wert ist ",
+            "en": "The true t-value is "
         },
         {
             "de": ", das heißt dein geratener Wert weicht um ",
-            "en": ", meaning the value you guessed deviates by "
+            "en": ", meaning the value you guessed is off by "
         },
         {
             "de": " davon ab.",
-            "en": " from it."
+            "en": "."
         },
         {
             "de": "Du kriegst schon noch ein Gefühl dafür!",
-            "en": "You'll get a feel for it soon!"
+            "en": "You'll get the hang of it soon!"
         },
         {
             "de": "Super, das war schon nah dran!",

@@ -372,13 +372,13 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                tags$a(href="https://doi.org/10.1007/978-3-662-47106-7", "https://doi.org/10.1007/978-3-662-47106-7.")
                              ),
                              
-                             p("Kaliyadan, F., & Kulkarni, V. (2019). Types of Variables, Descriptive Statistics, and Sample Size.",
+                             p("Kaliyadan, F., & Kulkarni, V. (2019). Types of variables, descriptive statistics, and sample size.",
                                tags$i("Indian Dermatology Online Journal, 10"), "(1), 82–86.",
                                tags$a(href="https://doi.org/10.4103/idoj.IDOJ_468_18", "https://doi.org/10.4103/idoj.IDOJ_468_18.")
                              ),
                              
                              p("Lowry, R. (1998).",
-                               tags$i("Concepts and Applications of Inferential Statistics."),
+                               tags$i("Concepts and applications of inferential statistics."),
                                tags$a(href="http://vassarstats.net/textbook/", "http://vassarstats.net/textbook/.")
                              ),
                              
@@ -454,8 +454,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                        tags$br()
                              ),
                              
-                             nav_panel("What's the T?",
-                                       i18n$t("Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?"),
+                             nav_panel("What's the t?",
+                                       i18n$t("Was bedeuten eigentlich t-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?"),
                                 
                                        fluidRow( #row2
                                          column(width = 3, tags$b(tags$u(i18n$t("Stichprobe 1:")))),
@@ -506,14 +506,14 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                        fluidRow(
                                          column(5,
                                                 numericInput("tguessval", 
-                                                             "Und nun rate mal: What's the T?"|>i18n$t(),
+                                                             "Und nun rate mal: What's the t?"|>i18n$t(),
                                                              min = -Inf,
                                                              max = Inf,
                                                              step = .01,
                                                              value = 0, width = "90%")
                                                 ),
                                          column(7,
-                                                i18n$t("Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.")
+                                                i18n$t("Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.")
                                                 )
                                          ),
                                          actionButton("tbtn", "Antwort"|>i18n$t()),
@@ -600,8 +600,8 @@ fluidPage(theme = shinythemes::shinytheme("united"),
                                   tags$hr(),
                                   tags$b("Sources"),
                                   
-                                  tags$p("Kulkarni, N. D., & Tupsakhare, P. (2024). Crafting Effective Prompts: Enhancing AI Performance through Structured Input Design.", tags$em("JOURNAL OF RECENT TRENDS IN COMPUTER SCIENCE AND ENGINEERING (JRTCSE), 12"), "(5), Article 5."),
-                                  tags$p("Denny, P., Leinonen, J., Prather, J., Luxton-Reilly, A., Amarouche, T., Becker, B. A., & Reeves, B. N. (2023). Promptly: Using Prompt Problems to Teach Learners How to Effectively Utilize AI Code Generators (No. arXiv:2307.16364).", em("arXiv."), "https://doi.org/10.48550/arXiv.2307.16364")
+                                  tags$p("Kulkarni, N. D., & Tupsakhare, P. (2024). Crafting effective prompts: Enhancing AI performance through structured input design.", tags$em("Journal Of Recent Trends In Computer Science And Engineering (JRTCSE), 12"), "(5), 1-10."),
+                                  tags$p("Denny, P., Leinonen, J., Prather, J., Luxton-Reilly, A., Amarouche, T., Becker, B. A., & Reeves, B. N. (2023). Promptly: Using prompt problems to teach learners how to effectively utilize AI code generators (No. arXiv:2307.16364).", em("arXiv."), "https://doi.org/10.48550/arXiv.2307.16364")
                                   
 
                                  

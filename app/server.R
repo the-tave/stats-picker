@@ -703,9 +703,9 @@ tdiff <- reactive({
 output$tguess <- renderText(
   # tval()
   
-  c(paste("Der echte T-Wert ist "|>i18n$t(), tval(),
+  c(paste("Der echte t-Wert ist "|>i18n$t(), tval(),
         ", das heißt dein geratener Wert weicht um "|>i18n$t(), tdiff(),
-        " davon ab."),
+        " davon ab."|>i18n$t()),
     ifelse(tdiff() > 2, "Du kriegst schon noch ein Gefühl dafür!"|>i18n$t(),
            "Super, das war schon nah dran!"|>i18n$t())
   )

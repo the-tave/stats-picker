@@ -1,12 +1,12 @@
 name: Stats-Picker
 title: Stats-Picker
-username: the-tave
-account: the-tave
+username: iscience-kn
+account: iscience-kn
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 15858259
-bundleId: 11888716
-url: https://the-tave.shinyapps.io/Stats-Picker/
+appId: 16114165
+bundleId: 11204863
+url: https://iscience-kn.shinyapps.io/Stats-Picker/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
