@@ -557,7 +557,7 @@ function(input, output, session) {
 
 # Simulations Tab ------
 
-# Dice: Normal Distribution
+## Dice: Normal Distribution ----
 output$diePlot <- renderPlot({
 
   if (input$n > 1000){
@@ -607,7 +607,7 @@ output$diePlot <- renderPlot({
   
 })
 
-# Coin: Probability
+## Coin: Probability ----
 
 output$coinPlot <- renderPlot({
   
@@ -616,7 +616,17 @@ output$coinPlot <- renderPlot({
     showNotification("Anzahl Münzen darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
   } else {
     coins <- input$coins
+    
+    coinseqbreaks <- ifelse(coins < 25,
+                         1,
+                         ifelse(coins < 200,
+                                5, 
+                                10)
+    )
+    
   }
+  
+  
   
   vals <- dbinom(1:coins, coins, input$p)
 
@@ -627,7 +637,8 @@ output$coinPlot <- renderPlot({
     theme_minimal() +
     labs(x = "Häufigkeit 'Zahl'"|>i18n$t(),
          y = "Wahrscheinlichkeit 'Zahl'"|>i18n$t(),
-         title = "Münze"|>i18n$t())
+         title = "Münze"|>i18n$t()) +
+    scale_x_continuous(breaks = c(1, seq(coinseqbreaks, coins, coinseqbreaks))|> unique())
 })
 
 # Distribution and the coefficient of variation
@@ -664,7 +675,7 @@ t <- reactive({
   }
   
   
-  
+  set.seed(666)
   t <- data.frame(x =  rnorm(n, m1, sd1),
                   y =  rnorm(n, m2, sd2))
   t
@@ -683,7 +694,8 @@ output$tPlot <- renderPlot({
   longt <- tidyr::pivot_longer(t, cols = c(x,y))
   
   ggplot(longt, aes(name, value, color = name)) +
-    geom_boxplot() +
+    geom_point(alpha=.3) +
+    geom_boxplot(alpha=.8) +
     theme_minimal() +
     theme(legend.position = "none") +
     scale_color_manual(values = c("#fd8d3c", "#8C2D04")) +
