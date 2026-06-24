@@ -37,20 +37,22 @@ fluidPage(
   
   shiny.i18n::usei18n(i18n),
   # initialize the use of translation i18n
-  tags$div(
-    style = 'float: right;
-            width: 140px;
-            padding-left: 20px;',
-    # added sizing to div style
-    selectInput(
-      inputId = 'selected_language',
-      label = i18n$t('Change language'),
-      choices = setNames(
-        i18n$get_languages(),
-        c("Deutsch", "English") # Set labels for the languages
-      )
-    )
-  ),
+  # tags$div(
+  #   style = 'float: right;
+  #           width: 140px;
+  #           padding-left: 20px;',
+  #   # added sizing to div style
+  #   
+  #   # selectInput(
+  #   #   inputId = 'selected_language',
+  #   #   label = i18n$t('Change language'),
+  #   #   choices = setNames(
+  #   #     i18n$get_languages(),
+  #   #     c("Deutsch", "English") # Set labels for the languages
+  #   #   )
+  #   # )
+  #   
+  # ),
   useShinyjs(),
   
   # customize sliders
@@ -711,7 +713,7 @@ fluidPage(
                                                                    "cv_m",
                                                                    "Welchen Mittelwert hat die Verteilung?" |>
                                                                      i18n$t(),
-                                                                   min = 1,
+                                                                   min = 0,
                                                                    max = 100,
                                                                    value = 5
                                                                  ),
@@ -723,7 +725,7 @@ fluidPage(
                                                                    "Was ist die Standardabweichung?" |>
                                                                      i18n$t(),
                                                                    min = 0,
-                                                                   max = 70,
+                                                                   max = 20,
                                                                    step = .1,
                                                                    value = 3
                                                                  ),
@@ -765,7 +767,7 @@ fluidPage(
                     sliderInput(
                       "t_m1",
                       i18n$t("Mittelwert:"),
-                      min = -100,
+                      min = 0,
                       max = 100,
                       value = 12
                     )
@@ -798,7 +800,7 @@ fluidPage(
                       "t_m2",
                       "Mittelwert:" |>
                         i18n$t(),
-                      min = -100,
+                      min = 0,
                       max = 100,
                       value = 5
                     )
@@ -810,8 +812,8 @@ fluidPage(
                       "t_sd2",
                       "Standardabweichung:" |>
                         i18n$t(),
-                      min = -100,
-                      max = 100,
+                      min = 0,
+                      max = 20,
                       step = .5,
                       value = 5.5
                     )
@@ -1137,6 +1139,29 @@ fluidPage(
     ### close tabPanel("About")
     ### Menu ----
     nav_spacer(),
+    ## TRY TO MOVE LANGUAGE TO NAVBAR
+    
+    nav_item(
+      tags$div(
+        style = 'width: 110px;
+            padding-left: 10px;',
+        # added sizing to div style
+        
+        selectInput(
+          inputId = 'selected_language',
+          label = NULL, # i18n$t('Change language'),
+          choices = setNames(
+            i18n$get_languages(),
+            c("Deutsch", "English") # Set labels for the languages
+          )
+        )
+        
+      )
+    )
+    ,
+    
+    ####
+    
     nav_menu(
       title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
       align = "right",
