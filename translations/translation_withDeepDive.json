@@ -161,8 +161,12 @@
             "en": "And now take a guess: What's the T?"
         },
         {
-            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
-            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+            "de": "Kleiner Tipp:",
+            "en": "Hint:"
+        },
+        {
+            "de": "Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
+            "en": "If the first mean is smaller than the second, the t-value is negative."
         },
         {
             "de": "Antwort",

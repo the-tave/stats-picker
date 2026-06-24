@@ -1,4 +1,7 @@
 library(shiny)
+library(httr2)
+library(jsonlite)
+library(bslib)
 
 # file with translations
 i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
@@ -22,6 +25,64 @@ new_nom <- as.data.frame(table(data.frame(nom)))
 names(new_nom) <- c("Daten", "value")
 
 pos_datasets <- c("iris", "mtcars", "Orange")
+
+
+## NEW AI INTEGRATION ##
+
+ask_openai <- function(user_message, history = list()) {
+  api_key <- Sys.getenv("OPENAI_API_KEY")
+  
+  if (api_key == "") {
+    stop("OPENAI_API_KEY is not set. Add it to .Renviron or your deployment secrets.")
+  }
+  
+  # Combine a fixed system/developer instruction with the user's message.
+  # You can make this very specific to Stats Picker / statistical guidance.
+  input <- list(
+    list(
+      role = "system",
+      content = paste(
+        "You are a helpful statistics assistant embedded in a Shiny app.",
+        "Explain statistical choices clearly and beginner-friendly.",
+        "Do not pretend to analyze uploaded data unless the data was actually provided.",
+        "When recommending tests, mention assumptions and suitable visualizations."
+      )
+    ),
+    list(
+      role = "user",
+      content = user_message
+    )
+  )
+  
+  response <- request("https://api.openai.com/v1/responses") |>
+    req_headers(
+      Authorization = paste("Bearer", api_key),
+      "Content-Type" = "application/json"
+    ) |>
+    req_body_json(list(
+      model = "gpt-5.4",
+      input = input,
+      store = FALSE
+    )) |>
+    req_error(is_error = function(resp) FALSE) |>
+    req_perform()
+  
+  parsed <- resp_body_json(response, simplifyVector = FALSE)
+  
+  # The API response format can contain several output items.
+  # This extracts plain assistant text robustly for common Responses API outputs.
+  output_text <- parsed$output_text
+  
+  if (is.null(output_text)) {
+    output_text <- parsed$output[[1]]$content[[1]]$text
+  }
+  
+  used_tokens <- parsed$usage$total_tokens
+  
+  output_text
+}
+
+####
 
 # Define server logic ----
 function(input, output, session) {
@@ -688,13 +749,14 @@ tval <- reactive({
     2)
 })
 
+
 output$tPlot <- renderPlot({
   t <- t()
   
   longt <- tidyr::pivot_longer(t, cols = c(x,y))
   
   ggplot(longt, aes(name, value, color = name)) +
-    geom_point(alpha=.3) +
+    geom_jitter(alpha=.6, size=3) +
     geom_boxplot(alpha=.8) +
     theme_minimal() +
     theme(legend.position = "none") +
@@ -748,39 +810,98 @@ output$lmPlot <- renderPlot({
 
 
 
-## Prompt Tab
-output$promptout <- renderText(
-  paste0("Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist " |> i18n$t(), input$goal, ". Der Kontext ist " |> i18n$t(),
-         input$context, ". Ich brauche von dir " |> i18n$t(), input$wish, ". ", input$other)
-)
+# Prompt Tab ----
 
-# Add clipboard buttons
-observeEvent(input$copy, {
-  session$sendCustomMessage("copyOutputText", "promptout")
+## NEW AI INTEGRATION ##
+## Design shizzle
+output$user_context <- renderUI({
+  tags$div(
+    tags$ul(
+      tags$li(paste(i18n$t("Skalenniveau Variable"), "1: ", input$scale)),
+      tags$li(paste(i18n$t("Skalenniveau Variable"), "2: ", input$scale2))
+    )
+  )
 })
+
+
+
+## AI shizzle
+
+chat <- reactiveVal(list(
+  list(
+    role = "assistant",
+    text = "Hi! Tell me about your variables, research goal, and study design, and I’ll suggest a statistic or visualization. Du kannst auch auf Deutsch fragen."
+  )
+))
+
+observeEvent(input$send, {
+  req(input$user_message)
+  
+  user_text <- input$user_message
+  
+  # Add user message to visible chat
+  current_chat <- chat()
+  current_chat <- append(current_chat, list(
+    list(role = "user", text = user_text)
+  ))
+  chat(current_chat)
+  
+  updateTextAreaInput(session, "user_message", value = "")
+  
+  # Call OpenAI
+  assistant_text <- tryCatch(
+    ask_openai(user_text),
+    error = function(e) {
+      paste("Sorry, something went wrong:", e$message)
+    }
+  )
+  
+  # Add assistant response
+  current_chat <- chat()
+  current_chat <- append(current_chat, list(
+    list(role = "assistant", text = assistant_text)
+  ))
+  chat(current_chat)
+})
+
+output$chat_history <- renderUI({
+  messages <- chat()
+  
+  tagList(lapply(messages, function(msg) {
+    
+    print(messages)
+    
+    div(
+      class = paste("chat-message", msg$role),
+      style = if (msg$role == "user") {
+        "background:#ede7f6; padding:12px; border-radius:14px; margin:8px 0 8px auto; max-width:80%;"
+      } else {
+        "background:#f8f9fa; padding:12px; border-radius:14px; margin:8px auto 8px 0; max-width:80%;"
+      },
+      strong(ifelse(msg$role == "user", "You", "Assistant")),
+      br(),
+      markdown::markdownToHTML(
+        text = msg$text,
+        fragment.only = TRUE
+      ) |> HTML()
+    )
+  }))
+})
+
+####
+
+
+# output$promptout <- renderText(
+#   paste0("Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist " |> i18n$t(), input$goal, ". Der Kontext ist " |> i18n$t(),
+#          input$context, ". Ich brauche von dir " |> i18n$t(), input$wish, ". ", input$other)
+# )
+# 
+# # Add clipboard buttons
+# observeEvent(input$copy, {
+#   session$sendCustomMessage("copyOutputText", "promptout")
+# })
 
 
 
 }
 
-
-
-
-
-# Explanation on reactivity
-
-# reactive({}) allows for reactivity and creation of new var
-# observe({}) allows for reactivity
-
-# Example:
-# shinyServer(function(input, output){
-#   # Create new reactive variable
-#   newVar <- reactive({
-#     val <- c(input$BLA +10, input$BLA * 3)
-#   })
-#   
-#   output$textString <- renderText({
-#     value <- newVar() #access like a function!
-#     paste0("Input plus 10 is ", value[1], " and Input times 3 is ", value[2])
-#   })
-# })

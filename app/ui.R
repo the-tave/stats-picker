@@ -1,4 +1,5 @@
 
+
 extrafont::loadfonts(quiet = T) # device = "postscript"
 # extrafont::loadfonts("C:/Windows/Fonts/", pattern = "Ubuntu")
 # windowsFonts(Ubuntu=windowsFont("Ubuntu"))
@@ -11,649 +12,1148 @@ library(shiny.pwa)
 library(shiny.i18n) # for translations
 library(jsonlite)
 library(rclipboard) # to copy prompt output
+library(shinydashboard) # to customize dashboard
+library(shinyWidgets)
 
 # pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
 
 
 # Translation setup ----
-i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
+i18n <- Translator$new(translation_json_path = "./www/translation_withDeepDive.json")
 
-i18n$set_translation_language("de") #en
+i18n$set_translation_language("en") #en
 
 rclipboardSetup()
 
-# Define UI for application 
-fluidPage(theme = shinythemes::shinytheme("united"),
-          tags$head(
-            tags$title("Stats Picker"),
-            tags$meta(name = "description", content = "The Stats Picker helps you with statistics with explanations, examples and simulations!"),
-            tags$meta(name = "keywords", content = "Shiny, R, Data Visualization, Statistics, Teaching, Learning"),
-            tags$link(rel = "stylesheet", type = "text/css", href = "styling.css")
+# Define UI for application
+fluidPage(
+  theme = shinythemes::shinytheme("united"),
+  tags$head(
+    tags$title("Stats Picker"),
+    tags$meta(name = "description", content = "Stats Picker helps you with statistics with explanations, examples and simulations!"),
+    tags$meta(name = "keywords", content = "Shiny, R, Data Visualization, Statistics, Teaching, Learning"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "styling.css")
+  ),
+  
+  shiny.i18n::usei18n(i18n),
+  # initialize the use of translation i18n
+  tags$div(
+    style = 'float: right;
+            width: 140px;
+            padding-left: 20px;',
+    # added sizing to div style
+    selectInput(
+      inputId = 'selected_language',
+      label = i18n$t('Change language'),
+      choices = setNames(
+        i18n$get_languages(),
+        c("Deutsch", "English") # Set labels for the languages
+      )
+    )
+  ),
+  useShinyjs(),
+  
+  # customize sliders
+  chooseSliderSkin("Flat", color = "#e85620"),
+  
+  ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
+  navbarPage(
+    position = "fixed-top",
+    collapsible = TRUE,
+    id = "stats",
+    title = div(img(icon(
+      "wand-magic-sparkles"
+    )), "Stats Picker"),
+    
+    ### tab: Home ----
+    tabPanel(
+      "",
+      icon = icon("house"),
+      value = "home",
+      #added to make tabs in tabPanel linkable?!
+      pwa(
+        "https://the-tave.shinyapps.io/Stats-Picker/",
+        title = "Stats Picker",
+        output = "www",
+        icon = "www/newicon_Stats-Picker_logo.png",
+        color = "#e85620"
+      ),
+      
+      tags$div(
+        class = "fancy-container",
+        tags$div(
+          class = "content",
+          
+          i18n$t(
+            "Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst."
+          ),
+          tags$br(),
+          tags$b(
+            i18n$t(
+              "Erst musst du angeben, welche Skalenniveaus deine Variablen haben."
+            )
+          ),
+          i18n$t(
+            "Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."
+          ),
+          tags$br(),
+          i18n$t(
+            "Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im "
+          ),
+          actionButton("controller", "Deep Dive", style = "padding:3px;"),
+          tags$p(i18n$t(" Tab vorbei!"), style = "display:inline-block;")
+        )
+      ),
+      
+      
+      tags$br(),
+      tags$br(),
+      
+      # Sidebar with all the inputs by users
+      sidebarPanel(
+        selectInput(
+          "scale",
+          i18n$t("Welches Skalenniveau hat Variable 1?"),
+          choices = c("intervall", "ordinal", "nominal")
+        ),
+        # defaults to first value of choices
+        selectInput(
+          "scale2",
+          i18n$t("Welches Skalenniveau hat Variable 2?"),
+          choices = c("keins", "intervall", "ordinal", "nominal")
+        ),
+        radioButtons(
+          "statstype",
+          "Was hast du vor?" |> i18n$t(),
+          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")
+        ),
+      ),
+      #### close sidebarPanel()
+      # Explain App and show the actual output
+      mainPanel(
+        tags$div(class = "panel panel-default", tags$div(class =
+                                                           "panel-body", 
+                                                         h4("Beispieldaten mit Zentralmaß" |> i18n$t()),
+                                                         div(class = "myclass", htmlOutput("statsex"), htmlOutput("var2data")),
+                                                         
+                                                         h4(id = "statataglance", "Passende Statistik" |>
+                                                              i18n$t()),
+                                                         h5(htmlOutput("ataglanceout")),
+                                                         # Text Outputs
+                                                         # div(class = "myclass",
+                                                         #     htmlOutput("ataglanceout")
+                                                         # ),
+                                                         
+                                                         h4(id = "expl_h4", "Erklärung" |> i18n$t()),
+                                                         # Text Outputs
+                                                         div(class = "myclass", htmlOutput("statstypeout")),
+                                                         
+                                                         tags$br(),
+                                                         
+                                                         # Table output for two vars nom
+                                                         div(class = "nomclass", tableOutput("table")),
+                                                         
+                                                         # Plot Output
+                                                         h4(id = "viz_h4", "Visualisierung" |> i18n$t()),
+                                                         plotOutput("dataViz")
+                                                         )),
+        
+        
+      ) #### close mainPanel()
+    ),
+    ### close tabPanel("Home", ... )
+    ### tab: Deep Dive ----
+    tabPanel(
+      "Deep Dive",
+      icon = icon("circle-info"),
+      value = "deep-dive",
+      
+      tags$div(
+        class = "fancy-container",
+        tags$div(
+          class = "content",
+          i18n$t(
+            "Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige"
+          ),
+          tags$a(href = "#scales", "Skalenniveau" |> i18n$t()),
+          i18n$t("informieren."),
+          tags$br(),
+          i18n$t("Dann findest du einige"),
+          tags$a(href = "#univar", "Maße für eine Variable." |> i18n$t()),
+          tags$br(),
+          i18n$t("Der größte Teil behandelt"),
+          tags$a(href = "#multivar", "Multivariate Statistik." |> i18n$t()),
+          tags$br(),
+          i18n$t("Am Ende gibt es noch eine kleine Erklärung zur"),
+          tags$a(href = "#factanal", "Faktorenanalyse" |> i18n$t()),
+          i18n$t("sowie eine"),
+          tags$a(href = "#summary", "visuelle Zusammenfassung." |> i18n$t())
+          
+        )
+      ),
+      
+      tags$section(
+        id = "scales",
+        style = "width: 80%;",
+        h2("Skalenniveau" |> i18n$t()),
+        # google icon!
+        i18n$t(
+          "Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."
+        ),
+        tags$br(),
+        i18n$t(
+          "Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"
+        ),
+        tags$br(),
+        tags$br(),
+        tags$img(src = "./img/Scales_of_Measurement.png", width = '70%'),
+        tags$br(),
+      ),
+      tags$hr(),
+      
+      tags$section(
+        id = "univar",
+        style = "width: 80%;",
+        h2("Univariat - eine Variable" |> i18n$t()),
+        h3("Modus" |> i18n$t()),
+        i18n$t(
+          "Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung)."
+        ),
+        tags$br(),
+        tags$br(),
+        p(
+          i18n$t(
+            "Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt"
+          ),
+          "(Kaliyadan & Kulkarni, 2019)."
+        ),
+        
+        h3("Median" |> i18n$t()),
+        i18n$t(
+          "Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen. Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t(
+          "Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt (Crump et al., 2018)."
+        ),
+        
+        h3("Arithmetischer Mittelwert" |> i18n$t()),
+        i18n$t(
+          "Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen. Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t(
+          "Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018)."
+        ),
+        tags$br(),
+        tags$img(src = "./img/dist.svg", width = '45%'),
+        
+        h3("Standardabweichung" |> i18n$t()),
+        i18n$t(
+          "Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t(
+          "Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."
+        ),
+        plotOutput("dd_sdplot", width = '50%', height = '200px'),
+      ),
+      
+      tags$hr(),
+      
+      tags$section(
+        id = "multivar",
+        style = "width: 80%;",
+        h2("Multivariat - mehrere Variablen" |> i18n$t()),
+        h3("t-Test"),
+        i18n$t(
+          "Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test."
+        ),
+        i18n$t(
+          "Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander. Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte."
+        ),
+        tags$br(),
+        i18n$t(
+          "Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig. Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen. In theoretisch gut begründeten Fällen kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t("Annahmen des t-Tests:"),
+        tags$ul(
+          tags$li("ausreichend große Stichprobe (Faustregel n=30)" |> i18n$t()),
+          tags$li("normalverteilte Daten" |> i18n$t())
+        ),
+        tags$br(),
+        i18n$t(
+          "Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018)."
+        ),
+        tags$br(),
+        tags$img(src = "./img/Bild2.png", width = '65%'),
+        
+        h4("Einstichproben t-Test" |> i18n$t()),
+        i18n$t(
+          "Der Einstichproben t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen."
+        ),
+        tags$br(),
+        i18n$t(
+          "Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. Da so gut wie immer die Parameter der Population unbekannt sind, muss man diese schätzen."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t(
+          "Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test"),
+        
+        h4("Zweistichproben t-Test (abhängig)" |> i18n$t()),
+        i18n$t(
+          "Der abhängige t-Test ist dem Einstichproben t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.)."
+        ),
+        tags$br(),
+        i18n$t(
+          "Die Berechnung ist ähnlich wie beim Einstichproben t-Test (Crump et al., 2018)."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test"),
+        
+        h4("Zweistichproben t-Test (unabhängig)" |> i18n$t()),
+        i18n$t(
+          "Der Zweistichproben t-Test (auch unabhängiger t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt (Crump et al., 2018)."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t("Nicht-parametrische Alternative:"),
+        tags$ul(
+          tags$li(
+            "Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist)" |>
+              i18n$t()
+          ),
+          tags$li(
+            "Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)" |>
+              i18n$t()
+          )
+        ),
+        
+        h3("ANOVA"),
+        i18n$t(
+          "Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Zufall oder Messfehler zustande kamen."
+        ),
+        tags$br(),
+        i18n$t(
+          "Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative."
+        ),
+        tags$br(),
+        p(
+          i18n$t(
+            "Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um 1 - (1 - alpha)"
+          ),
+          tags$sup("Anzahl Paarvergleiche" |> i18n$t()),
+          "(Janczyk & Pfister, 2015).",
+          i18n$t(
+            "Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon"
+          ),
+          "1-(1-0.05)",
+          tags$sup("6"),
+          " = 26,5%!"
+        ),
+        tags$br(),
+        i18n$t("Annahmen der ANOVA:"),
+        tags$ul(
+          tags$li("intervallskalierte Daten" |> i18n$t()),
+          tags$li("unabhängige und zufällige Ziehung von k Stichproben" |>
+                    i18n$t()),
+          tags$li(
+            "gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten; Crump et al., 2018)" |>
+              i18n$t()
+          )
+        ),
+        tags$img(src = "./img/anova.svg", width = '55%'),
+        
+        h4("Einfaktorielle ANOVA" |> i18n$t()),
+        i18n$t(
+          "Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen."
+        ),
+        tags$br(),
+        i18n$t(
+          "Die Versuchspersonen der einzelnen Faktorstufen sind dabei unkorreliert, wie beim independent-samples t-Test. Die resultierende F-Statistik ergibt das Verhältnis aus erklärbarer Varianz durch die experimentelle Manipulation und der Fehlervarianz."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t(
+          "Mit einer ANOVA kann man nur herausfinden, ob mindestens eine Faktorstufe sich signifikant von mindestens einer weiteren unterscheidet. Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tests durchführen."
+        ),
+        tags$br(),
+        i18n$t(
+          "Man kann genau einen Haupteffekt finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen (Crump et al., 2018)."
+        ),
+        tags$br(),
+        i18n$t("Gängige post-hoc Tests (Auswahl):"),
+        tags$ul(
+          tags$li("Tukey HSD Test" |> i18n$t()),
+          tags$li("Least Significant Difference (LSD)" |>
+                    i18n$t()),
+          tags$li("Bonferroni" |> i18n$t())
+        ),
+        
+        h4("ANOVA mit Messwiederholung" |> i18n$t()),
+        i18n$t(
+          "Eine repeated-measures ANOVA nutzt man für within-subjects Designs. Man hat eine unabhängige Variable (UV; Faktor) mit mindestens zwei bzw. drei Faktorstufen."
+        ),
+        i18n$t(
+          "Im Gegensatz zur one-factor ANOVA sind aber die Versuchspersonen nicht unabhängig voneinander, sondern man erhebt z.B. Daten derselben Personen zu drei Messzeitpunkten und vergleicht dann sinngemäß jede Person mit sich selbst zu verschiedenen Zeitpunkten."
+        ),
+        tags$br(),
+        i18n$t(
+          "Nach wie vor werden aber nur Daten einer unabhängigen Variable erhoben, weshalb es auch hier nur Haupteffekte geben kann und noch keine Interaktionen (Crump et al., 2018)."
+        ),
+        
+        h4("Faktorielle ANOVA" |> i18n$t()),
+        i18n$t(
+          "Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man eine faktorielle ANOVA, d.h. man hat nun mehr als nur eine unabhängige Variable mit mehreren Faktorstufen. Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA analysiert werden."
+        ),
+        tags$br(),
+        i18n$t(
+          "Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden (Crump et al., 2018)."
+        ),
+        
+        h3("Regression"),
+        h4("Lineare Regression" |> i18n$t()),
+        i18n$t(
+          "Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch."
+        ),
+        i18n$t(
+          "Grafisch dargestellt ist die Regressionsgerade die Linie, die die Daten am besten beschreibt, d.h. zu der die Abstände von jedem Datenpunkt eines Scatterplots aus minimal sind."
+        ),
+        tags$br(),
+        i18n$t(
+          "Diese Abstände zeigen den Messfehler an. Gäbe es keinen Messfehler, würden alle Datenpunkte auf der Regressionsgerade liegen (Crump et al., 2018; UZH, 2023)."
+        ),
+        plotOutput("dd_regplot", width = '60%'),
+        
+        h4("Logistische Regression" |> i18n$t()),
+        i18n$t(
+          "Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist."
+        ),
+        i18n$t(
+          "Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt."
+        ),
+        tags$br(),
+        i18n$t(
+          "Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren."
+        ),
+        tags$br(),
+        plotOutput("dd_logregplot", width = '60%'),
+        
+        h3("Chi", tags$sup("2")),
+        
+        p(
+          i18n$t("Der"),
+          "Chi",
+          tags$sup("2"),
+          i18n$t(
+            "Test (Kontingenzanalyse) gehört zu den nicht-parametrischen Verfahren, es wird also keine Annahme über die Verteilung der zugrundeliegenden Daten gemacht."
+          )
+        ),
+        
+        i18n$t(
+          "Er untersucht den Zusammenhang zweier nominal- oder ordinalskalierter Variablen, die in einer “Kreuztabelle” gegenübergestellt werden, indem beobachtete Häufigkeiten der Daten mit den erwarteten Häufigkeiten verglichen werden (nicht Mittelwerte!, s. t-Tests)."
+        ),
+        tags$br(),
+        
+        p(
+          i18n$t("Der"),
+          "Chi",
+          tags$sup("2"),
+          i18n$t("Test nutzt die"),
+          "Chi",
+          tags$sup("2"),
+          i18n$t(
+            "Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren."
+          ),
+          "Chi",
+          tags$sup("2"),
+          i18n$t(
+            "Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023)."
+          )
+        ),
+      ),
+      
+      tags$hr(),
+      
+      tags$section(
+        id = "factanal",
+        style = "width: 80%;",
+        h2("Faktorenanalyse" |> i18n$t()),
+        i18n$t(
+          "Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."
+        ),
+        tags$br(),
+        i18n$t(
+          "Dabei ist das Ziel, hoch korrelierende Variablen zu übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren."
+        ),
+        tags$br(),
+        tags$br(),
+        i18n$t("Für eine Faktorenanalyse braucht man:"),
+        tags$ul(
+          tags$li("eine ausreichend große Stichprobe" |> i18n$t()),
+          tags$li("ausreichend viele Variablen" |> i18n$t()),
+          tags$li(
+            "intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)" |>
+              i18n$t()
+          )
+        ),
+        tags$br(),
+        i18n$t(
+          "Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."
+        ),
+      ),
+      
+      tags$hr(),
+      
+      tags$section(
+        id = "summary",
+        h2("Übersicht der gängigen Statistiken" |> i18n$t()),
+        
+        # tags$div(class = "wrap",
+        #          tags$div(class = "left",
+        #                   tags$img(src="img/DeepDiveViz.png",
+        #                            alt="Überblick gängiger Statistiken")
+        #                   ),
+        #          tags$div(class = "right",
+        #                   tags$img(src="img/DeepDiveViz.png",
+        #                            alt="Überblick gängiger Statistiken")
+        #                   )
+        #          ),
+        
+        # tags$div(style="margin: 0 auto;",
+        tags$div(class = "left", includeHTML("diffs.html")),
+        tags$div(class = "right", includeHTML("rels.html")),
+        
+        
+        # ),
+        
+        
+        tags$br(),
+        
+        
+        h2("Literatur" |> i18n$t(), style = "clear: left;"),
+        
+        tags$div(
+          style = "line-height: 2; margin-left: 2em; text-indent:-2em;",
+          
+          p(
+            "Crump, M. J. C., Navarro, D. J., & Suzuki, J. (2018).",
+            tags$i("Answering questions with data."),
+            tags$a(href = "https://www.crumplab.com/statistics/", "https://www.crumplab.com/statistics/.")
           ),
           
-          shiny.i18n::usei18n(i18n), # initialize the use of translation i18n
+          p(
+            "Janczyk, M., & Pfister, R. (2015)",
+            tags$i(
+              "Inferenzstatistik verstehen: Von A wie Signifikanztest bis Z wie Konfidenzintervall."
+            ),
+            "Springer.",
+            tags$a(href = "https://doi.org/10.1007/978-3-662-47106-7", "https://doi.org/10.1007/978-3-662-47106-7.")
+          ),
+          
+          p(
+            "Kaliyadan, F., & Kulkarni, V. (2019). Types of variables, descriptive statistics, and sample size.",
+            tags$i("Indian Dermatology Online Journal, 10"),
+            "(1), 82–86.",
+            tags$a(href = "https://doi.org/10.4103/idoj.IDOJ_468_18", "https://doi.org/10.4103/idoj.IDOJ_468_18.")
+          ),
+          
+          p(
+            "Lowry, R. (1998).",
+            tags$i("Concepts and applications of inferential statistics."),
+            tags$a(href = "http://vassarstats.net/textbook/", "http://vassarstats.net/textbook/.")
+          ),
+          
+          p(
+            "UZH. (2023). Datenanalyse mit SPSS. In",
+            tags$i("Universität Zürich: Methodenberatung."),
+            tags$a(
+              href = "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html",
+              "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.",
+              style = "overflow-wrap: break-word;"
+            )
+          )
+        )
+      )
+    ),
+    ### closetabPanel("Deep Dive")
+    ### tab: Sims ----
+    tabPanel(
+      "Simulationen" |> i18n$t(),
+      icon = icon("flask"),
+      navset_pill(
+        nav_panel(
+          "Verteilung: Würfel" |> i18n$t(),
           tags$div(
-            style='float: right;
-            width: 140px; 
-            padding-left: 20px;', # added sizing to div style
-            selectInput(
-              inputId='selected_language',
-              label=i18n$t('Change language'),
-              choices = setNames(
-                i18n$get_languages(),
-                c("Deutsch", "English") # Set labels for the languages
+            class = "fancy-container",
+            style = "width:90%;",
+            tags$div(
+              class = "content",
+              i18n$t(
+                "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?"
+              ),
+            )
+          ),
+          tags$div(class = "panel panel-default", tags$div(class =
+                                                             "panel-body", fluidRow(
+                                                               column(
+                                                                 width = 6,
+                                                                 
+                                                                 numericInput(
+                                                                   "ndice",
+                                                                   "Wie viele Würfel möchtest du werfen?" |>
+                                                                     i18n$t(),
+                                                                   min = 1,
+                                                                   max = 10,
+                                                                   step = 1,
+                                                                   value = 1
+                                                                 )
+                                                               ),
+                                                               column(
+                                                                 width = 6,
+                                                                 numericInput(
+                                                                   "n",
+                                                                   "Wie oft möchtest du würfeln?" |>
+                                                                     i18n$t(),
+                                                                   min = 1,
+                                                                   max = 1000,
+                                                                   step = 1,
+                                                                   value = 6
+                                                                 )
+                                                               )
+                                                             ))),
+          
+          plotOutput("diePlot"),
+          tags$br()
+        ),
+        
+        nav_panel(
+          "Verteilung: Münze" |> i18n$t(),
+          tags$div(
+            class = "fancy-container",
+            style = "width:90%;",
+            tags$div(
+              class = "content",
+              i18n$t(
+                "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate."
+              ),
+              i18n$t(
+                "Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!"
+              ),
+            )
+          ),
+          tags$div(class = "panel panel-default", tags$div(class =
+                                                             "panel-body", fluidRow(
+                                                               column(
+                                                                 width = 6,
+                                                                 sliderInput(
+                                                                   "p",
+                                                                   "Was ist die Wahrscheinlichkeit für Zahl?" |>
+                                                                     i18n$t(),
+                                                                   min = 0.5,
+                                                                   max = 1,
+                                                                   value = 0.5,
+                                                                   ticks = F
+                                                                 )
+                                                               ), column(
+                                                                 width = 6,
+                                                                 numericInput(
+                                                                   "coins",
+                                                                   "Wie oft möchtest du die Münze werfen?" |>
+                                                                     i18n$t(),
+                                                                   min = 1,
+                                                                   max = 1000,
+                                                                   step = 1,
+                                                                   value = 10
+                                                                 )
+                                                               )
+                                                               
+                                                             ))),
+          plotOutput("coinPlot"),
+          tags$br()
+        ),
+        
+        nav_panel(
+          "Verteilung: CV" |> i18n$t(),
+          tags$div(
+            class = "fancy-container",
+            style = "width:90%;",
+            tags$div(
+              class = "content",
+              i18n$t(
+                "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht."
+              ),
+              tags$span(
+                class = "label label-info",
+                i18n$t(
+                  "Beachte: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt."
+                )
+              ),
+            )
+          ),
+          
+          tags$div(class = "panel panel-default", tags$div(class =
+                                                             "panel-body", fluidRow(
+                                                               column(
+                                                                 width = 6,
+                                                                 sliderInput(
+                                                                   "cv_m",
+                                                                   "Welchen Mittelwert hat die Verteilung?" |>
+                                                                     i18n$t(),
+                                                                   min = 1,
+                                                                   max = 100,
+                                                                   value = 5
+                                                                 ),
+                                                               ),
+                                                               column(
+                                                                 width = 6,
+                                                                 sliderInput(
+                                                                   "cv_sd",
+                                                                   "Was ist die Standardabweichung?" |>
+                                                                     i18n$t(),
+                                                                   min = 0,
+                                                                   max = 70,
+                                                                   step = .1,
+                                                                   value = 3
+                                                                 ),
+                                                               )
+                                                               
+                                                             ))),
+          
+          plotOutput("cvPlot"),
+          tags$br()
+        ),
+        
+        nav_panel(
+          "What's the t?",
+          
+          tags$div(
+            class = "fancy-container",
+            style = "width:90%;",
+            tags$div(
+              class = "content",
+              i18n$t(
+                "Was bedeuten eigentlich t-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?"
+              ),
+              
+              
+            )
+          ),
+          
+          fluidRow(
+            column(
+              width = 9,
+              tags$div(
+                class = "panel panel-warning",
+                tags$div(class =
+                           "panel-heading", tags$h3(class = "panel-title", "Stichprobe X")),
+                tags$div(
+                  class = "panel-body",
+                  column(
+                    width = 6,
+                    sliderInput(
+                      "t_m1",
+                      i18n$t("Mittelwert:"),
+                      min = -100,
+                      max = 100,
+                      value = 12
+                    )
+                  ),
+                  
+                  column(
+                    width = 6,
+                    sliderInput(
+                      "t_sd1",
+                      "Standardabweichung:" |>
+                        i18n$t(),
+                      min = 0,
+                      max = 20,
+                      step = .5,
+                      value = 3.5
+                    )
+                  )
+                )
+              ),
+              
+              tags$div(
+                class = "panel panel-danger",
+                tags$div(class =
+                           "panel-heading", tags$h3(class = "panel-title", "Stichprobe Y")),
+                tags$div(
+                  class = "panel-body",
+                  column(
+                    width = 6,
+                    sliderInput(
+                      "t_m2",
+                      "Mittelwert:" |>
+                        i18n$t(),
+                      min = -100,
+                      max = 100,
+                      value = 5
+                    )
+                  ),
+                  
+                  column(
+                    width = 6,
+                    sliderInput(
+                      "t_sd2",
+                      "Standardabweichung:" |>
+                        i18n$t(),
+                      min = -100,
+                      max = 100,
+                      step = .5,
+                      value = 5.5
+                    )
+                  )
+                  
+                )
+              )
+            ),
+            
+            
+            column(
+              width = 3,
+              tags$div(
+                class = "panel panel-default",
+                # tags$div(class="panel-heading",
+                #          tags$h3(class = "panel-title",
+                #                  "N = ..."
+                #          )
+                # ),
+                tags$div(
+                  class = "panel-body",
+                  numericInput(
+                    "t_n",
+                    label = "Wie groß sind die Stichproben jeweils?" |>
+                      i18n$t(),
+                    min = 0,
+                    max = 1000,
+                    step = 1,
+                    value = 100
+                  )
+                )
+              ),
+              
+              tags$div(
+                class = "panel panel-default",
+                tags$div(class =
+                           "panel-heading", tags$h3(class = "panel-title", i18n$t("Kleiner Tipp:"))),
+                tags$div(
+                  class = "panel-body",
+                  i18n$t("Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.")
+                )
+              )
+              
+            )
+          ),
+          
+          fluidRow(column(
+            width = 9, plotOutput("tPlot", height = "300px")
+          ), column(
+            width = 3,
+            tags$div(
+              class = "panel panel-primary",
+              tags$div(
+                class = "panel-heading",
+                tags$h3(class = "panel-title", "Und nun rate mal: What's the t?" |>
+                          i18n$t())
+              ),
+              tags$div(
+                class = "panel-body",
+                numericInput(
+                  "tguessval",
+                  " ",
+                  min = -Inf,
+                  max = Inf,
+                  step = .01,
+                  value = 0,
+                  width = "90%"
+                ),
+                
+                actionButton("tbtn", "Antwort" |>
+                               i18n$t()),
+                tags$br(),
+                shinyjs::hidden(htmlOutput("tguess")),
+                tags$br()
+                
               )
             )
-          ), 
-          useShinyjs(),
-                
-           ## define custom css to be used for the verbatim text output, basics found on https://stackoverflow.com/questions/68686995/how-to-change-fill-colour-of-verbatimtextoutput
-                navbarPage(position = "fixed-top", collapsible = TRUE, id = "stats",
-                  title = div(img(icon("wand-magic-sparkles")), "Stats Picker"),
-                  
-                  ### tab: Home ----
-                  tabPanel("", icon = icon("house"),
-                           value = "home", #added to make tabs in tabPanel linkable?!
-                           pwa("https://the-tave.shinyapps.io/Stats-Picker/", 
-                               title = "Stats Picker",
-                               output = "www", icon = "www/newicon_Stats-Picker_logo.png",
-                               color = "#e85620"),
-                           
-                           tags$div(class = "fancy-container", 
-                                    # tags$div(class="ray-left-up"),
-                                    # tags$div(class="ray-left-middle"),
-                                    # tags$div(class="ray-left-down"),
-                                    # tags$div(class="ray-right-up"),
-                                    # tags$div(class="ray-right-middle"),
-                                    # tags$div(class="ray-right-down"),
-                                    tags$div(class="content",
-                                             
-                           i18n$t("Mit diesem Tool kannst du genau herausfinden, welche Statistik du für dein Projekt brauchst."),
-                           tags$br(),
-                           tags$b(i18n$t("Erst musst du angeben, welche Skalenniveaus deine Variablen haben.")),
-                           i18n$t("Dann werden dir einige Vorschläge gemacht, was du für Statistiken damit rechnen kannst oder wie die Ergebnisse visualisiert werden können."),
-                           tags$br(),
-                           i18n$t("Wenn du dir nicht sicher bist, welches Skalenniveau auf deine Variablen passt, schau im "),
-                           actionButton("controller", "Deep Dive", style = "padding:3px;"), 
-                           tags$p(i18n$t(" Tab vorbei!"), style = "display:inline-block;")
-                                    ) 
-                           ),
-                           
-                           
-                           tags$br(), tags$br(),
-                           
-                           # Sidebar with all the inputs by users
-                           sidebarPanel(
-                             selectInput("scale",
-                                         i18n$t("Welches Skalenniveau hat Variable 1?"),
-                                         choices = c("intervall", "ordinal", "nominal")), # defaults to first value of choices
-                             selectInput("scale2",
-                                         i18n$t("Welches Skalenniveau hat Variable 2?"),
-                                         choices = c("keins", "intervall", "ordinal", "nominal")),
-                             radioButtons("statstype",
-                                          "Was hast du vor?"|>i18n$t(),
-                                          choices = c("Statistik rechnen", "Visualisierung", "Döner mit alles")),
-                           ), #### close sidebarPanel()
-                           # Explain App and show the actual output
-                           mainPanel(
-                             h4("Beispieldaten mit Zentralmaß"|>i18n$t()),
-                             div(class = "myclass",
-                                 htmlOutput("statsex"),
-                                 htmlOutput("var2data")
-                             ),
-                             
-                             h4(id = "statataglance", "Passende Statistik"|>i18n$t()),
-                             h5(htmlOutput("ataglanceout")),
-                             # Text Outputs
-                             # div(class = "myclass",
-                             #     htmlOutput("ataglanceout")
-                             # ),
-                             
-                             h4(id = "expl_h4", "Erklärung"|>i18n$t()),
-                             # Text Outputs
-                             div(class = "myclass",
-                                 htmlOutput("statstypeout")
-                             ),
-                             
-                             tags$br(),
-                             
-                             # Table output for two vars nom
-                             div(class = "nomclass",
-                                 tableOutput("table")),
-                             
-                             # Plot Output
-                             h4(id = "viz_h4", "Visualisierung"|>i18n$t()),
-                             plotOutput("dataViz"),
-                            
-                           ) #### close mainPanel()
-                  ),  ### close tabPanel("Home", ... )
-                  ### tab: Deep Dive ---- 
-                  tabPanel("Deep Dive",icon = icon("circle-info"),
-                           value = "deep-dive",
-                           
-                           tags$div(class = "fancy-container", 
-                             tags$div(class="content",
-                                    i18n$t("Hier kannst du tiefer in die Statistik einsteigen! Zunächst kannst du dich über das richtige"),
-                                      tags$a(href = "#scales", "Skalenniveau" |> i18n$t()),
-                                    i18n$t("informieren."),
-                                    tags$br(),
-                                    i18n$t("Dann findest du einige"),
-                                      tags$a(href = "#univar", "Maße für eine Variable." |> i18n$t()),
-                                    tags$br(),
-                                    i18n$t("Der größte Teil behandelt"),
-                                      tags$a(href = "#multivar", "Multivariate Statistik." |> i18n$t()),
-                                    tags$br(),
-                                    i18n$t("Am Ende gibt es noch eine kleine Erklärung zur"),
-                                      tags$a(href = "#factanal", "Faktorenanalyse" |> i18n$t()),
-                                    i18n$t("sowie eine"),
-                                      tags$a(href = "#summary", "visuelle Zusammenfassung." |> i18n$t())
-                             
-                                    )
-                             ),
-                           
-                           tags$section(id="scales", style = "width: 80%;",
-                           h2("Skalenniveau"|>i18n$t()),  # google icon!
-                           i18n$t("Das Wichtigste für die Auswahl des richtigen statistischen Verfahrens ist die Kenntnis über das Skalenniveau deiner Variablen."),
-                           tags$br(),
-                           i18n$t("Daher findest du hier eine einfache Entscheidungshilfe um herauszufinden, welches Skalenniveau eine Variable hat:"),
-                           tags$br(), tags$br(),
-                           tags$img(src="./img/Scales_of_Measurement.png", width = '70%'),
-                           tags$br(),
-                           ),
-                           tags$hr(),
-                           
-                           tags$section(id="univar",  style = "width: 80%;",
-                           h2("Univariat - eine Variable"|>i18n$t()),
-                           h3("Modus"|>i18n$t()),
-                           i18n$t("Bei Daten, die mindestens nominalskaliert sind (also kategorial), kann man den Modus berechnen. Der Modus als Maß der zentralen Tendenz ist der Wert, den die Variable am häufigsten annimmt (z.B. das lokale Maximum einer Normalverteilung)."),
-                           tags$br(),tags$br(),
-                           p(
-                             i18n$t("Der Modus wird, im Gegensatz zum Mittelwert (bei metrischen Daten), nicht durch extreme Werte bzw. Ausreißer verzerrt"),
-                             "(Kaliyadan & Kulkarni, 2019)."
-                           ),
-                           
-                           h3("Median"|>i18n$t()),
-                           i18n$t("Bei Daten, die mindestens ordinalskaliert (kategorial mit Reihenfolge) sind, kann man den Median berechnen. Der Median als Maß der zentralen Tendenz ist die Stelle der Verteilung, über bzw. unter der je 50% der Daten liegen."),
-                           tags$br(),tags$br(),
-                           i18n$t("Der Median wird, im Gegensatz zum Mittelwert, nicht durch extreme Werte bzw. Ausreißer verzerrt (Crump et al., 2018)."),
-                           
-                           h3("Arithmetischer Mittelwert"|>i18n$t()),
-                           i18n$t("Bei Daten, die mindestens intervallskaliert sind (also metrisch), kann man den arithmetischen Mittelwert (Durchschnitt) berechnen. Der Mittelwert als Maß der zentralen Tendenz ist die Summe aller Werte, die die Variable angenommen hat, geteilt durch die Anzahl dieser Werte."),
-                           tags$br(),tags$br(),
-                           i18n$t("Achtung: Der Mittelwert wird durch extreme Werte bzw. Ausreißer verzerrt. Bei sehr asymmetrischen Verteilungen ist ggf. der Median ein besseres Maß der zentralen Tendenz (Crump et al., 2018)."),
-                           tags$br(),
-                           tags$img(src = "./img/dist.svg", width = '45%'),
-                           
-                           h3("Standardabweichung"|>i18n$t()),
-                           i18n$t("Die Standardabweichung ist ein Streuungsmaß, gibt also an, wie stark die Daten um den Mittelwert streuen. Je verschiedener die Werte sind, desto größer die Standardabweichung. Sie ist die Wurzel aus der Varianz einer Variablen und benötigt somit das gleiche Skalenniveau wie der Mittelwert."),
-                           tags$br(),tags$br(),
-                           i18n$t("Innerhalb der ersten Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen ca. 68% der Daten. Innerhalb der ersten zwei Standardabweichungen über und unter dem Mittelwert einer Normalverteilung liegen mehr als 95% der Daten."),
-                           plotOutput("dd_sdplot", width = '50%', height = '200px'),
-                           ),
-                           
-                           tags$hr(),
-                           
-                           tags$section(id="multivar",  style = "width: 80%;",
-                           h2("Multivariat - mehrere Variablen"|>i18n$t()),
-                           h3("t-Test"),
-                           i18n$t("Allgemein vergleicht der t-Test Mittelwerte mithilfe einer t-verteilten Statistik, es handelt sich also um einen parametrischen Test."),
-                           i18n$t("Je nach Datenlage und Fragestellung kann man eine Stichprobe gegen einen Referenzwert testen, oder aber zwei Stichproben(-mittelwerte) gegeneinander. Man hat also zwei mindestens intervallskalierte Variablen, die man miteinander vergleichen möchte."),
-                           tags$br(),
-                           i18n$t("Bei einer gerichteten Hypothese erfolgt die Testung einseitig, bei einer ungerichteten Hypotheses testet man zweiseitig. Ist man sich nicht sicher über die Richtung des erwarteten Effekts, lohnt es sich, zweiseitig zu testen. In theoretisch gut begründeten Fällen kann man auch einseitig testen; dies erhöht die Wahrscheinlichkeit, einen Effekt aufzudecken."),
-                           tags$br(),tags$br(),
-                           i18n$t("Annahmen des t-Tests:"),
-                           tags$ul(
-                             tags$li("ausreichend große Stichprobe (Faustregel n=30)"|>i18n$t()),
-                             tags$li("normalverteilte Daten"|>i18n$t())
-                           ),
-                           tags$br(),
-                           i18n$t("Sind die Annahmen verletzt, kann man auf nicht-parametrische Alternativen des jeweiligen t-Tests ausweichen (Crump et al., 2018)."),
-                           tags$br(),
-                           tags$img(src = "./img/Bild2.png", width = '65%'),
-                           
-                           h4("Einstichproben t-Test"|>i18n$t()),
-                           i18n$t("Der Einstichproben t-Test vergleicht einen Stichprobenmittelwert mit einem geschätzten oder festgelegten Populationsmittelwert, um zu schauen, ob die Stichprobe mit ausreichender Wahrscheinlichkeit aus dieser Population stammt oder aus einer anderen."),
-                           tags$br(),
-                           i18n$t("Dazu braucht man Mittelwert und Standardabweichung der Stichprobe und der Population und den Standardfehler der Mittelwertsverteilung. Da so gut wie immer die Parameter der Population unbekannt sind, muss man diese schätzen."),
-                           tags$br(),tags$br(),
-                           i18n$t("Ist der t-Test signifikant, gibt es eine Abweichung zwischen der Stichprobe und der Population, die mit ausreichend großer Wahrscheinlichkeit nicht zufällig zustandegekommen ist. Ist er nicht signifikant, geht man davon aus, dass die Stichprobe aus der Population stammt."),
-                           tags$br(),tags$br(),
-                           i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test"),
-                           
-                           h4("Zweistichproben t-Test (abhängig)"|>i18n$t()),
-                           i18n$t("Der abhängige t-Test ist dem Einstichproben t-Test sehr ähnlich. Er wird häufig für within-subjects Experimente genutzt (z.B. die Gedächtnisleistung einer Person vor einem Training wird mit ihrer Leistung nach einem Training verglichen) oder wenn Versuchpersonen aus zwei Gruppen miteinander verbunden sind (z.B. Zwillinge, Paare etc.)."),
-                           tags$br(),
-                           i18n$t("Die Berechnung ist ähnlich wie beim Einstichproben t-Test (Crump et al., 2018)."),
-                           tags$br(),tags$br(),
-                           i18n$t("Nicht-parametrische Alternative: Wilcoxon Signed-Rank Test"),
-                           
-                           h4("Zweistichproben t-Test (unabhängig)"|>i18n$t()),
-                           i18n$t("Der Zweistichproben t-Test (auch unabhängiger t-Test) wird für between-subjects Experimente (z.B. der Mittelwertsvergleich zweier Gruppen, die verschiedene Treatments bekamen) genutzt (Crump et al., 2018)."),
-                           tags$br(),tags$br(),
-                           i18n$t("Nicht-parametrische Alternative:"),
-                           tags$ul(
-                             tags$li("Welch-Test (wenn die Annahme der Varianzhomogenität der beiden unabhängigen Gruppen verletzt ist)"|>i18n$t()),
-                             tags$li("Mann-Whitney U-Test (wenn die Annahme der Normalverteilung verletzt ist; Variable darf ordinalskaliert sein)"|>i18n$t())
-                           ),
-                           
-                           h3("ANOVA"),
-                           i18n$t("Eine Varianzanalyse (ANOVA) ähnelt strukturell den t-Tests. Die F-Statistik, die bei einer ANOVA verwendet wird, ist eine quadrierte t-Statistik. Man nutzt Varianzanalysen, um herauszufinden, ob gefundene Mittelwertsunterschiede zwischen mehr als zwei Gruppen überzufällig sind oder nur durch Zufall oder Messfehler zustande kamen."),
-                           tags$br(),
-                           i18n$t("Das ist hilfreich, wenn es z.B. mehr als nur zwei Experimentalbedingungen gab, die miteinander verglichen werden sollen. Einfach mehrere t-Tests zu berechnen würde die Wahrscheinlichkeit eines Alpha-Fehlers erhöhen und ist daher keine sinnvolle Alternative."),
-                           tags$br(),
-                           p(i18n$t("Die Wahrscheinlichkeit, mind. ein signifikantes Testergebnis zu erhalten, steigt mit der Anzahl der Paarvergleiche um 1 - (1 - alpha)"),
-                             tags$sup("Anzahl Paarvergleiche"|>i18n$t()), "(Janczyk & Pfister, 2015).",
-                             i18n$t("Bei vier Gruppen (=sechs Paarvergleiche) wäre die Wahrscheinlichkeit eines falsch-positiven Ergebnisses also nicht mehr 5%, sondern schon"), "1-(1-0.05)",
-                             tags$sup("6"), " = 26,5%!"
-                             ),
-                           tags$br(),
-                           i18n$t("Annahmen der ANOVA:"),
-                           tags$ul(
-                             tags$li("intervallskalierte Daten"|>i18n$t()),
-                             tags$li("unabhängige und zufällige Ziehung von k Stichproben"|>i18n$t()),
-                             tags$li("gleiche Größe der k Stichproben (oder Normalverteilung der Daten und Varianzhomogenität der k samples müssen gelten; Crump et al., 2018)"|>i18n$t())
-                           ),
-                           tags$img(src = "./img/anova.svg", width = '55%'),
-                           
-                           h4("Einfaktorielle ANOVA"|>i18n$t()),
-                           i18n$t("Eine einfaktorielle ANOVA benutzt man, wenn man eine unabhängige Variable (UV; Faktor) mit mindestens zwei (sinnvollerweise mindestens drei, sonst ginge auch ein t-Test) Faktorstufen hat. Man vergleicht dann im Prinzip auch die Mittelwerte der Faktorstufen miteinander, geht aber einen “Umweg” über die Varianzen."),
-                           tags$br(),
-                           i18n$t("Die Versuchspersonen der einzelnen Faktorstufen sind dabei unkorreliert, wie beim independent-samples t-Test. Die resultierende F-Statistik ergibt das Verhältnis aus erklärbarer Varianz durch die experimentelle Manipulation und der Fehlervarianz."),
-                           tags$br(), tags$br(),
-                           i18n$t("Mit einer ANOVA kann man nur herausfinden, ob mindestens eine Faktorstufe sich signifikant von mindestens einer weiteren unterscheidet. Um herauszufinden, welche Faktorstufen sich unterscheiden, muss man post-hoc Tests durchführen."),
-                           tags$br(),
-                           i18n$t("Man kann genau einen Haupteffekt finden, da es nur einen Faktor gibt. Um mögliche Interaktionen aufzudecken, braucht man Daten von mindestens zwei unabhängigen Variablen (Crump et al., 2018)."),
-                           tags$br(),
-                           i18n$t("Gängige post-hoc Tests (Auswahl):"),
-                           tags$ul(
-                             tags$li("Tukey HSD Test"|>i18n$t()),
-                             tags$li("Least Significant Difference (LSD)"|>i18n$t()),
-                             tags$li("Bonferroni"|>i18n$t())
-                           ),
-                           
-                           h4("ANOVA mit Messwiederholung"|>i18n$t()),
-                           i18n$t("Eine repeated-measures ANOVA nutzt man für within-subjects Designs. Man hat eine unabhängige Variable (UV; Faktor) mit mindestens zwei bzw. drei Faktorstufen."),
-                           i18n$t("Im Gegensatz zur one-factor ANOVA sind aber die Versuchspersonen nicht unabhängig voneinander, sondern man erhebt z.B. Daten derselben Personen zu drei Messzeitpunkten und vergleicht dann sinngemäß jede Person mit sich selbst zu verschiedenen Zeitpunkten."),
-                           tags$br(),
-                           i18n$t("Nach wie vor werden aber nur Daten einer unabhängigen Variable erhoben, weshalb es auch hier nur Haupteffekte geben kann und noch keine Interaktionen (Crump et al., 2018)."),
-                           
-                           h4("Faktorielle ANOVA"|>i18n$t()),
-                           i18n$t("Um Interaktionen zweier (oder mehrerer) Faktoren finden zu können, braucht man eine faktorielle ANOVA, d.h. man hat nun mehr als nur eine unabhängige Variable mit mehreren Faktorstufen. Beliebte Forschungsdesigns, wie das 2x2 factorial design, können mithilfe einer faktoriellen ANOVA analysiert werden."),
-                           tags$br(),
-                           i18n$t("Faktorielle ANOVAs erlauben es, Haupteffekte und Interaktionseffekte der Faktoren auf die abhängige Variable zu messen und können sowohl für within- als auch für between-subjects Experimente genutzt werden (Crump et al., 2018)."),
-                           
-                           h3("Regression"),
-                           h4("Lineare Regression"|>i18n$t()),
-                           i18n$t("Bei der linearen Regression möchte man mithilfe einer oder mehrerer unabhängigen Variablen (Prädiktoren) eine abhängige Variable vorhersagen. Die unabhängigen Variablen wie auch die abhängigen Variable sind metrisch."),
-                           i18n$t("Grafisch dargestellt ist die Regressionsgerade die Linie, die die Daten am besten beschreibt, d.h. zu der die Abstände von jedem Datenpunkt eines Scatterplots aus minimal sind."),
-                           tags$br(),
-                           i18n$t("Diese Abstände zeigen den Messfehler an. Gäbe es keinen Messfehler, würden alle Datenpunkte auf der Regressionsgerade liegen (Crump et al., 2018; UZH, 2023)."),
-                           plotOutput("dd_regplot", width = '60%'),
-                           
-                           h4("Logistische Regression"|>i18n$t()),
-                           i18n$t("Die Logistische Regression ist ein statistisches Modell, das verwendet wird, um die Wahrscheinlichkeit eines bestimmten Ergebnisses vorherzusagen, wenn die abhängige Variable binär (z. B. Ja/Nein, Erfolg/Misserfolg) ist."),
-                           i18n$t("Im Gegensatz zur linearen Regression, die eine kontinuierliche Variable vorhersagt, sagt die logistische Regression die Wahrscheinlichkeit eines Ereignisses voraus, die zwischen 0 und 1 liegt."),
-                           tags$br(),
-                           i18n$t("Die logistische Regression nutzt die Logit-Funktion, um die Beziehung zwischen den unabhängigen Variablen (Prädiktoren) und der Wahrscheinlichkeit des Auftretens eines bestimmten Ereignisses zu modellieren."),
-                           tags$br(),
-                           plotOutput("dd_logregplot", width = '60%'),
-                           
-                           h3("Chi", tags$sup("2")),
-                            
-                           p(i18n$t("Der"), "Chi", tags$sup("2"), i18n$t("Test (Kontingenzanalyse) gehört zu den nicht-parametrischen Verfahren, es wird also keine Annahme über die Verteilung der zugrundeliegenden Daten gemacht.") ),
-                           
-                           i18n$t("Er untersucht den Zusammenhang zweier nominal- oder ordinalskalierter Variablen, die in einer “Kreuztabelle” gegenübergestellt werden, indem beobachtete Häufigkeiten der Daten mit den erwarteten Häufigkeiten verglichen werden (nicht Mittelwerte!, s. t-Tests)."),
-                           tags$br(),
-                           
-                           p(i18n$t("Der"), "Chi", tags$sup("2"), i18n$t("Test nutzt die"), "Chi", tags$sup("2"), i18n$t("Statistik, ansonsten funktioniert das Signifikanztesten analog zu den bereits genannten Verfahren."),
-                             "Chi", tags$sup("2"), i18n$t("Tests können auf ein- und mehrdimensionale Zusammenhänge angewandt werden (Lowry, 1998; UZH, 2023).")),
-                           ),
-                           
-                           tags$hr(),
-                           
-                          tags$section(id="factanal",  style = "width: 80%;",
-                           h2("Faktorenanalyse"|>i18n$t()),
-                           i18n$t("Faktorenanalysen gehören zu den Interdependenzanalysen. Sie werden genutzt, um Strukturen in den Daten zu entdecken (explorative Faktorenanalyse) oder erwartete Strukturen zu bestätigen (konfirmatorische Faktorenanalyse)."),
-                           tags$br(),
-                           i18n$t("Dabei ist das Ziel, hoch korrelierende Variablen zu übergeordneten Faktoren zusammenzufassen. Gefundene Faktoren sollten möglichst gering mit anderen Faktoren korrelieren."),
-                           tags$br(), tags$br(),
-                           i18n$t("Für eine Faktorenanalyse braucht man:"),
-                           tags$ul(
-                             tags$li("eine ausreichend große Stichprobe"|>i18n$t()),
-                             tags$li("ausreichend viele Variablen"|>i18n$t()),
-                             tags$li("intervallskalierte Variablen (Häufig werden dennoch ordinalskalierte Variablen verwendet.)"|>i18n$t())
-                           ),
-                           tags$br(),
-                           i18n$t("Bei explorativen Faktorenanalysen (EFA) hat man keine Hypothesen über die Struktur, die geprüft werden soll, wie bei der konfirmatorischen Faktorenanalyse (CFA), die ein strukturüberprüfendes Verfahren darstellt (UZH, 2023)."),
-                          ),
-                          
-                           tags$hr(),
-                           
-                          tags$section(id="summary", 
-                           h2("Übersicht der gängigen Statistiken"|>i18n$t()),
-                           
-                           # tags$div(class = "wrap",
-                           #          tags$div(class = "left",
-                           #                   tags$img(src="img/DeepDiveViz.png",
-                           #                            alt="Überblick gängiger Statistiken")
-                           #                   ),
-                           #          tags$div(class = "right",
-                           #                   tags$img(src="img/DeepDiveViz.png",
-                           #                            alt="Überblick gängiger Statistiken")
-                           #                   )
-                           #          ),
-                           
-                           # tags$div(style="margin: 0 auto;",
-                                    tags$div(class="left",
-                                             includeHTML("diffs.html")),
-                                    tags$div(class="right",
-                                             includeHTML("rels.html")),
-                                    
-                                      
-                                    # ),
-                             
-                           
-                           tags$br(),
-                           
-                           
-                           h2("Literatur"|>i18n$t(), style="clear: left;"),
-                           
-                           tags$div(
-                             style="line-height: 2; margin-left: 2em; text-indent:-2em;",
-                             
-                             p("Crump, M. J. C., Navarro, D. J., & Suzuki, J. (2018).",
-                             tags$i("Answering questions with data."),
-                             tags$a(href="https://www.crumplab.com/statistics/", "https://www.crumplab.com/statistics/.")
-                             ),
-                             
-                             p("Janczyk, M., & Pfister, R. (2015)",
-                               tags$i("Inferenzstatistik verstehen: Von A wie Signifikanztest bis Z wie Konfidenzintervall."),
-                               "Springer.",
-                               tags$a(href="https://doi.org/10.1007/978-3-662-47106-7", "https://doi.org/10.1007/978-3-662-47106-7.")
-                             ),
-                             
-                             p("Kaliyadan, F., & Kulkarni, V. (2019). Types of variables, descriptive statistics, and sample size.",
-                               tags$i("Indian Dermatology Online Journal, 10"), "(1), 82–86.",
-                               tags$a(href="https://doi.org/10.4103/idoj.IDOJ_468_18", "https://doi.org/10.4103/idoj.IDOJ_468_18.")
-                             ),
-                             
-                             p("Lowry, R. (1998).",
-                               tags$i("Concepts and applications of inferential statistics."),
-                               tags$a(href="http://vassarstats.net/textbook/", "http://vassarstats.net/textbook/.")
-                             ),
-                             
-                             p("UZH. (2023). Datenanalyse mit SPSS. In",
-                               tags$i("Universität Zürich: Methodenberatung."),
-                               tags$a(href="http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html", "http://www.methodenberatung.uzh.ch/de/datenanalyse_spss.html.", 
-                                      style = "overflow-wrap: break-word;")
-                             )
-                           )
+            
+          ))
+          
+        ),
+        
+        nav_panel(
+          "Regression",
+          tags$div(
+            class = "fancy-container",
+            style = "width:90%;",
+            tags$div(
+              class = "content",
+              i18n$t(
+                "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten."
+              ),
+            )
+          ),
+          
+          tags$div(class = "panel panel-default", tags$div(class =
+                                                             "panel-body", fluidRow(
+                                                               column(width = 6, sliderInput(
+                                                                 "lm_e",
+                                                                 i18n$t("Fehler e:"),
+                                                                 min = 0,
+                                                                 max = 10,
+                                                                 # step = .01,
+                                                                 value = 1.5
+                                                               )), column(width = 6, sliderInput(
+                                                                 "lm_b",
+                                                                 i18n$t("Steigung b:"),
+                                                                 min = -5,
+                                                                 max = 5,
+                                                                 # step = .1,
+                                                                 value = 2
+                                                               ))
+                                                               
+                                                             ))),
+          
+          plotOutput("lmPlot"),
+          tags$br()
+        ),
+        # close nav_panel
+      ) # close navset_pill_list
+      
+    ),
+    ### close tabPanel("Simulations")
+    ### tab: AI promptR ----
+    tabPanel(
+      "Stats AI",
+      icon = icon("robot"),
+      
+      tags$div(
+        class = "fancy-container",
+        tags$div(
+          class = "content",
+          i18n$t(
+            "Künstliche Intelligenz (KI oder artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden."
+          ),
+          i18n$t(
+            "Daher findest du hier eine KI Assistentin, die dir bei statistischen Fragen helfen kann."
+          ),
+          br(),
+          tags$span(class="label label-primary",
+                    i18n$t("Die KI basiert auf OpenAI. Bitte gib auf keinen Fall spezifische oder personenbezogene Daten Preis.")
+                    )
+          
+        )
+      ),
+      
+      ## NEW AI Integration approach :)) ##
+      
+      fluidRow(
+        column(width = 7, 
+               tags$div(class = "panel panel-success", 
+                        tags$div(
+                          class = "panel-heading",
+                          tags$h3(class = "panel-title", "AI Chat")
+                        ),
+                        tags$div(class = "panel-body", 
+                                 uiOutput("chat_history"),
+                                 textAreaInput(
+                                   "user_message",
+                                   label = NULL,
+                                   placeholder = "...",
+                                   width = "100%",
+                                   height = "90px"
+                                 ),
+                                 actionButton("send", "Send", class = "btn-primary")
+                                 )),
+               
+               
+               
+        #        div(
+        #   class = "custombox",
+        #   div(class = "custombox-header", tags$h4("AI Chat"), ),
+        #   div(
+        #     class = "custombox-body",
+        #     
+        #     uiOutput("chat_history"),
+        #     textAreaInput(
+        #       "user_message",
+        #       label = NULL,
+        #       placeholder = "Ask me which statistic or visualization fits your study...",
+        #       width = "100%",
+        #       height = "90px"
+        #     ),
+        #     actionButton("send", "Send", class = "btn-primary")
+        #   
+        #   )
+        # )
+      ), 
+      column(
+        width = 5,
+        tags$div(class = "panel panel-info", 
+                 tags$div(
+                   class = "panel-heading",
+                   tags$h3(class = "panel-title", i18n$t("Aktuelle Auswahl"))
+                 ),
+                 tags$div(class = "panel-body", 
+                          uiOutput("user_context")
+                 )),
+        
+        # div(
+        #   class = "custombox",
+        #   div(class = "custombox-header", tags$h4(i18n$t("Aktuelle Auswahl")), ),
+        #   div(class = "custombox-body", uiOutput("user_context"))
+        # ),
+        
+        tags$div(class = "panel panel-info", 
+                 tags$div(
+                   class = "panel-heading",
+                   tags$h3(class = "panel-title", "Tips & Tricks")
+                 ),
+                 tags$div(class = "panel-body", 
+                          tags$ul(
+                            tags$li(i18n$t(
+                              "Schreib der KI klare und spezifische Anweisungen"
+                            )),
+                            tags$li(i18n$t("Gib ausreichend Details für deine Anfrage")),
+                            tags$li(
+                              i18n$t(
+                                "Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)"
+                              )
+                            ),
+                            tags$li(
+                              i18n$t(
+                                "Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!"
+                              )
+                            ),
+                            tags$li(i18n$t("Beschreibe deine Erwartungen")),
+                            tags$li(
+                              i18n$t(
+                                "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten angeben)"
+                              )
+                            )
                           )
-                  ), ### closetabPanel("Deep Dive")
-                  ### tab: Sims ----
-                  tabPanel("Simulationen"|>i18n$t(), icon = icon("flask"),
-                           navset_pill_list(
-                             
-                             nav_panel("Verteilung: Würfel"|>i18n$t(),
-                                       i18n$t("Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?"),
-                                         numericInput("n",
-                                                      "Wie oft möchtest du würfeln?"|>i18n$t(),
-                                                      min = 1,
-                                                      max = 1000,
-                                                      step = 1,
-                                                      value = 6),
-                                         
-                                         numericInput("ndice",
-                                                      "Wie viele Würfel möchtest du werfen?"|>i18n$t(),
-                                                      min = 1,
-                                                      max = 10,
-                                                      step = 1,
-                                                      value = 1),
-                                       
-                                       plotOutput("diePlot"),
-                                       tags$br()
-                                       ),
-                             
-                             nav_panel("Verteilung: Münze"|>i18n$t(),
-                                       i18n$t("Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate."),
-                                       i18n$t("Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!"),
-                                         sliderInput("p",
-                                                     "Was ist die Wahrscheinlichkeit für Zahl?"|>i18n$t(),
-                                                     min = 0.5,
-                                                     max = 1,
-                                                     value = 0.5,
-                                                     ticks = F),
-                                         
-                                         numericInput("coins",
-                                                      "Wie oft möchtest du die Münze werfen?"|>i18n$t(),
-                                                      min = 1,
-                                                      max = 1000,
-                                                      step = 1,
-                                                      value = 10),
-                                         plotOutput("coinPlot"),
-                                       tags$br()
-                             ),
-                             
-                             nav_panel("Verteilung: Coefficient of variation"|>i18n$t(),
-                                       i18n$t("Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt."),
-                               
-                                       numericInput("cv_m",
-                                                   "Welchen Mittelwert hat die Verteilung?"|>i18n$t(),
-                                                   min = 1,
-                                                   max = 100,
-                                                   value = 5),
-                                     
-                                       numericInput("cv_sd",
-                                                    "Was ist die Standardabweichung?"|>i18n$t(),
-                                                    min = 0,
-                                                    max = 70,
-                                                    step = .1,
-                                                    value = 3),
-                                       
-                                       plotOutput("cvPlot"),
-                                       tags$br()
-                             ),
-                             
-                             nav_panel("What's the t?",
-                                       i18n$t("Was bedeuten eigentlich t-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?"),
-                                
-                                       fluidRow( #row2
-                                         column(width = 3, tags$b(tags$u(i18n$t("Stichprobe 1:")))),
-                                         column(4, 
-                                                numericInput("t_m1",
-                                                             "Mittelwert:"|>i18n$t(),
-                                                             min = -500,
-                                                             max = 500,
-                                                             value = 7, width = "90%")
-                                                ),
-                                         column(5, 
-                                                numericInput("t_sd1",
-                                                             "Standardabweichung:"|>i18n$t(),
-                                                             min = -100,
-                                                             max = 100,
-                                                             step = .1,
-                                                             value = 1.8, width = "90%")
-                                                ),
-                                         column(3, tags$b(tags$u(i18n$t("Stichprobe 2:")))),
-                                         column(4,
-                                                numericInput("t_m2",
-                                                             "Mittelwert:"|>i18n$t(),
-                                                             min = -500,
-                                                             max = 500,
-                                                             value = 5, width = "90%")
-                                                ),
-                                         column(5,
-                                                numericInput("t_sd2",
-                                                             "Standardabweichung:"|>i18n$t(),
-                                                             min = -100,
-                                                             max = 100,
-                                                             step = .1,
-                                                             value = 2.3, width = "90%")
-                                                )
-                                       ),
-                                       
-                                       numericInput("t_n",
-                                                     "Wie groß sind die Stichproben jeweils?"|>i18n$t(),
-                                                     min = -1000,
-                                                     max = 1000,
-                                                     step = 1,
-                                                     value = 100),
-                                       
-                                       fluidRow(
-                                         plotOutput("tPlot", height = "300px")
-                                       ),
-                                       
-                                       fluidRow(
-                                         column(5,
-                                                numericInput("tguessval", 
-                                                             "Und nun rate mal: What's the t?"|>i18n$t(),
-                                                             min = -Inf,
-                                                             max = Inf,
-                                                             step = .01,
-                                                             value = 0, width = "90%")
-                                                ),
-                                         column(7,
-                                                i18n$t("Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.")
-                                                )
-                                         ),
-                                         actionButton("tbtn", "Antwort"|>i18n$t()),
-                                       tags$br(),
-                                         shinyjs::hidden(htmlOutput("tguess")),
-                                       tags$br()
-                                       
-                             ), 
-                             
-                             nav_panel("Demo: Regressionsmodell"|>i18n$t(),
-                                       i18n$t("Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten."),
-                                       
-                                       sliderInput("lm_e",
-                                                   "Mean error e:",
-                                                   min = 0,
-                                                   max = 10,
-                                                   # step = .01,
-                                                   value = 1.5),
-                                       
-                                       sliderInput("lm_b",
-                                                   "Slope b:",
-                                                   min = -5,
-                                                   max = 5,
-                                                   # step = .1,
-                                                   value = 2),
-                                       
-                                       plotOutput("lmPlot"),
-                                       tags$br()
-                             ), # close nav_panel
-                           ) # close navset_pill_list
-                           
-                  ),### close tabPanel("Simulations")
-                  ### tab: AI promptR ----
-                  tabPanel("AI PromptR", icon = icon("robot"),
-                           tags$div(class = "fancy-container", 
-                                    tags$div(class="content",
-                                             i18n$t("Künstliche Intelligenz (artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden."),
-                                             i18n$t("Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!"),
-                                             br(),
-                                             tags$p(i18n$t("Im Folgenden findest du einige Leitfragen, die dir helfen sollen, einen"), tags$b(i18n$t("präzisen prompt")), i18n$t("zu formulieren."))
-                                    )
-                           ),
-                           
-                           fluidRow(
-                             column(width = 5,
-                                    # Text Inputs
-                                    textInput("goal", label = "Was ist dein Ziel?", value = "einen t-Test zu berechnen"),
-                                    textInput("context", label = "Was ist der Kontext?", value = "mein Psychologie Studium"),
-                                    textInput("wish", label = "Was soll die KI dir ausgeben?", value = "eine einfache Erklärung"),
-                                    textInput("other", label = i18n$t("Was könnte noch hilfreich für die KI sein?"), placeholder = "optional")
-                             ),
-                             column(width = 7,
-                                    tags$br(),
-                                    div(class = "aiclass",
-                                        htmlOutput("promptout")
-                                    ),
-                                    tags$br(),
-                                    actionButton("copy", i18n$t("Prompt kopieren")),
-                                    tags$br(),
-                                    tags$br(),
-                                    
-                                    tags$script(HTML("
-                              Shiny.addCustomMessageHandler('copyOutputText', function(id) {
-                                const text = document.getElementById(id).innerText;
-                                const el = document.createElement('textarea');
-                                el.value = text;
-                                document.body.appendChild(el);
-                                el.select();
-                                document.execCommand('copy');
-                                document.body.removeChild(el);
-                              });
-                            ")),
-                                    
-                                  tags$b("Tips & Tricks"), tags$br(),
-                                  tags$li(i18n$t("Schreib der KI klare und spezifische Anweisungen")),
-                                  tags$li(i18n$t("Gib ausreichend Details für deine Anfrage")),
-                                  tags$li(i18n$t("Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)")),
-                                  tags$li(i18n$t("Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!")),
-                                  tags$li(i18n$t("Beschreibe deine Erwartungen")),
-                                  tags$li(i18n$t("Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten hochladen)")),
-                                  # tags$li(i18n$t("")),
-                                  
-                                  tags$br(),
-                                  tags$hr(),
-                                  tags$b("Sources"),
-                                  
-                                  tags$p("Kulkarni, N. D., & Tupsakhare, P. (2024). Crafting effective prompts: Enhancing AI performance through structured input design.", tags$em("Journal Of Recent Trends In Computer Science And Engineering (JRTCSE), 12"), "(5), 1-10."),
-                                  tags$p("Denny, P., Leinonen, J., Prather, J., Luxton-Reilly, A., Amarouche, T., Becker, B. A., & Reeves, B. N. (2023). Promptly: Using prompt problems to teach learners how to effectively utilize AI code generators (No. arXiv:2307.16364).", em("arXiv."), "https://doi.org/10.48550/arXiv.2307.16364")
-                                  
-
-                                 
-                                  
-                             )
-                           )
-                           
-                  ),  ### close tabPanel("AI PromptR")
-                  ### tab: About ----
-                  tabPanel("About", icon = icon("code-merge"),
-                           
-                           i18n$t("Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. "),
-                           i18n$t("Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! "),
-                           i18n$t("Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."),
-                           i18n$t("Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. "),
-                           tags$br(), tags$br(),
-                           div(
-                             style = "display: flex; gap: 0.5em; align-items: center;",
-                               i18n$t("Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"),
-                             tags$a(class="btn btn-default", href="mailto:overlander@uni-konstanz.de", "E-Mail")
-                           ),
-                           
-                           
-                           tags$hr(),
-                           
-                           tags$div(style = "display: flex; gap: 0.5em; align-items: center; text-align: center;",
-                                    # tags$br(),
-                                    i18n$t("Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"),
-                                    tags$br(),tags$br(),
-                                    
-                                    tags$img(src = "./img/install_pwa.png", style = "width: 45%; max-width: 500px; height: auto;")
-                                    ),
-                           
-                           tags$hr(),
-                           i18n$t("Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!"),
-                           tags$br(), tags$br(),
-                           i18n$t("Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc."),
-                           tags$br(), tags$br()
-                  ),  ### close tabPanel("About")
-                  ### Menu ----
-                  nav_spacer(),
-                  nav_menu(
-                    title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
-                    align = "right",
-                    nav_item(tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/", target="_blank"),
-                             tags$a("iscience GitHub", href = "https://github.com/iscience-kn", target="_blank"),
-                             tags$a("Psychological Research with R (online book)", href = "https://the-tave.github.io/psych_research_with_r/", target="_blank")
-                             
-                             )
-                  )
-                  ### ----
-                ) ## close navbarPage("Statistics Picker", ...
+                 )),
+        
+        # div(
+        #   class = "custombox",
+        #   div(class = "custombox-header", tags$h4("Tips & Tricks"), ),
+        #   div(
+        #     class = "custombox-body",
+        #     tags$ul(
+        #       tags$li(i18n$t(
+        #         "Schreib der KI klare und spezifische Anweisungen"
+        #       )),
+        #       tags$li(i18n$t("Gib ausreichend Details für deine Anfrage")),
+        #       tags$li(
+        #         i18n$t(
+        #           "Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)"
+        #         )
+        #       ),
+        #       tags$li(
+        #         i18n$t(
+        #           "Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!"
+        #         )
+        #       ),
+        #       tags$li(i18n$t("Beschreibe deine Erwartungen")),
+        #       tags$li(
+        #         i18n$t(
+        #           "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten angeben)"
+        #         )
+        #       )
+        #     )
+        #   )
+        # )
+      ))
+      
+    ),
+    ### close tabPanel("AI PromptR")
+    ### tab: About ----
+    tabPanel(
+      "About",
+      icon = icon("code-merge"),
+      
+      i18n$t(
+        "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. "
+      ),
+      i18n$t(
+        "Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! "
+      ),
+      i18n$t(
+        "Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."
+      ),
+      i18n$t(
+        "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. "
+      ),
+      tags$br(),
+      tags$br(),
+      div(
+        style = "display: flex; gap: 0.5em; align-items: center;",
+        i18n$t(
+          "Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"
+        ),
+        tags$a(class = "btn btn-default", href = "mailto:overlander@uni-konstanz.de", "E-Mail")
+      ),
+      
+      
+      tags$hr(),
+      
+      tags$div(
+        style = "display: flex; gap: 0.5em; align-items: center; text-align: center;",
+        # tags$br(),
+        i18n$t(
+          "Um Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"
+        ),
+        tags$br(),
+        tags$br(),
+        
+        tags$img(src = "./img/install_pwa.png", style = "width: 45%; max-width: 500px; height: auto;")
+      ),
+      
+      tags$hr(),
+      i18n$t(
+        "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!"
+      ),
+      tags$br(),
+      tags$br(),
+      i18n$t(
+        "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc."
+      ),
+      tags$br(),
+      tags$br()
+    ),
+    ### close tabPanel("About")
+    ### Menu ----
+    nav_spacer(),
+    nav_menu(
+      title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
+      align = "right",
+      nav_item(
+        tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/", target =
+                 "_blank"),
+        tags$a("iscience GitHub", href = "https://github.com/iscience-kn", target =
+                 "_blank"),
+        tags$a(
+          "Psychological Research with R (online book)",
+          href = "https://the-tave.github.io/psych_research_with_r/",
+          target = "_blank"
+        )
+        
+      )
+    )
+  ) ## close navbarPage("Statistics Picker", ...
 ) # close fluidPage
 
 
@@ -666,20 +1166,20 @@ fluidPage(theme = shinythemes::shinytheme("united"),
 #            selectInput("ex_dataset",
 #                        "Welchen Datensatz möchtest du nutzen?",
 #                        c(pos_datasets, "eigene")), # defaults to first value of choices
-#            p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus 
+#            p("Wenn du eigene Daten analysieren möchtest, wähle bitte erst deine Datendatei aus
 #              (Klick auf 'Browse') und wähle dann 'eigene' beim Datensatz."),
-#            
+#
 #            fileInput('customfile', '',
-#                      accept=c('text/csv', 
-#                               'text/comma-separated-values,text/plain', 
+#                      accept=c('text/csv',
+#                               'text/comma-separated-values,text/plain',
 #                               '.csv')),
-#            
-#            checkboxGroupInput("ex_columns", 
-#                               "Welche Variable(n) möchtest du nutzen?", 
+#
+#            checkboxGroupInput("ex_columns",
+#                               "Welche Variable(n) möchtest du nutzen?",
 #                               inline = T),
-#            verbatimTextOutput("ex_placeholder"), 
-#            checkboxGroupInput("ex_stat", 
-#                               "Welche Statistik möchtest du sehen?", 
+#            verbatimTextOutput("ex_placeholder"),
+#            checkboxGroupInput("ex_stat",
+#                               "Welche Statistik möchtest du sehen?",
 #                               inline = T)
 #          ), #### close sidebar
 #          mainPanel(
@@ -688,12 +1188,12 @@ fluidPage(theme = shinythemes::shinytheme("united"),
 #            numericInput(inputId = "obs",
 #                         label = "Anzahl angezeigter Zeilen:",
 #                         value = 6),
-#            
+#
 #            tableOutput("ex_data_table"),
-#            
+#
 #            div(class = "myclass",
 #                verbatimTextOutput("ex_statistic")
 #            )
-#            
+#
 #          ) #### close main panel
 # ),  ### close tabPanel("Beispiele")

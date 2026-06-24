@@ -137,12 +137,16 @@
             "en": "How many times would you like to toss the coin?"
         },
         {
-            "de": "Verteilung: Coefficient of variation",
-            "en": "Distribution: Coefficient of variation"
+            "de": "Verteilung: CV",
+            "en": "Distribution: CV"
         },
         {
-            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
-            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation. Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
+            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht.",
+            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation."
+        },
+        {
+            "de": "Beachte: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
+            "en": "Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
         },
         {
             "de": "Welchen Mittelwert hat die Verteilung?",
@@ -181,21 +185,32 @@
             "en": "And now take a guess: What's the t?"
         },
         {
-            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.",
-            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+            "de": "Kleiner Tipp:",
+            "en": "Hint:"
+        },
+        {
+            "de": "Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.",
+            "en": "If the first mean is smaller than the second, the t-value is negative."
         },
         {
             "de": "Antwort",
             "en": "Answer"
         },
-        {
-            "de": "Demo: Regressionsmodell",
-            "en": "Demo: Linear regression model"
-        },
+        
         {
             "de": "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten.",
             "en": "Here is a demo of the regression model and what the error term 'e' and the slope parameter 'b' mean for the distribution of the data."
         },
+        
+        {
+            "de": "Fehler e:",
+            "en": "Mean error e:"
+        },
+         {
+            "de": "Steigung b:",
+            "en": "Slope b:"
+        },
+        
 
 
 
@@ -224,16 +239,16 @@
         },
         
         {
-            "de": "Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:",
-            "en": "To install the Stats Picker on the mobile device of you choosing, simply use the 'Add to homescreen' option in your browser: "
+            "de": "Um Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:",
+            "en": "To install Stats Picker on the mobile device of you choosing, simply use the 'Add to homescreen' option in your browser:"
         },
         {
             "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!",
             "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating and Lanie Wrobel for general support with design and wording!"
         },
         {
-            "de": "Der Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc.",
-            "en": "The Stats Picker is developed as part of the Ph.D. project by Anni Tave Overlander, M.Sc."
+            "de": "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc.",
+            "en": "Stats Picker is developed as part of the Ph.D. project by Anni Tave Overlander, M.Sc."
         },
 
 
@@ -842,68 +857,20 @@
         
         
         {
-            "de": "Künstliche Intelligenz (artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden.",
+            "de": "Künstliche Intelligenz (KI oder artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden.",
             "en": "Artifical intelligence (AI) has become an important part of everyday life."
         },
         {
-            "de": "Eine effektive Formulierung der Anfrage ('prompt') an die AI ist daher besonders hilfreich!",
-            "en": "Therefore, formulating a clear and effective prompt (also called 'prompt engineering') to the AI is very helpful!"
+            "de": "Daher findest du hier eine KI Assistentin, die dir bei statistischen Fragen helfen kann.",
+            "en": "Here you can find a helpful AI assistant that can help with your statistical questions."
         },
         {
             "de": "Im Folgenden findest du einige Leitfragen, die dir helfen sollen, einen",
             "en": "Here you can find some inspiration to help you craft a"
         },
         {
-            "de": "präzisen prompt",
-            "en": "precise prompt"
-        },
-        {
-            "de": "zu formulieren.",
-            "en": "to use in an AI of your choice."
-        },
-        {
-            "de": "Was ist dein Ziel?",
-            "en": "What is your goal?"
-        },
-        {
-            "de": "einen t-Test zu berechnen",
-            "en": "calculate a t-test"
-        },
-        {
-            "de": "Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist ",
-            "en": "Hi! I need some help with statistics. My goal is to "
-        },
-        {
-            "de": ". Der Kontext ist ",
-            "en": ". The context is "
-        },
-        {
-            "de": ". Ich brauche von dir ",
-            "en": ". I need you to "
-        },
-        {
-            "de": "Was ist der Kontext?",
-            "en": "What is the context?"
-        },
-        {
-            "de": "mein Psychologie Studium",
-            "en": "my psychology class"
-        },
-        {
-            "de": "Was soll die KI dir ausgeben?",
-            "en": "What output do you want from the AI?"
-        },
-        {
-            "de": "eine einfache Erklärung",
-            "en": "explain in simple terms"
-        },
-        {
-            "de": "Prompt kopieren",
-            "en": "Copy prompt"
-        },
-        {
-            "de": "Was könnte noch hilfreich für die KI sein?",
-            "en": "What else might help the AI understand you better?"
+            "de": "Die KI basiert auf OpenAI. Bitte gib auf keinen Fall spezifische oder personenbezogene Daten Preis.",
+            "en": "The AI is based on OpenAI. Please do not share any specific or personal data."
         },
         
         
@@ -933,9 +900,21 @@
         },
         
         {
-            "de": "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten hochladen)",
-            "en": "Make sure you respect data security and ethical behavior (e.g. don't upload personal data)"
+            "de": "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten angeben)",
+            "en": "Make sure you respect data security and ethical behavior (e.g. don't disclose personal data)"
+        },
+        
+        {
+            "de": "Skalenniveau Variable",
+            "en": "Scale level variable"
+        },
+        
+        {
+            "de": "Aktuelle Auswahl",
+            "en": "Current Selection"
         }
+        
+        
                                   
         
     ]

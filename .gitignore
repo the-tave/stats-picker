@@ -9,3 +9,5 @@ Test-Reprex
 
 *.pdf
 .positai
+
+app/.Renviron
