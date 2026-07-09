@@ -71,9 +71,9 @@
             "de": "Döner mit alles",
             "en": "Everything everywhere all at once"
         },
-         {
-            "de": "Passende Statistik:",
-            "en": "Possible Statistic:"
+        {
+            "de": "Passende Statistik",
+            "en": "Possible Statistic"
         },
         {
             "de": "t-Test, Korrelation / Regression",
@@ -101,8 +101,8 @@
             "en": "Simulations"
         },
         {
-            "de": "Verteilung: Würfel",
-            "en": "Distribution: Dice"
+            "de": "Würfelwurf",
+            "en": "Throw of Dice"
         },
         {
             "de": "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?",
@@ -117,8 +117,8 @@
             "en": "How many dice would you like to throw?"
         },
         {
-            "de": "Verteilung: Münze",
-            "en": "Distribution: Coin toss"
+            "de": "Münze",
+            "en": "Coin toss"
         },
         {
             "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
@@ -137,12 +137,12 @@
             "en": "How many times would you like to toss the coin?"
         },
         {
-            "de": "Verteilung: Coefficient of variation",
-            "en": "Distribution: Coefficient of variation"
+            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht.",
+            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation."
         },
         {
-            "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht. Achtung: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
-            "en": "Here you can see what the Coefficient of Variation (CV) means and how it results from the interaction between the mean and standard deviation. Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
+            "de": "Beachte: Dies ist nur ein sinnvolles Maß für verhätnis-skalierte Variablen mit einem absoluten Nullpunkt.",
+            "en": "Note: This is only a meaningful measure for ratio-scaled variables with an absolute zero point."
         },
         {
             "de": "Welchen Mittelwert hat die Verteilung?",
@@ -153,7 +153,7 @@
             "en": "What is the standard deviation?"
         },
         {
-            "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
+            "de": "Was bedeuten eigentlich t-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
             "en": "What do t-values actually mean and how are they calculated? Enter different sample means and standard deviations and observe how that affects the distributions! Below you can then guess: What t-value will result from the sample comparison?"
         },
         {
@@ -177,57 +177,107 @@
             "en": "How large are the samples each?"
         },
         {
-            "de": "Und nun rate mal: What's the T?",
-            "en": "And now take a guess: What's the T?"
+            "de": "Und nun rate mal: What's the t?",
+            "en": "And now take a guess: What's the t?"
         },
         {
-            "de": "Kleiner Tipp: Wenn der erste Mittelwert kleiner ist, ist der T-Wert negativ.",
-            "en": "Hint: If the first mean is smaller than the second, the t-value is negative."
+            "de": "Kleiner Tipp:",
+            "en": "Hint:"
+        },
+        {
+            "de": "Wenn der erste Mittelwert kleiner ist, ist der t-Wert negativ.",
+            "en": "If the first mean is smaller than the second, the t-value is negative."
         },
         {
             "de": "Antwort",
             "en": "Answer"
         },
-        {
-            "de": "Demo: Regressionsmodell",
-            "en": "Demo: Linear regression model"
-        },
+        
         {
             "de": "Hier ist eine Demo des Regressionsmodells und was die Werte des Fehlers e und des Steigungsparameters b für die Verteilung der Daten bedeuten.",
             "en": "Here is a demo of the regression model and what the error term 'e' and the slope parameter 'b' mean for the distribution of the data."
         },
+        
+        {
+            "de": "Fehler e:",
+            "en": "Mean error e:"
+        },
+         {
+            "de": "Steigung b:",
+            "en": "Slope b:"
+        },
+        
 
 
 
         {
-            "de": "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten.Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.",
-            "en": "In the menu under the University of Konstanz logo, you will find some links that might also be helpful for you. In particular, the Online R Intro is a great way to get a better 'feel' for statistics! Looking at data and working with it is important for understanding – just as important as knowing the calculations."
+            "de": "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. ",
+            "en": "In the menu under the University of Konstanz logo, you will find some links that might also be helpful for you. "
         },
         {
-            "de": "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!",
-            "en": "Therefore, under the 'Simulations' tab, you will find a collection of data simulations that, for example, show how different distributions come about. If you have ideas or requests for additional features, distributions, etc., feel free to contact me!"
+            "de": "Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! ",
+            "en": "In particular, the Online R Intro is a great way to get a better 'feel' for statistics! "
+        },
+        {
+            "de": "Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen.",
+            "en": "Looking at data and working with it is important for understanding – just as important as knowing the calculations."
+        },
+        
+        
+        
+        {
+            "de": "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. ",
+            "en": "Therefore, under the 'Simulations' tab, you will find a collection of data simulations that, for example, show how different distributions come about. "
+        },
+        {
+            "de": "Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!",
+            "en": "If you have ideas or requests for additional features, distributions, etc., feel free to contact me!"
         },
         
         {
-            "de": "Um den Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:",
-            "en": "To install the Stats Picker on the mobile device of you choosing, simply use the 'Add to homescreen' option in your browser: "
+            "de": "Stats Picker mobil nutzen",
+            "en": "Stats Picker on the go"
         },
         {
-            "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung!",
-            "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating!"
+            "de": "Du kannst Stats Picker bequem auf deinem mobilen Gerät installieren, indem du die Option ",
+            "en": "You can comfortably install Stats Picker on your mobile device by choosing "
         },
         {
-            "de": "Der Statistik Picker entsteht im Rahmen des Dissertationsprojekts von Annika Tave Overlander, M.Sc.",
-            "en": "The Statistics Picker is developed as part of the dissertation project by Annika Tave Overlander, M.Sc."
+            "de": "'Zum Startbildschirm hinzufügen'",
+            "en": "'Add to home screen'"
         },
-
-
-
-
-
-
-
-
+        {
+            "de": " in deinem Browser nutzt.",
+            "en": " in your browser."
+        },
+        {
+            "de": "Öffne Stats Picker im Browser auf deinem Smartphone oder Tablet.",
+            "en": "Open Stats Picker in the browser on your smartphone or tablet."
+        },
+        {
+            "de": "Öffne das Browser-Menü und wähle ",
+            "en": "Open the browser menu and choose "
+        },
+        {
+            "de": "Bestätige mit 'Hinzufügen'. Danach kannst du Stats Picker wie eine App öffnen.",
+            "en": "Confirm with 'Add' and use Stats Picker like an app!"
+        },
+        {
+          "de": "Du brauchst eine Internetverbindung, um die App zu nutzen.",
+          "en": "You need to be connected to the Internet to use the app."
+        },
+        {
+            "de": "Danke",
+            "en": "Thanks"
+        },
+        {
+            "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!",
+            "en": "Special thanks go to Anne-Sophie Landenberger and Elisabeth Mees for their collaboration on the Deep Dive as well as Patrick Slayer for translating and Lanie Wrobel for general support with design and wording!"
+        },
+        {
+            "de": "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc.",
+            "en": "Stats Picker is developed as part of the Ph.D. project by Anni Tave Overlander, M.Sc."
+        },
 
 
         
@@ -305,8 +355,8 @@
             "en": "Here, the mode is mainly used."
         },
         {
-            "de": "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR.",
-            "en": "In R, this can be done with getmode() from the package wobblynameR."
+            "de": "In R geht das zum Beispiel mit getmode() aus dem package rextor.",
+            "en": "In R, this can be done with getmode() from the package rextor."
         },
 
         
@@ -393,10 +443,6 @@
             "de": "Wahrscheinlichkeit 'Zahl'",
             "en": "Probability 'Heads'"
         },
-        {
-            "de": "Münze",
-            "en": "Coin"
-        },
 
         {
             "de": "Werteverteilung",
@@ -408,20 +454,20 @@
             "en": "The sample size cannot exceed 1000."
         },
         {
-            "de": "Der echte T-Wert ist ",
-            "en": "The true T-value is "
+            "de": "Der echte t-Wert ist ",
+            "en": "The true t-value is "
         },
         {
             "de": ", das heißt dein geratener Wert weicht um ",
-            "en": ", meaning the value you guessed deviates by "
+            "en": ", meaning the value you guessed is off by "
         },
         {
             "de": " davon ab.",
-            "en": " from it."
+            "en": "."
         },
         {
             "de": "Du kriegst schon noch ein Gefühl dafür!",
-            "en": "You'll get a feel for it soon!"
+            "en": "You'll get the hang of it soon!"
         },
         {
             "de": "Super, das war schon nah dran!",
@@ -822,6 +868,70 @@
         {
             "de": "Wahrscheinlichkeit (y)",
             "en": "Probability (y)"
+        },
+        
+        
+        
+        {
+            "de": "Künstliche Intelligenz (KI oder artificial intelligence, AI) ist ein wichtiger Teil unseres Alltags geworden.",
+            "en": "Artifical intelligence (AI) has become an important part of everyday life."
+        },
+        {
+            "de": "Daher findest du hier eine KI Assistentin, die dir bei statistischen Fragen helfen kann.",
+            "en": "Here you can find a helpful AI assistant that can help with your statistical questions."
+        },
+        {
+            "de": "Im Folgenden findest du einige Leitfragen, die dir helfen sollen, einen",
+            "en": "Here you can find some inspiration to help you craft a"
+        },
+        {
+            "de": "Die KI basiert auf OpenAI. Bitte gib auf keinen Fall spezifische oder personenbezogene Daten Preis.",
+            "en": "The AI is based on OpenAI. Please do not share any specific or personal data."
+        },
+        
+        
+        {
+            "de": "Schreib der KI klare und spezifische Anweisungen",
+            "en": "Give the AI clear and specific instructions"
+        },
+        
+        {
+            "de": "Gib ausreichend Details für deine Anfrage",
+            "en": "Provide sufficient details"
+        },
+        
+        {
+            "de": "Sei darauf vorbereitet, dass du eventuell mehrere prompts geben musst (iterativer Prozess)",
+            "en": "Be prepared that you may need to give several prompts (iterative process)"
+        },
+        
+        {
+            "de": "Denk daran, dass die meisten KIs mit Text aus dem Internet trainiert sind. Mit Zahlen können sie deshalb nicht so gut und du solltest Antworten prinzipiell überprüfen!",
+            "en": "Remember that most AIs are trained with text from the Internet so they may not be great with numbers. Always fact-check important answers!"
+        },
+        
+        {
+            "de": "Beschreibe deine Erwartungen",
+            "en": "Describe your expectations"
+        },
+        
+        {
+            "de": "Achte ggf. auf Datenschutz und Ethisches Handeln (z.B. keine persönlichen Daten angeben)",
+            "en": "Make sure you respect data security and ethical behavior (e.g. don't disclose personal data)"
+        },
+        
+        {
+            "de": "Skalenniveau Variable",
+            "en": "Scale level variable"
+        },
+        
+        {
+            "de": "Aktuelle Auswahl",
+            "en": "Current Selection"
         }
+        
+        
+                                  
+        
     ]
 }
