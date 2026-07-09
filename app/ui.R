@@ -167,7 +167,7 @@ fluidPage(
     ### tab: Deep Dive ----
     tabPanel(
       "Deep Dive",
-      icon = icon("circle-info"),
+      icon = icon("fish-fins"),
       value = "deep-dive",
       
       tags$div(
@@ -596,7 +596,8 @@ fluidPage(
       icon = icon("flask"),
       navset_pill(
         nav_panel(
-          "Verteilung: Würfel" |> i18n$t(),
+          title = "Würfelwurf" |> i18n$t(),
+          icon = icon("chart-simple"),
           tags$div(
             class = "fancy-container",
             style = "width:90%;",
@@ -641,7 +642,8 @@ fluidPage(
         ),
         
         nav_panel(
-          "Verteilung: Münze" |> i18n$t(),
+          "Münze" |> i18n$t(),
+          icon = icon("chart-simple"),
           tags$div(
             class = "fancy-container",
             style = "width:90%;",
@@ -687,7 +689,8 @@ fluidPage(
         ),
         
         nav_panel(
-          "Verteilung: CV" |> i18n$t(),
+          title = "CV",
+          icon = icon("chart-simple"),
           tags$div(
             class = "fancy-container",
             style = "width:90%;",
@@ -739,6 +742,7 @@ fluidPage(
         
         nav_panel(
           "What's the t?",
+          icon = icon("text-height"),
           
           tags$div(
             class = "fancy-container",
@@ -898,6 +902,8 @@ fluidPage(
         
         nav_panel(
           "Regression",
+          icon = icon("chart-line"),
+          
           tags$div(
             class = "fancy-container",
             style = "width:90%;",
@@ -1083,61 +1089,126 @@ fluidPage(
     ),
     ### close tabPanel("AI PromptR")
     ### tab: About ----
+    
+    ## NEW ABOUT PAGE LAYOUT
     tabPanel(
-      "About",
-      icon = icon("code-merge"),
+      title = "About",
+      # icon = icon("code-merge"),
+      icon = icon("circle-info"), 
+      value = "about",
       
-      i18n$t(
-        "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. "
-      ),
-      i18n$t(
-        "Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! "
-      ),
-      i18n$t(
-        "Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."
-      ),
-      i18n$t(
-        "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. "
-      ),
-      tags$br(),
-      tags$br(),
-      div(
-        style = "display: flex; gap: 0.5em; align-items: center;",
-        i18n$t(
-          "Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"
-        ),
-        tags$a(class = "btn btn-default", href = "mailto:overlander@uni-konstanz.de", "E-Mail")
-      ),
-      
-      
-      tags$hr(),
-      
-      tags$div(
-        style = "display: flex; gap: 0.5em; align-items: center; text-align: center;",
-        # tags$br(),
-        i18n$t(
-          "Um Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:"
-        ),
-        tags$br(),
-        tags$br(),
+
+      fluidRow(
+          column(
+            width = 1 #Placeholder/ Spacer
+          ),
+          
+          column(
+            width = 6,
+            
+            tags$div(
+              class = "panel panel-default",
+              
+              tags$div(
+                class = "panel-body",
+                tags$h3(icon("fly"), "About"),
+                i18n$t(
+                      "Im Menü unter dem Uni Konstanz Logo findest du einige Links, die für dich außerdem hilfreich sein könnten. "
+                    ),
+                    i18n$t(
+                      "Insbesondere das Online R Intro ist gut geeignet, um ein besseres 'Gefühl' für die Statistik zu erlangen! "
+                    ),
+                tags$br(),
+                    i18n$t(
+                      "Daten anschauen und mit ihnen arbeiten ist wichtig für das Verständnis - ähnlich wichtig wie die Kenntnis der Rechnungen."
+                    ),
+                    i18n$t(
+                      "Daher findest du unter dem Tab Simulationen eine Sammlung von Datensimulationen, die z.B. zeigen, wie verschiedene Verteilungen zustande kommen. "
+                    ),
+              )
+            ),
+            
+            tags$div(
+              class = "panel panel-default",
+              
+              tags$div(
+                class = "panel-body",
+                tags$h3(icon("mobile-screen-button"), "Stats Picker mobil nutzen" |> i18n$t()),
+                tags$div(
+                  class = "install-layout",
+                  
+                  tags$div(
+                    tags$p(
+                      "Du kannst Stats Picker bequem auf deinem mobilen Gerät installieren, indem du die Option " |> i18n$t(),
+                      tags$strong("'Zum Startbildschirm hinzufügen'" |> i18n$t()),
+                      " in deinem Browser nutzt." |> i18n$t()
+                    ),
+                    tags$ol(
+                      class = "install-steps",
+                      tags$li("Öffne Stats Picker im Browser auf deinem Smartphone oder Tablet." |> i18n$t()),
+                      tags$li("Öffne das Browser-Menü und wähle "|> i18n$t(), "'Zum Startbildschirm hinzufügen'" |> i18n$t(), "."),
+                      tags$li("Bestätige mit 'Hinzufügen'. Danach kannst du Stats Picker wie eine App öffnen." |> i18n$t())
+                    )
+                  ),
+                  
+                  tags$div(
+                    tags$img(
+                      src = "./img/install_pwa.png",
+                      style = "width: 45%; max-width: 500px; height: auto;",
+                      # class = "install-image",
+                      alt = "Add Stats Picker to your home screen"
+                    )
+                  )
+                )
+              ),
+              tags$div(class = "panel-footer",
+                       icon("circle-exclamation"),
+                       i18n$t("Du brauchst eine Internetverbindung, um die App zu nutzen."))
+            )
+          ),
+          
+          column(
+            width = 4,
+            
+            tags$div(
+              class = "panel panel-default",
+              
+              tags$div(
+                class = "panel-body",
+                tags$h3(icon("bullhorn"), "Feedback"),
+                i18n$t(
+                        "Wenn du Ideen oder Wünsche für weitere Features, Verteilungen o.Ä. hast, melde dich gern bei mir!"
+                      ),
+                tags$br(),
+                tags$br(),
+                      tags$a(class = "btn btn-default", 
+                             href = "mailto:overlander@uni-konstanz.de", 
+                             icon("envelope"),
+                             "E-Mail")
         
-        tags$img(src = "./img/install_pwa.png", style = "width: 45%; max-width: 500px; height: auto;")
-      ),
-      
-      tags$hr(),
-      i18n$t(
-        "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!"
-      ),
-      tags$br(),
-      tags$br(),
-      i18n$t(
-        "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc."
-      ),
-      tags$br(),
-      tags$br()
-    ),
-    ### close tabPanel("About")
-    ### Menu ----
+              )
+            ),
+            
+            tags$div(
+              class = "panel panel-default",
+              
+              tags$div(
+                class = "panel-body",
+                tags$h3(icon("hand-holding-heart"), i18n$t("Danke"),"!"),
+                i18n$t(
+                      "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!"
+                    ),
+                    tags$br(),
+                    tags$br(),
+                    i18n$t(
+                      "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc."
+                    )
+              )
+            )
+          )
+        )
+      ), ### close tabPanel("About")
+    ### Right-hand side menu ----
     nav_spacer(),
     ## TRY TO MOVE LANGUAGE TO NAVBAR
     
@@ -1166,14 +1237,20 @@ fluidPage(
       title = tags$img(src = "./img/UniKonstanz_LogoW.svg", height = "35px"),
       align = "right",
       nav_item(
-        tags$a("iscience homepage", href = "https://iscience.uni-konstanz.de/", target =
-                 "_blank"),
-        tags$a("iscience GitHub", href = "https://github.com/iscience-kn", target =
-                 "_blank"),
-        tags$a(
-          "Psychological Research with R (online book)",
-          href = "https://the-tave.github.io/psych_research_with_r/",
-          target = "_blank"
+        tags$a(href = "https://iscience.uni-konstanz.de/", 
+               target = "_blank",
+               icon("earth-americas"),
+               "iscience homepage"
+               ),
+        tags$a(href = "https://github.com/iscience-kn", 
+               target = "_blank",
+               icon("github"),
+               "iscience-kn"
+               ),
+        tags$a(href = "https://the-tave.github.io/psych_research_with_r/",
+          target = "_blank",
+          icon("book-atlas"),
+          "Psychological Research with R",
         )
         
       )

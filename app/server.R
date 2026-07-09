@@ -117,12 +117,12 @@ function(input, output, session) {
                        choices = i18n_r()$t(c("Statistik rechnen", "Visualisierung", "Döner mit alles")))
     
     # AI promptR texte
-    updateTextInput(session, "goal", label = i18n_r()$t("Was ist dein Ziel?"), value = i18n_r()$t("einen t-Test zu berechnen"))
-    
-    updateTextInput(session, "context", label = i18n_r()$t("Was ist der Kontext?"), value = i18n_r()$t("mein Psychologie Studium"))
-    
-    updateTextInput(session, "wish", label = i18n_r()$t("Was soll die KI dir ausgeben?"), value = i18n_r()$t("eine einfache Erklärung"))
-    
+    # updateTextInput(session, "goal", label = i18n_r()$t("Was ist dein Ziel?"), value = i18n_r()$t("einen t-Test zu berechnen"))
+    # 
+    # updateTextInput(session, "context", label = i18n_r()$t("Was ist der Kontext?"), value = i18n_r()$t("mein Psychologie Studium"))
+    # 
+    # updateTextInput(session, "wish", label = i18n_r()$t("Was soll die KI dir ausgeben?"), value = i18n_r()$t("eine einfache Erklärung"))
+    # 
   })
   
  # Add feedback about copied text for AI promptR

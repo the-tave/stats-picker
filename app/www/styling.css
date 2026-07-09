@@ -145,3 +145,30 @@ body {margin-top: 60px;}
 .custombox-body {
   padding: 10px;
 }
+
+/*About page style*/
+.install-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(260px, 420px);
+      gap: 18px;
+      align-items: center;
+    }
+
+.install-steps {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+.install-steps li {
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    
+.install-image {
+      width: 60%;
+      max-height: 180px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fafafa;
+    }

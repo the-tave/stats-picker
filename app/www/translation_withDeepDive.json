@@ -101,8 +101,8 @@
             "en": "Simulations"
         },
         {
-            "de": "Verteilung: Würfel",
-            "en": "Distribution: Dice"
+            "de": "Würfelwurf",
+            "en": "Throw of Dice"
         },
         {
             "de": "Wirf einen oder mehrere digitale 6-seitige Würfel beliebig oft. Wie werden die Ergebnisse verteilt sein? Was erwartest du, was bei mehreren Würfeln (Augenzahl addiert) passiert - wird sich die Verteilung verändern?",
@@ -117,8 +117,8 @@
             "en": "How many dice would you like to throw?"
         },
         {
-            "de": "Verteilung: Münze",
-            "en": "Distribution: Coin toss"
+            "de": "Münze",
+            "en": "Coin toss"
         },
         {
             "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
@@ -135,10 +135,6 @@
         {
             "de": "Wie oft möchtest du die Münze werfen?",
             "en": "How many times would you like to toss the coin?"
-        },
-        {
-            "de": "Verteilung: CV",
-            "en": "Distribution: CV"
         },
         {
             "de": "Hier kannst du sehen, was der Coefficient of Variation (CV) bedeutet und wie er aus dem Zusammenspiel von Mittelwert und Standardabweichung entsteht.",
@@ -239,8 +235,40 @@
         },
         
         {
-            "de": "Um Stats Picker bequem auf deinem mobilen Gerät der Wahl zu installieren, nutze einfach die 'Zum Startbildschirm hinzufügen' Option in deinem Browser:",
-            "en": "To install Stats Picker on the mobile device of you choosing, simply use the 'Add to homescreen' option in your browser:"
+            "de": "Stats Picker mobil nutzen",
+            "en": "Stats Picker on the go"
+        },
+        {
+            "de": "Du kannst Stats Picker bequem auf deinem mobilen Gerät installieren, indem du die Option ",
+            "en": "You can comfortably install Stats Picker on your mobile device by choosing "
+        },
+        {
+            "de": "'Zum Startbildschirm hinzufügen'",
+            "en": "'Add to home screen'"
+        },
+        {
+            "de": " in deinem Browser nutzt.",
+            "en": " in your browser."
+        },
+        {
+            "de": "Öffne Stats Picker im Browser auf deinem Smartphone oder Tablet.",
+            "en": "Open Stats Picker in the browser on your smartphone or tablet."
+        },
+        {
+            "de": "Öffne das Browser-Menü und wähle ",
+            "en": "Open the browser menu and choose "
+        },
+        {
+            "de": "Bestätige mit 'Hinzufügen'. Danach kannst du Stats Picker wie eine App öffnen.",
+            "en": "Confirm with 'Add' and use Stats Picker like an app!"
+        },
+        {
+          "de": "Du brauchst eine Internetverbindung, um die App zu nutzen.",
+          "en": "You need to be connected to the Internet to use the app."
+        },
+        {
+            "de": "Danke",
+            "en": "Thanks"
         },
         {
             "de": "Besonderer Dank gilt Anne-Sophie Landenberger und Elisabeth Mees für die Mitarbeit am Deep Dive sowie Patrick Slayer für die Übersetzung und Lanie Wrobel für generelle Unterstützung in Design und Formulierung!",
@@ -250,14 +278,6 @@
             "de": "Stats Picker entsteht im Rahmen des Dissertationsprojekts von Anni Tave Overlander, M.Sc.",
             "en": "Stats Picker is developed as part of the Ph.D. project by Anni Tave Overlander, M.Sc."
         },
-
-
-
-
-
-
-
-
 
 
         
@@ -422,10 +442,6 @@
         {
             "de": "Wahrscheinlichkeit 'Zahl'",
             "en": "Probability 'Heads'"
-        },
-        {
-            "de": "Münze",
-            "en": "Coin"
         },
 
         {
