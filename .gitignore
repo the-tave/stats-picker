@@ -3,7 +3,11 @@
 .RData
 .Ruserdata
 
+Paper-Project
 exampleshizzle
 Test-Reprex
 
 *.pdf
+.positai
+
+app/.Renviron

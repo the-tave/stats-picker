@@ -1,7 +1,10 @@
 library(shiny)
+library(httr2)
+library(jsonlite)
+library(bslib)
 
 # file with translations
-i18n <- Translator$new(translation_json_path="../translations/translation_withDeepDive.json")
+i18n <- Translator$new(translation_json_path="./www/translation_withDeepDive.json")
 
 # Define some default variables
 set.seed(123)
@@ -22,6 +25,64 @@ new_nom <- as.data.frame(table(data.frame(nom)))
 names(new_nom) <- c("Daten", "value")
 
 pos_datasets <- c("iris", "mtcars", "Orange")
+
+
+## NEW AI INTEGRATION ##
+
+ask_openai <- function(user_message, history = list()) {
+  api_key <- Sys.getenv("OPENAI_API_KEY")
+  
+  if (api_key == "") {
+    stop("OPENAI_API_KEY is not set. Add it to .Renviron or your deployment secrets.")
+  }
+  
+  # Combine a fixed system/developer instruction with the user's message.
+  # You can make this very specific to Stats Picker / statistical guidance.
+  input <- list(
+    list(
+      role = "system",
+      content = paste(
+        "You are a helpful statistics assistant embedded in a Shiny app.",
+        "Explain statistical choices clearly and beginner-friendly.",
+        "Do not pretend to analyze uploaded data unless the data was actually provided.",
+        "When recommending tests, mention assumptions and suitable visualizations."
+      )
+    ),
+    list(
+      role = "user",
+      content = user_message
+    )
+  )
+  
+  response <- request("https://api.openai.com/v1/responses") |>
+    req_headers(
+      Authorization = paste("Bearer", api_key),
+      "Content-Type" = "application/json"
+    ) |>
+    req_body_json(list(
+      model = "gpt-5.4",
+      input = input,
+      store = FALSE
+    )) |>
+    req_error(is_error = function(resp) FALSE) |>
+    req_perform()
+  
+  parsed <- resp_body_json(response, simplifyVector = FALSE)
+  
+  # The API response format can contain several output items.
+  # This extracts plain assistant text robustly for common Responses API outputs.
+  output_text <- parsed$output_text
+  
+  if (is.null(output_text)) {
+    output_text <- parsed$output[[1]]$content[[1]]$text
+  }
+  
+  used_tokens <- parsed$usage$total_tokens
+  
+  output_text
+}
+
+####
 
 # Define server logic ----
 function(input, output, session) {
@@ -54,9 +115,28 @@ function(input, output, session) {
     
     updateRadioButtons(session, "statstype", label = i18n_r()$t("Was hast du vor?"),
                        choices = i18n_r()$t(c("Statistik rechnen", "Visualisierung", "Döner mit alles")))
+    
+    # AI promptR texte
+    # updateTextInput(session, "goal", label = i18n_r()$t("Was ist dein Ziel?"), value = i18n_r()$t("einen t-Test zu berechnen"))
+    # 
+    # updateTextInput(session, "context", label = i18n_r()$t("Was ist der Kontext?"), value = i18n_r()$t("mein Psychologie Studium"))
+    # 
+    # updateTextInput(session, "wish", label = i18n_r()$t("Was soll die KI dir ausgeben?"), value = i18n_r()$t("eine einfache Erklärung"))
+    # 
   })
   
- 
+ # Add feedback about copied text for AI promptR
+  observeEvent(input$copy, {
+    showNotification("Copied!", duration = 2)
+  })
+  
+  # Update navbar page for internal links???
+  observeEvent(input$controller, {
+    updateNavbarPage(session, "stats",
+                      selected = "deep-dive"
+    )
+  })
+  
   
   
   # Home: Output ----
@@ -72,6 +152,7 @@ function(input, output, session) {
   observe({
     # ## Show dataViz only for conditions other than pure statistics
     # shinyjs::toggle("dataViz", condition = input$statstype != "Statistik rechnen") 
+    shinyjs::toggle("viz_h4", condition = !input$statstype %in% c("Statistik rechnen", "Calculate statistic"))
     shinyjs::toggle("dataViz", condition = !input$statstype %in% c("Statistik rechnen", "Calculate statistic"))
     # ## show table for 2 vars that can't be shown well in plots
     shinyjs::toggle("table", condition = input$scale == "nominal" && input$scale2 == "nominal") #input$statstype != "Statistik rechnen" &&
@@ -81,6 +162,38 @@ function(input, output, session) {
   })
   
   
+  # Statistic at a glance
+  output$ataglanceout <- renderText(
+    switch(input$scale,
+           "intervall" = , "interval" = switch(input$scale2,
+                                               "keins" = , "none" = paste("Arithmetischer Mittelwert"|>i18n$t()), #t
+                                               
+                                               "intervall" = , "interval" = paste("t-Test, Korrelation / Regression"|>i18n$t()), #t
+                                               
+                                               "ordinal" = paste("t-test / ANOVA"), #t
+                                               
+                                               "nominal" = paste("Logistische Regression, t-test / ANOVA"|>i18n$t()) #t
+           ),
+           "ordinal" = switch(input$scale2,
+                              "keins" = , "none" =  paste("Median"), #t
+                              
+                              "intervall" = , "interval" =  paste("t-test / ANOVA"), #t
+                              
+                              "ordinal" = paste("Spearman-Rangkorrelationskoeffizienten / "|>i18n$t(), "Chi", tags$sup("2"), "Test"), 
+                              
+                              "nominal" = paste("Chi", tags$sup("2"), "Test") #t
+           ),
+           "nominal" = switch(input$scale2,
+                              "keins" = , "none" =  paste("Modus"|>i18n$t()), #t
+                              
+                              "intervall" = , "interval" =  paste("Logistische Regression, t-test / ANOVA"|>i18n$t()), #t
+                              
+                              "ordinal" = paste("Chi", tags$sup("2"), "Test"), #t
+                              
+                              "nominal" = paste("Chi", tags$sup("2"), "Test") #t
+           )
+    )
+  )
   
   ## Text generation for the first variable ----
   output$statstypeout <- renderText(
@@ -129,7 +242,7 @@ function(input, output, session) {
            "nominal" = switch(input$scale2,
                               "keins" = , "none" =  paste("Hier nutzt man vor allem den Modus."|>i18n$t(), #t
                                               tags$br(), 
-                                              "In R geht das zum Beispiel mit getmode() aus dem package wobblynameR."|>i18n$t()), #t
+                                              "In R geht das zum Beispiel mit getmode() aus dem package rextor."|>i18n$t()), #t
                               
                               "intervall" = , "interval" =  paste("Für eine intervallskalierte Variable (oder auch mehrere), die mit einer kategorialen verglichen werden soll, eignet sich üblicherweise die Varianzanalyse oder ANOVA."|>i18n$t(), #t
                                                   tags$br(),
@@ -159,7 +272,7 @@ function(input, output, session) {
              "ordinal" = paste(" Daten: "|>i18n$t(), paste(ord, collapse = ', '),  tags$br(),
                                "Median: "|>i18n$t(), quantile(ord, .5, type=1)),
              "nominal" = paste(" Daten: "|>i18n$t(), paste(nom, collapse = ', '),  tags$br(),
-                               "Modus: "|>i18n$t(), wobblynameR::getmode(nom))
+                               "Modus: "|>i18n$t(), rextor::getmode(nom))
       )
   )
   
@@ -170,7 +283,7 @@ function(input, output, session) {
            "ordinal" = paste( tags$br(), " 2. Variable: ", paste(ord2(), collapse = ', '),  tags$br(),
                              "Median: "|>i18n$t(), quantile(ord2(), .5, type=1)),
            "nominal" = paste( tags$br(), " 2. Variable: ", paste(nom2, collapse = ', '),  tags$br(),
-                             "Modus: "|>i18n$t(), wobblynameR::getmode(nom2))
+                             "Modus: "|>i18n$t(), rextor::getmode(nom2))
     )
   )
   
@@ -194,7 +307,8 @@ function(input, output, session) {
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten"|>i18n$t(),
-                                   title = "Visualisierung"|>i18n$t()),
+                                   #title = "Visualisierung"|>i18n$t()
+                                   ),
 
                             "ordinal" =
                               ggplot() +
@@ -207,7 +321,8 @@ function(input, output, session) {
                                     text=element_text(family="Ubuntu", size = 14),
                                     title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                               labs(x = "Daten"|>i18n$t(),
-                                   title = "Visualisierung"|>i18n$t()),
+                                   #title = "Visualisierung"|>i18n$t()
+                                   ),
 
                             "nominal" =
                               cowplot::plot_grid(ggplot() + #plot1
@@ -220,7 +335,8 @@ function(input, output, session) {
                                                          text=element_text(size = 14), #family="Ubuntu", 
                                                          title = element_text(size = 16, color = 'gray15')) + #family="Ubuntu", 
                                                    labs(x = "Daten"|>i18n$t(),
-                                                        title = "Visualisierung"|>i18n$t()),
+                                                        #title = "Visualisierung"|>i18n$t()
+                                                        ),
 
                                                  ggplot(new_nom, aes(x = "", y = value, fill = Daten)) + #plot2
                                                    geom_bar(stat="identity", width=1) +
@@ -247,7 +363,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung"|>i18n$t(),
+                                       #title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Zwei intervallskalierte Variablen"|>i18n$t()) +
                                   xlim(1,5) +
                                   ylim(1,7),
@@ -263,7 +379,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 2",
                                        y = "Variable 1",
-                                       title = "Visualisierung"|>i18n$t(),
+                                      # title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Ordinal & Intervall") +
                                   scale_fill_brewer(palette = 7)+
                                   scale_color_brewer(palette = 7)+
@@ -281,7 +397,7 @@ function(input, output, session) {
                                         title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                   labs(x = "Variable 1",
                                        y = "Variable 2",
-                                       title = "Visualisierung"|>i18n$t(),
+                                      # title = "Visualisierung"|>i18n$t(),
                                        subtitle = "Nominal & Intervall") +
                                   scale_fill_brewer(palette = 7) +
                                   scale_color_brewer(palette = 7)
@@ -301,7 +417,7 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Variable 2",
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Intervall & Ordinal") +
                                 scale_fill_brewer(palette = 7)+
                                 scale_color_brewer(palette = 7)+
@@ -335,7 +451,7 @@ function(input, output, session) {
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Anzahl"|>i18n$t(),
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -355,7 +471,7 @@ function(input, output, session) {
                                       title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 2",
                                      y = "Variable 1",
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Intervall & Nominal") +
                                 scale_fill_brewer(palette = 7) +
                                 scale_color_brewer(palette = 7) +
@@ -372,7 +488,7 @@ function(input, output, session) {
                                   title = element_text(family="Ubuntu", size = 16, color = 'gray15')) +
                                 labs(x = "Variable 1",
                                      y = "Anzahl"|>i18n$t(),
-                                     title = "Visualisierung"|>i18n$t(),
+                                    # title = "Visualisierung"|>i18n$t(),
                                      subtitle = "Nominal & Ordinal",
                                      fill = "Variable 2") +
                                 scale_fill_brewer(palette = 7) +
@@ -442,13 +558,13 @@ function(input, output, session) {
     normal <- data.frame(x = rnorm(10000, mean = 100, sd = 15),
                          dummy = 1)
     
-    ggplot(normal, aes(x = x, y = dummy, fill = factor(stat(quantile)))) +
+    ggplot(normal, aes(x = x, y = dummy, fill = factor(after_stat(quantile)))) +
       stat_density_ridges(
         geom = "density_ridges_gradient",
         calc_ecdf = TRUE,
         quantiles = c(0.0235, 0.1585, 0.8385, 0.9735), # quantiles = c(0.0235, 0.1585, 0.4985, 0.8385, 0.9735, 0.997)
         bandwidth = 2.1,
-        color = "white"
+        color = "white", na.rm=TRUE
       ) +
       # geom_vline(xintercept = seq(70, 130, 15), color = "#7f2704") + 
       scale_fill_manual(values = c("#FDD0A2", "#fd8d3c", "#e95420", "#fd8d3c", "#FDD0A2")) +
@@ -502,7 +618,7 @@ function(input, output, session) {
 
 # Simulations Tab ------
 
-# Dice: Normal Distribution
+## Dice: Normal Distribution ----
 output$diePlot <- renderPlot({
 
   if (input$n > 1000){
@@ -552,7 +668,7 @@ output$diePlot <- renderPlot({
   
 })
 
-# Coin: Probability
+## Coin: Probability ----
 
 output$coinPlot <- renderPlot({
   
@@ -561,7 +677,17 @@ output$coinPlot <- renderPlot({
     showNotification("Anzahl Münzen darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
   } else {
     coins <- input$coins
+    
+    coinseqbreaks <- ifelse(coins < 25,
+                         1,
+                         ifelse(coins < 200,
+                                5, 
+                                10)
+    )
+    
   }
+  
+  
   
   vals <- dbinom(1:coins, coins, input$p)
 
@@ -572,7 +698,8 @@ output$coinPlot <- renderPlot({
     theme_minimal() +
     labs(x = "Häufigkeit 'Zahl'"|>i18n$t(),
          y = "Wahrscheinlichkeit 'Zahl'"|>i18n$t(),
-         title = "Münze"|>i18n$t())
+         title = "Münze"|>i18n$t()) +
+    scale_x_continuous(breaks = c(1, seq(coinseqbreaks, coins, coinseqbreaks))|> unique())
 })
 
 # Distribution and the coefficient of variation
@@ -600,8 +727,16 @@ t <- reactive({
   m2 <- input$t_m2
   sd1 <- input$t_sd1
   sd2 <- input$t_sd2
-  n <- input$t_n
   
+  if (input$t_n > 1000){
+    n <- 1000
+    showNotification("Stichprobe darf nicht größer als 1000 sein."|>i18n$t(), duration = 2)
+  } else {
+    n <- input$t_n
+  }
+  
+  
+  set.seed(666)
   t <- data.frame(x =  rnorm(n, m1, sd1),
                   y =  rnorm(n, m2, sd2))
   t
@@ -614,13 +749,15 @@ tval <- reactive({
     2)
 })
 
+
 output$tPlot <- renderPlot({
   t <- t()
   
   longt <- tidyr::pivot_longer(t, cols = c(x,y))
   
   ggplot(longt, aes(name, value, color = name)) +
-    geom_boxplot() +
+    geom_jitter(alpha=.6, size=3) +
+    geom_boxplot(alpha=.8) +
     theme_minimal() +
     theme(legend.position = "none") +
     scale_color_manual(values = c("#fd8d3c", "#8C2D04")) +
@@ -640,9 +777,9 @@ tdiff <- reactive({
 output$tguess <- renderText(
   # tval()
   
-  c(paste("Der echte T-Wert ist "|>i18n$t(), tval(),
+  c(paste("Der echte t-Wert ist "|>i18n$t(), tval(),
         ", das heißt dein geratener Wert weicht um "|>i18n$t(), tdiff(),
-        " davon ab."),
+        " davon ab."|>i18n$t()),
     ifelse(tdiff() > 2, "Du kriegst schon noch ein Gefühl dafür!"|>i18n$t(),
            "Super, das war schon nah dran!"|>i18n$t())
   )
@@ -672,26 +809,99 @@ output$lmPlot <- renderPlot({
 })
 
 
+
+# Prompt Tab ----
+
+## NEW AI INTEGRATION ##
+## Design shizzle
+output$user_context <- renderUI({
+  tags$div(
+    tags$ul(
+      tags$li(paste(i18n$t("Skalenniveau Variable"), "1: ", input$scale)),
+      tags$li(paste(i18n$t("Skalenniveau Variable"), "2: ", input$scale2))
+    )
+  )
+})
+
+
+
+## AI shizzle
+
+chat <- reactiveVal(list(
+  list(
+    role = "assistant",
+    text = "Hi! Tell me about your variables, research goal, and study design, and I’ll suggest a statistic or visualization. Du kannst auch auf Deutsch fragen."
+  )
+))
+
+observeEvent(input$send, {
+  req(input$user_message)
+  
+  user_text <- input$user_message
+  
+  # Add user message to visible chat
+  current_chat <- chat()
+  current_chat <- append(current_chat, list(
+    list(role = "user", text = user_text)
+  ))
+  chat(current_chat)
+  
+  updateTextAreaInput(session, "user_message", value = "")
+  
+  # Call OpenAI
+  assistant_text <- tryCatch(
+    ask_openai(user_text),
+    error = function(e) {
+      paste("Sorry, something went wrong:", e$message)
+    }
+  )
+  
+  # Add assistant response
+  current_chat <- chat()
+  current_chat <- append(current_chat, list(
+    list(role = "assistant", text = assistant_text)
+  ))
+  chat(current_chat)
+})
+
+output$chat_history <- renderUI({
+  messages <- chat()
+  
+  tagList(lapply(messages, function(msg) {
+    
+    print(messages)
+    
+    div(
+      class = paste("chat-message", msg$role),
+      style = if (msg$role == "user") {
+        "background:#ede7f6; padding:12px; border-radius:14px; margin:8px 0 8px auto; max-width:80%;"
+      } else {
+        "background:#f8f9fa; padding:12px; border-radius:14px; margin:8px auto 8px 0; max-width:80%;"
+      },
+      strong(ifelse(msg$role == "user", "You", "Assistant")),
+      br(),
+      markdown::markdownToHTML(
+        text = msg$text,
+        fragment.only = TRUE
+      ) |> HTML()
+    )
+  }))
+})
+
+####
+
+
+# output$promptout <- renderText(
+#   paste0("Hi! Ich brauche Hilfe bei Statistik. Mein Ziel ist " |> i18n$t(), input$goal, ". Der Kontext ist " |> i18n$t(),
+#          input$context, ". Ich brauche von dir " |> i18n$t(), input$wish, ". ", input$other)
+# )
+# 
+# # Add clipboard buttons
+# observeEvent(input$copy, {
+#   session$sendCustomMessage("copyOutputText", "promptout")
+# })
+
+
+
 }
 
-
-
-
-
-# Explanation on reactivity
-
-# reactive({}) allows for reactivity and creation of new var
-# observe({}) allows for reactivity
-
-# Example:
-# shinyServer(function(input, output){
-#   # Create new reactive variable
-#   newVar <- reactive({
-#     val <- c(input$BLA +10, input$BLA * 3)
-#   })
-#   
-#   output$textString <- renderText({
-#     value <- newVar() #access like a function!
-#     paste0("Input plus 10 is ", value[1], " and Input times 3 is ", value[2])
-#   })
-# })
