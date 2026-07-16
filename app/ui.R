@@ -1216,8 +1216,9 @@ fluidPage(
           label = NULL, # i18n$t('Change language'),
           choices = setNames(
             i18n$get_languages(),
-            c("Deutsch", "English") # Set labels for the languages
-          )
+            c("de" = "Deutsch", "en" = "English") # Set labels for the languages
+          ),
+          selected = "en"
         )
         
       )
