@@ -5,7 +5,7 @@ account: iscience-kn
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16114165
-bundleId: 11204863
+bundleId: 12270850
 url: https://iscience-kn.shinyapps.io/Stats-Picker/
 version: 1
 asMultiple: FALSE

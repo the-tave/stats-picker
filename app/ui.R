@@ -1,8 +1,5 @@
 
-
-extrafont::loadfonts(quiet = T) # device = "postscript"
-# extrafont::loadfonts("C:/Windows/Fonts/", pattern = "Ubuntu")
-# windowsFonts(Ubuntu=windowsFont("Ubuntu"))
+# extrafont::loadfonts(quiet = T) # device = "postscript"
 library(shiny)
 library(shinyjs)
 library(dplyr)
@@ -11,19 +8,16 @@ library(bslib)
 library(shiny.pwa)
 library(shiny.i18n) # for translations
 library(jsonlite)
-library(rclipboard) # to copy prompt output
+# library(rclipboard) # to copy prompt output
 library(shinydashboard) # to customize dashboard
 library(shinyWidgets)
-
-# pos_datasets <- c("iris", "mtcars", "Orange") # possible datasets for examples, currently not running
-
 
 # Translation setup ----
 i18n <- Translator$new(translation_json_path = "./www/translation_withDeepDive.json")
 
 i18n$set_translation_language("en") #en
 
-rclipboardSetup()
+# rclipboardSetup()
 
 # Define UI for application
 fluidPage(
@@ -1086,8 +1080,7 @@ fluidPage(
         # )
       ))
       
-    ),
-    ### close tabPanel("AI PromptR")
+    ), ### close tabPanel("AI PromptR")
     ### tab: About ----
     
     ## NEW ABOUT PAGE LAYOUT
