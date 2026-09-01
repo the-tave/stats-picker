@@ -136,14 +136,7 @@
             "de": "Was bedeuten eigentlich T-Werte und wie kommen sie zustande? Gib verschiedene Stichprobenmittelwerte sowie Standardabweichungen ein und beobachte, was das mit den Verteilungen macht! Unten kannst du dann raten: Welcher T-Wert kommt bei dem Stichprobenvergleich heraus?",
             "en": "What do t-values actually mean and how are they calculated? Enter different sample means and standard deviations and observe how that affects the distributions! Below you can then guess: What t-value will result from the sample comparison?"
         },
-        {
-            "de": "Stichprobe 1:",
-            "en": "Sample 1:"
-        },
-        {
-            "de": "Stichprobe 2:",
-            "en": "Sample 2:"
-        },
+       
         {
             "de": "Mittelwert:",
             "en": "Mean:"
