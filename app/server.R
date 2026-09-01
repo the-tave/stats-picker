@@ -54,6 +54,8 @@ ask_openai <- function(user_message, history = list()) {
     )
   )
   
+  incProgress(amount = 0.2)
+  
   response <- request("https://api.openai.com/v1/responses") |>
     req_headers(
       Authorization = paste("Bearer", api_key),
@@ -67,6 +69,8 @@ ask_openai <- function(user_message, history = list()) {
     req_error(is_error = function(resp) FALSE) |>
     req_perform()
   
+  incProgress(amount = 0.7)
+  
   parsed <- resp_body_json(response, simplifyVector = FALSE)
   
   # The API response format can contain several output items.
@@ -78,6 +82,8 @@ ask_openai <- function(user_message, history = list()) {
   }
   
   used_tokens <- parsed$usage$total_tokens
+  
+  incProgress(amount = 0.1)
   
   output_text
 }
@@ -849,11 +855,13 @@ observeEvent(input$send, {
   updateTextAreaInput(session, "user_message", value = "")
   
   # Call OpenAI
+  withProgress(message = "Working on it...",
   assistant_text <- tryCatch(
-    ask_openai(user_text),
-    error = function(e) {
-      paste("Sorry, something went wrong:", e$message)
-    }
+      ask_openai(user_text),
+      error = function(e) {
+        paste("Sorry, something went wrong:", e$message)
+      }
+    )
   )
   
   # Add assistant response

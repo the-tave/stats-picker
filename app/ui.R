@@ -757,7 +757,7 @@ fluidPage(
               tags$div(
                 class = "panel panel-warning",
                 tags$div(class =
-                           "panel-heading", tags$h3(class = "panel-title", "Stichprobe X")),
+                           "panel-heading", tags$h3(class = "panel-title", "X")),
                 tags$div(
                   class = "panel-body",
                   column(
@@ -789,7 +789,7 @@ fluidPage(
               tags$div(
                 class = "panel panel-danger",
                 tags$div(class =
-                           "panel-heading", tags$h3(class = "panel-title", "Stichprobe Y")),
+                           "panel-heading", tags$h3(class = "panel-title", "Y")),
                 tags$div(
                   class = "panel-body",
                   column(
