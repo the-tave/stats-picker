@@ -700,10 +700,11 @@ output$coinPlot <- renderPlot({
   ggplot2::ggplot() +
     geom_point(aes(1:coins, vals),
                fill = "#fd8d3c", color = "#8C2D04", size = 3) +
-    geom_line(aes(1:coins, vals), alpha = .2) +
+    # geom_line(aes(1:coins, vals), alpha = .2) +
+    # geom_bar(aes(1:coins, vals), fill = "#fd8d3c", color = "#8C2D04", alpha = .2) +
     theme_minimal() +
     labs(x = "Häufigkeit 'Zahl'"|>i18n$t(),
-         y = "Wahrscheinlichkeit 'Zahl'"|>i18n$t(),
+         y = "Wahrscheinlichkeit"|>i18n$t(),
          title = "Münze"|>i18n$t()) +
     scale_x_continuous(breaks = c(1, seq(coinseqbreaks, coins, coinseqbreaks))|> unique())
 })

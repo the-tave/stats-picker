@@ -102,11 +102,11 @@
         },
         {
             "de": "Hier siehst du die Wahrscheinlichkeitsverteilung, bei einem Münzwurf 'Zahl' zu erhalten. Ob die Münze fair (Wahrscheinlichkeit für Zahl p = 0.5) oder gezinkt (p ungleich 0.5) ist, verändert die Verteilung der Resultate.",
-            "en": "Here you can see the probability distribution for getting 'heads' in a coin toss. Whether the coin is fair (probability of heads p = 0.5) or biased (p ≠ 0.5) affects the distribution of the results."
+            "en": "Here you can see the probability distribution for getting 'tails' in a coin toss. Whether the coin is fair (probability of tails p = 0.5) or biased (p ≠ 0.5) affects the distribution of the results."
         },
         {
             "de": "Aber in der Realität liegt die Chance für 'Zahl' nicht immer exakt bei 50%: Es kann auch mal vorkommen, dass mehrfach hintereinander 'Zahl' untenliegt, obwohl die Münze fair ist. Probier es doch mal aus!",
-            "en": "But in reality, the chance of getting 'heads' is not always exactly 50%: it can happen that 'heads' appears multiple times in a row even if the coin is fair. Try it out!"
+            "en": "But in reality, the chance of getting 'tails' is not always exactly 50%: it can happen that 'tails' appears multiple times in a row even if the coin is fair. Try it out!"
         },
         {
             "de": "Was ist die Wahrscheinlichkeit für Zahl?",
@@ -364,11 +364,11 @@
         },
         {
             "de": "Häufigkeit 'Zahl'",
-            "en": "Frequency 'Heads'"
+            "en": "Frequency 'Tails'"
         },
         {
-            "de": "Wahrscheinlichkeit 'Zahl'",
-            "en": "Probability 'Heads'"
+            "de": "Wahrscheinlichkeit",
+            "en": "Probability"
         },
         {
             "de": "Münze",
