@@ -5,7 +5,7 @@ options(timeout = 600)
 packages <- c('shinyjs', 'dplyr', 'ggplot2', 'bslib', 'shiny.i18n', 'jsonlite', 
 'rclipboard', 'shinydashboard', 'shinyWidgets', 'httr2', 'ggridges', 
 'shinythemes', 'xtable', 'cowplot', 'faux', 'tidyr', 'tibble', 
-'markdown', 'readr', 'urltools') 
+'markdown', 'readr', 'urltools', 'rextor') 
 # urltools is necessary as a dependency for shiny.pwa
 
 # Listed before for some reason but most likely not needed: 
